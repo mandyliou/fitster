@@ -1,4 +1,7 @@
-# volumes:
+volumes:
+    postgres-data:
+        external: true
+    # other volumes...
 services:
   fastapi:
     build:
