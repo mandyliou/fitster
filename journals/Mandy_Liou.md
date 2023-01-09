@@ -1,3 +1,17 @@
+## Jan 6, 2023
+Today I worked on:
+
+- Finished setting up outfit-api-service
+
+
+## Jan 6, 2023
+Today I worked on:
+
+- Setting up project and docker
+- Fixed pipeline issues
+- Successfully got the containers and the respective localhost to run
+
+
 ## Jan 5, 2023
 Today, I worked on:
 
