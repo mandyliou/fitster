@@ -12,7 +12,7 @@ services:
     volumes:
         - postgres-data:/var/lib/postgresql/data
     environment:
-        - POSTGRES_MULTIPLE_DATABASES=users
+        - POSTGRES_MULTIPLE_DATABASES=users, outfit
         - POSTGRES_PASSWORD=test-databases
     ports:
         - 15432:5432
@@ -31,6 +31,19 @@ services:
     # depends_on:
     #   - psotgres
 
+  outfit-api:
+    build:
+      context: ./outfit-api-service
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8100:8000"
+    volumes:
+      - ./outfit-api-service:/app
+    environment:
+      DATABASE_URL: postgres://outfit:password@postgres:5432/outfit
+      WAIT_HOSTS: postgres:5432
+      WAIT_TIMEOUT: 240
+
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -45,6 +58,7 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_USERS_SERVICE_API_HOST: http://localhost:8000
+      REACT_APP_OUTFIT_SERVICE_API_HOST: http://localhost:8100
 
   pg-admin:
     image: dpage/pgadmin4
@@ -56,4 +70,3 @@ services:
       PGADMIN_DEFAULT_EMAIL: test@test.com
       PGADMIN_DEFAULT_PASSWORD: password
       PGADMIN_DISABLE_POSTFIX: 1
-
