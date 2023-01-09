@@ -29,7 +29,7 @@ services:
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
     # depends_on:
-    #   - usersdb
+    #   - psotgres
 
   ghi:
     image: node:lts-bullseye
