@@ -1,3 +1,20 @@
+## Jan 9, 2023
+
+Today, I worked on:
+
+- Completed our project setup
+- Started outlining our api services
+- Sorted any errors the team was receiving when running docker
+
+## Jan 6, 2023
+
+Today, I worked on:
+
+- Set up our FastAPI services
+- Fixed our pipeline issues
+- Successfully ran our containers and localhost for our project
+- Got our PGAdmin running and registered a server
+
 ## Jan 5, 2023
 
 Today, I worked on:
