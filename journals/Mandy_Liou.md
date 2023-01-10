@@ -1,7 +1,8 @@
-## Jan 6, 2023
+## Jan 7, 2023
 Today I worked on:
 
 - Finished setting up outfit-api-service
+- Created the necessary files needed within outfit-api-service
 
 
 ## Jan 6, 2023
