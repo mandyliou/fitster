@@ -1,3 +1,10 @@
+## Jan 10, 2023
+Today I worked on:
+
+- Created tables in PGAdmin for users
+- Received additional details on git branches
+- Started to work on our authenticators
+
 ## Jan 9, 2023
 
 Today, I worked on:
