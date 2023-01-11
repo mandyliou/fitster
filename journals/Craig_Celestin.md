@@ -1,4 +1,14 @@
+## Jan 10, 2023
+finalized/tested user db
+inserted values and got them to work
+finalized understanding git workflow, ft branches
+
 ## Jan 9,2023
+worked on more project setup
+worked in pgdamin as a group
+finalized models/tables in both dbs
+blockers - understanding the endpoints for obtaining user info in another ms
+
 
 ## Jan 6, 2023
 Worked on project setup and solved a myriad of issues involving package lock json

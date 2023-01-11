@@ -24,11 +24,11 @@ class UserOut(BaseModel):
     profile_photo: HttpUrl
     description: str
 
-# class UserRepository:
-#     def get_one
-#     def get_all
-#     def create
-#     def update
-#     def delete
+class UserRepository:
+    def get_one
+    def get_all
+    def create
+    def update
+    def delete
 
 #FIX WITH GROUP TO GET IT TO A POINT TO PUSH
