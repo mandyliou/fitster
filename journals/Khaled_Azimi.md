@@ -1,3 +1,18 @@
+## Jan 10, 2023
+- Today we were able to test our users database
+- Using PG admin we went ahead and inserted values into the table and got it to work
+- discussed as a team to create branches
+
+
+
+
+## Jan 9, 2023
+Today as a team we:
+- completed project set up for our outfit-api-service
+- created files using the user-api-services as an examples (queries, routes)
+
+
+
 ## Jan 6, 2023
 Today as a team we:
 - Resubmitted our MVP
