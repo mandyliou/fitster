@@ -1,4 +1,11 @@
-## Jan 7, 2023
+## Jan 10, 2023
+Today I worked on:
+
+-created our tables on pgadmin
+-created our branches
+-started on authentication
+
+## Jan 9, 2023
 Today I worked on:
 
 - Finished setting up outfit-api-service
