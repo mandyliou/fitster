@@ -9,7 +9,7 @@ steps = [
             last_name varchar(100) not null,
             email varchar(100) not null unique,
             password varchar(100) not null,
-            profile_photo bytea,
+            profile_photo varchar(200),
             description text
         );
         """,

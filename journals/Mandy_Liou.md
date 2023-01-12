@@ -1,3 +1,7 @@
+## Jan 11, 2023
+ - Worked on log in backend with auth
+ - Wrote out authenticator.py
+
 ## Jan 10, 2023
 Today I worked on:
 

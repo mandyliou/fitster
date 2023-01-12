@@ -1,6 +1,7 @@
 from pydantic import BaseModel, HttpUrl, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
+from fastapi import HTTPException
 
 class Error(BaseModel):
     message:str
@@ -24,8 +25,17 @@ class UserOut(BaseModel):
     profile_photo: HttpUrl
     description: str
 
+class UserOutWithPassword(UserOut):
+    hashed_password: str
+
+class DuplicateAccountError(ValueError):
+    pass
+
 class UserRepository:
-    
+
+    # def get(self, username: str) -> UserOutWithPassword:
+
+
     def get_one(self, user_id: int) -> Optional[UserOut]:
         try:
             with pool.connection() as conn:
@@ -129,7 +139,7 @@ class UserRepository:
             print(e)
             return {"message": "Could not update that user"}
 
-   
+
 
     def create(self, user: UserIn) -> UserOut:
         try:
@@ -138,12 +148,12 @@ class UserRepository:
                     result = db.execute(
                         """
                         INSERT INTO users
-                            (username, 
-                             first_name, 
-                             last_name, 
-                             email, 
-                             password, 
-                             profile_photo, 
+                            (username,
+                             first_name,
+                             last_name,
+                             email,
+                             password,
+                             profile_photo,
                              description)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s)
@@ -183,4 +193,3 @@ class UserRepository:
             profile_photo=record[6],
             description=record[7],
         )
-

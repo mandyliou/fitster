@@ -1,11 +1,27 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import Depends, HTTPException, status, Response, APIRouter, Request
 from typing import List, Optional, Union
 from queries.users import (
     Error,
     UserIn,
     UserOut,
     UserRepository,
+    DuplicateAccountError
 )
+from authenticator import authenticator
+from jwtdown_fastapi.authentication import Token
+
+from pydantic import BaseModel
+
+
+class AccountForm(BaseModel):
+    username: str
+    password: str
+
+class AccountToken(Token):
+    account: UserOut
+
+class HttpError(BaseModel):
+    detail: str
 
 router = APIRouter()
 
@@ -14,6 +30,7 @@ router = APIRouter()
 def get_one_user(
     user_id: int,
     response: Response,
+    user: dict = Depends (authenticator.try_get_current_account_data),
     repo: UserRepository = Depends(),
 ) -> UserOut:
     user = repo.get_one(user_id)
@@ -23,16 +40,23 @@ def get_one_user(
 
 
 @router.post("/users", response_model=Union[UserOut, Error])
-def create_user(
+async def create_user(
     user: UserIn,
+    request: Request,
     response: Response,
     repo: UserRepository = Depends(),
 ):
+    hashed_password = authenticator.hash_password(user.password)
     try:
-        return repo.create(user) 
-    except: 
-        response.status_code = 400
-    
+        account = repo.create(user, hashed_password)
+    except DuplicateAccountError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot create an account with those credentials",
+        )
+    form = AccountForm(username=user.email, password=user.password)
+    token = await authenticator.login(response, request, form, repo)
+    return AccountToken(account=account, **token.dict())
 
 
 @router.get("/users", response_model=Union[List[UserOut], Error])
@@ -50,8 +74,15 @@ def update_user(
 ) -> Union[Error, UserOut]:
     return repo.update(user_id, user)
 
-
-
-
-
+@router.get("/token", response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: dict = Depends(authenticator.try_get_current_account_data)
+) -> AccountToken | None:
+    if account and authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
 
