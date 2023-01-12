@@ -1,4 +1,5 @@
 ## Jan 11, 2023
+ - Encountered and fixed issues creating and logging in (for dict has no attribute "hashed_password") by modifying routers, queries, and authenticator.py
  - Worked on log in backend with auth
  - Wrote out authenticator.py
 
