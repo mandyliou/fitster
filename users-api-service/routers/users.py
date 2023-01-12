@@ -39,7 +39,7 @@ def get_one_user(
     return user
 
 
-@router.post("/users", response_model=Union[UserOut, Error])
+@router.post("/users", response_model=Union[AccountToken, Error])
 async def create_user(
     user: UserIn,
     request: Request,
@@ -54,7 +54,7 @@ async def create_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an account with those credentials",
         )
-    form = AccountForm(username=user.email, password=user.password)
+    form = AccountForm(username=user.username, password=user.password)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=account, **token.dict())
 
@@ -85,4 +85,3 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
-

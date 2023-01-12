@@ -21,7 +21,6 @@ class UserOut(BaseModel):
     first_name: str
     last_name: str
     email: str
-    password: str
     profile_photo: HttpUrl
     description: str
 
@@ -34,9 +33,7 @@ class DuplicateAccountError(ValueError):
 class UserRepository:
 
     # def get(self, username: str) -> UserOutWithPassword:
-
-
-    def get_one(self, user_id: int) -> Optional[UserOut]:
+    def get_one(self, username: str) -> Optional[UserOutWithPassword]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -51,9 +48,9 @@ class UserRepository:
                         , profile_photo
                         , description
                         FROM users
-                        WHERE id = %s
+                        WHERE username = %s
                         """,
-                        [user_id]
+                        [username]
                     )
                     record = result.fetchone()
                     if record is None:
@@ -141,7 +138,7 @@ class UserRepository:
 
 
 
-    def create(self, user: UserIn) -> UserOut:
+    def create(self, user: UserIn, hashed_password: str) -> UserOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -164,7 +161,7 @@ class UserRepository:
                             user.first_name,
                             user.last_name,
                             user.email,
-                            user.password,
+                            hashed_password,
                             user.profile_photo,
                             user.description,
                         ]
@@ -173,23 +170,23 @@ class UserRepository:
                     # Return new data
                     # old_data = user.dict()
                     # return UserOut(id=id, **old_data)
-                    return self.user_in_to_out(id, user)
+                    return self.user_in_to_out(id, user, hashed_password)
         except Exception:
             return {"message": "Create did not work"}
 
 
-    def user_in_to_out(self, id: int, user: UserIn):
+    def user_in_to_out(self, id: int, user: UserIn, hashed_password: str):
         old_data = user.dict()
-        return UserOut(id=id, **old_data)
+        return UserOutWithPassword(id=id, hashed_password=hashed_password, **old_data)
 
     def record_to_user_out(self, record):
-        return UserOut(
+        return UserOutWithPassword(
             id=record[0],
             username=record[1],
             first_name=record[2],
             last_name=record[3],
             email=record[4],
-            password=record[5],
+            hashed_password=record[5],
             profile_photo=record[6],
             description=record[7],
         )
