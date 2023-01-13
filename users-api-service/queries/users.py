@@ -1,4 +1,4 @@
-from pydantic import BaseModel, HttpUrl, ValidationError
+from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
 from fastapi import HTTPException
@@ -12,7 +12,7 @@ class UserIn(BaseModel):
     last_name: str
     email: str
     password: str
-    profile_photo: HttpUrl
+    profile_photo: str
     description: str
 
 class UserOut(BaseModel):
@@ -21,7 +21,7 @@ class UserOut(BaseModel):
     first_name: str
     last_name: str
     email: str
-    profile_photo: HttpUrl
+    profile_photo: str
     description: str
 
 class UserOutWithPassword(UserOut):

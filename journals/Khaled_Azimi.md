@@ -1,9 +1,21 @@
+## Jan 12, 2023
+Today I worked on:
+
+- Resolved the authentication error and got login/logout backend to work
+- Worked on our tables for our outfit service in pgadmin
+- blocker is how to get user information into another microservice
+- Manually created data for clothing_items
+
+## Jan 11, 2023
+Today I worked on:
+
+- Authorizations and jwtdown
+- Was able to get login and logout to show in browser but running into dict object no attribute 'hashed_password' error, or "username" error
+
 ## Jan 10, 2023
 - Today we were able to test our users database
 - Using PG admin we went ahead and inserted values into the table and got it to work
 - discussed as a team to create branches
-
-
 
 
 ## Jan 9, 2023
