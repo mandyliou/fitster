@@ -1,3 +1,11 @@
+## Jan 13, 2023
+- Worked on f
+
+
+## Jan 12, 2023
+- Compiled and input data in for 18 outfits
+- Outlined the steps for my next feature
+
 ## Jan 11, 2023
  - Encountered and fixed issues creating and logging in (for dict has no attribute "hashed_password") by modifying routers, queries, and authenticator.py
  - Worked on log in backend with auth
