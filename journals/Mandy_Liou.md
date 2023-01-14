@@ -2,7 +2,7 @@
 - Fixed auth problem with account setup
     - changed ROUTER_APP to correct name
 - Incorporated an error message if username or password is incorrect
-- If user is logged in, should reroute to
+- If user is logged in, should reroute to main page
 - Modified app.js to assign token to a specific user
 - moved router paths from index.js into app.js to keep it concise
 - included GetToken, BrowserRouter, AuthProvider into App.js in order for the auth process to work properly
