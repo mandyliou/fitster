@@ -1,5 +1,16 @@
+## Jan 17, 2023
+- Fixed auth problem with account setup
+    - changed ROUTER_APP to correct name
+- Incorporated an error message if username or password is incorrect
+- If user is logged in, should reroute to
+- Modified app.js to assign token to a specific user
+- moved router paths from index.js into app.js to keep it concise
+- included GetToken, BrowserRouter, AuthProvider into App.js in order for the auth process to work properly
+
+
 ## Jan 13, 2023
-- Worked on f
+- Worked on front-end login
+- Encountered issues with authenticating the account due to not being able to get the token (FE)
 
 
 ## Jan 12, 2023

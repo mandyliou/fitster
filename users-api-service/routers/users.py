@@ -85,3 +85,8 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
+@router.get("/users/current", response_model=UserOut)
+def get_user_by_info(
+    account: UserOut = Depends(authenticator.get_current_account_data)):
+    return account

@@ -174,10 +174,10 @@ class UserRepository:
         except Exception:
             return {"message": "Create did not work"}
 
-
     def user_in_to_out(self, id: int, user: UserIn, hashed_password: str):
         old_data = user.dict()
         return UserOutWithPassword(id=id, hashed_password=hashed_password, **old_data)
+
 
     def record_to_user_out(self, record):
         return UserOutWithPassword(
