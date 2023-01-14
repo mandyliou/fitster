@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+## Jan 13, 2023
+finalized outfits tables
+confirmed login form with K
+working on login, logout FE
+excited to get rating system implemented
+implemented user tables
+
+=======
+>>>>>>> 85e2319246578a1d1ad417c7a4f0ec191dc1aeef
 ## Jan 12, 2023
 finalized clothing_item and outfit tables
 finished auth for be
@@ -5,7 +15,12 @@ started on post table, going to have to add a rating table
 started creating outfit items ()
 
 ## Jan 11, 2023
+<<<<<<< HEAD
+Worked on more auth content
+got through blockers
+=======
 
+>>>>>>> 85e2319246578a1d1ad417c7a4f0ec191dc1aeef
 
 ## Jan 10, 2023
 finalized/tested user db
