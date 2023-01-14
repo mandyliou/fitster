@@ -1,3 +1,12 @@
+## Jan 12, 2023
+finalized clothing_item and outfit tables
+finished auth for be
+started on post table, going to have to add a rating table
+started creating outfit items ()
+
+## Jan 11, 2023
+
+
 ## Jan 10, 2023
 finalized/tested user db
 inserted values and got them to work
