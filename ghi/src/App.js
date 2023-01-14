@@ -1,185 +1,57 @@
-// import { createContext, useContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// let internalToken = null;
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Construct from "./Construct.js";
+import ErrorNotification from "./ErrorNotification";
+import "./App.css";
+import CreateUserForm from "./CreateAccount";
+import LoginForm from "./LoginForm.js";
+import { AuthProvider, useToken } from "./auth.js";
 
-// export function getToken() {
-//   return internalToken;
-// }
+function GetToken() {
+  useToken();
+  return null;
+}
 
-// export async function getTokenInternal() {
-//   const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts/me/token/`;
-//   try {
-//     const response = await fetch(url, {
-//       credentials: "include",
-//     });
-//     if (response.ok) {
-//       const data = await response.json();
-//       internalToken = data.access_token;
-//       return internalToken;
-//     }
-//   } catch (e) {}
-//   return false;
-// }
-
-// function handleErrorMessage(error) {
-//   if ("error" in error) {
-//     error = error.error;
-//     try {
-//       error = JSON.parse(error);
-//       if ("__all__" in error) {
-//         error = error.__all__;
-//       }
-//     } catch {}
-//   }
-//   if (Array.isArray(error)) {
-//     error = error.join("<br>");
-//   } else if (typeof error === "object") {
-//     error = Object.entries(error).reduce(
-//       (acc, x) => `${acc}<br>${x[0]}: ${x[1]}`,
-//       ""
-//     );
-//   }
-//   return error;
-// }
-
-// export const AuthContext = createContext({
-//   token: null,
-//   setToken: () => null,
-// });
-
-// export const AuthProvider = ({ children }) => {
-//   const [token, setToken] = useState(null);
-
-//   return (
-//     <AuthContext.Provider value={{ token, setToken }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuthContext = () => useContext(AuthContext);
-
-// export function useToken() {
-//   const { token, setToken } = useAuthContext();
-//   const navigate = useNavigate();
+// function App() {
+//   const [launch_info, setLaunchInfo] = useState([]);
+//   const [error, setError] = useState(null);
 
 //   useEffect(() => {
-//     async function fetchToken() {
-//       const token = await getTokenInternal();
-//       setToken(token);
+//     async function getData() {
+//       let url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users`;
+//       console.log("fastapi url: ", url);
+//       let response = await fetch(url);
+//       console.log("------- hello? -------");
+//       let data = await response.json();
+
+//       if (response.ok) {
+//         console.log("got launch data!");
+//         setLaunchInfo(data.launch_details);
+//       } else {
+//         console.log("drat! something happened");
+//         setError(data.message);
+//       }
 //     }
-//     if (!token) {
-//       fetchToken();
-//     }
-//   }, [setToken, token]);
+//     getData();
+//   }, []);
 
-//   async function logout() {
-//     if (token) {
-//       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/token/refresh/logout/`;
-//       await fetch(url, { method: "delete", credentials: "include" });
-//       internalToken = null;
-//       setToken(null);
-//       navigate("/");
-//     }
-//   }
-
-//   async function login(username, password) {
-//     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/login/`;
-//     const form = new FormData();
-//     form.append("username", username);
-//     form.append("password", password);
-//     const response = await fetch(url, {
-//       method: "post",
-//       credentials: "include",
-//       body: form,
-//     });
-//     if (response.ok) {
-//       const token = await getTokenInternal();
-//       setToken(token);
-//       return;
-//     }
-//     let error = await response.json();
-//     return handleErrorMessage(error);
-//   }
-
-//   async function signup(username, password, email, firstName, lastName) {
-//     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts/`;
-//     const response = await fetch(url, {
-//       method: "post",
-//       body: JSON.stringify({
-//         username,
-//         password,
-//         email,
-//         first_name: firstName,
-//         last_name: lastName,
-//       }),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     if (response.ok) {
-//       await login(username, password);
-//     }
-//     return false;
-//   }
-
-//   async function update(username, password, email, firstName, lastName) {
-//     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts/`;
-//     const response = await fetch(url, {
-//       method: "patch",
-//       body: JSON.stringify({
-//         username,
-//         password,
-//         email,
-//         first_name: firstName,
-//         last_name: lastName,
-//       }),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     if (response.ok) {
-//       await login(username, password);
-//     }
-//     return false;
-//   }
-
-//   return [token, login, logout, signup, update];
-// }
-import { useEffect, useState } from 'react';
-import Construct from './Construct.js'
-import ErrorNotification from './ErrorNotification';
-import './App.css';
-
-function App() {
-  const [launch_info, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function getData() {
-      let url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/users`;
-      console.log('fastapi url: ', url);
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
-
-      if (response.ok) {
-        console.log("got launch data!");
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
-    }
-    getData();
-  }, [])
-
+export default function App() {
   return (
-    <div>
-      <ErrorNotification error={error} />
-      <Construct info={launch_info} />
-    </div>
+    <>
+      <BrowserRouter>
+        <AuthProvider>
+          <GetToken />
+          <div className="container">
+            <Routes>
+              {/* <Route path="/" element={<MainPage />} /> */}
+              <Route path="/new-user" element={<CreateUserForm />} />
+              <Route path="/login" element={<LoginForm />} />
+            </Routes>
+          </div>
+        </AuthProvider>
+      </BrowserRouter>
+    </>
   );
 }
 
-export default App;
+// export default App;
