@@ -9,9 +9,10 @@ class Error(BaseModel):
 class OutfitIn(BaseModel):
     # user_id: int
     outfit_name: str
-    clothing_item1: int
-    clothing_item2: int
-    clothing_item3: int
+    outfit_brand: str
+    top: str
+    bottom: str
+    shoes: str
     outfit_category: str
     outfit_gender: str
     outfit_description: str
@@ -21,9 +22,10 @@ class OutfitOut(BaseModel):
     id: int
     user_id: int
     outfit_name: str
-    clothing_item1: int
-    clothing_item2: int
-    clothing_item3: int
+    outfit_brand: str
+    top: str
+    bottom: str
+    shoes: str
     outfit_category: str
     outfit_gender: str
     outfit_description: str
@@ -40,22 +42,24 @@ class OutfitRepository:
                         INSERT INTO outfits
                             (user_id,
                             outfit_name,
-                            clothing_item1,
-                            clothing_item2,
-                            clothing_item3,
+                            outfit_brand,
+                            top,
+                            bottom,
+                            shoes,
                             outfit_category,
                             outfit_gender,
                             outfit_description)
                         VALUES
-                            (%s, %s, %s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id
                         """,
                         [
                             user_id,
                             outfit.outfit_name,
-                            outfit.clothing_item1,
-                            outfit.clothing_item2,
-                            outfit.clothing_item3,
+                            outfit.outfit_brand,
+                            outfit.top,
+                            outfit.bottom,
+                            outfit.shoes,
                             outfit.outfit_category,
                             outfit.outfit_gender,
                             outfit.outfit_description,
