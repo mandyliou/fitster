@@ -4,9 +4,10 @@ from queries.pool import pool
 from fastapi import HTTPException
 
 class Error(BaseModel):
-    message:str
+    message: str
 
 class OutfitIn(BaseModel):
+    # user_id: int
     outfit_name: str
     clothing_item1: int
     clothing_item2: int
@@ -18,6 +19,7 @@ class OutfitIn(BaseModel):
 
 class OutfitOut(BaseModel):
     id: int
+    user_id: int
     outfit_name: str
     clothing_item1: int
     clothing_item2: int
@@ -29,14 +31,15 @@ class OutfitOut(BaseModel):
 
 
 class OutfitRepository:
-    def create(self, outfit: OutfitIn) -> Union[OutfitOut, Error]:
+    def create(self, outfit: OutfitIn, user_id: int) -> Union[OutfitOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO outfit
-                            (outfit_name,
+                        INSERT INTO outfits
+                            (user_id,
+                            outfit_name,
                             clothing_item1,
                             clothing_item2,
                             clothing_item3,
@@ -44,10 +47,11 @@ class OutfitRepository:
                             outfit_gender,
                             outfit_description)
                         VALUES
-                            (%s, %s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id
                         """,
                         [
+                            user_id,
                             outfit.outfit_name,
                             outfit.clothing_item1,
                             outfit.clothing_item2,
@@ -59,6 +63,6 @@ class OutfitRepository:
                     )
                     id = result.fetchone()[0]
                     old_data = outfit.dict()
-                    return OutfitOut(id=id, **old_data)
+                    return OutfitOut(id=id, user_id=user_id, **old_data)
         except Exception:
             return {"message": "Failed to Create outfit"}

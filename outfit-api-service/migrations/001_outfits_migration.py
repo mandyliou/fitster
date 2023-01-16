@@ -23,6 +23,7 @@ steps = [
         """
         CREATE TABLE outfits (
             id SERIAL PRIMARY KEY NOT NULL,
+            user_id int not null,
             outfit_name varchar(100) not null,
             clothing_item1 int not null references clothing_item(id),
             clothing_item2 int not null references clothing_item(id),
