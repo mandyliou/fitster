@@ -4,7 +4,7 @@ from queries.pool import pool
 from fastapi import HTTPException
 
 class Error(BaseModel):
-    message:str
+    message: str
 
 class UserIn(BaseModel):
     username: str
