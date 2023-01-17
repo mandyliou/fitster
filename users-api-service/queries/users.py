@@ -33,7 +33,7 @@ class DuplicateAccountError(ValueError):
 class UserRepository:
 
     # def get(self, username: str) -> UserOutWithPassword:
-    def get_one(self, username: str) -> Optional[UserOutWithPassword]:
+    def get_one(self, id: int) -> Optional[UserOutWithPassword]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -48,9 +48,9 @@ class UserRepository:
                         , profile_photo
                         , description
                         FROM users
-                        WHERE username = %s
+                        WHERE id = %s
                         """,
-                        [username]
+                        [id]
                     )
                     record = result.fetchone()
                     if record is None:

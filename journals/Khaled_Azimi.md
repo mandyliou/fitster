@@ -1,3 +1,11 @@
+## Jan 13, 2023
+
+Today I worked on:
+- reviewing tables with teammates
+- finished the create account from in the front end
+
+
+
 ## Jan 12, 2023
 Today I worked on:
 
