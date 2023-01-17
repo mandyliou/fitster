@@ -33,7 +33,7 @@ class DuplicateAccountError(ValueError):
 class UserRepository:
 
     # def get(self, username: str) -> UserOutWithPassword:
-    def get_one(self, id: int) -> Optional[UserOutWithPassword]:
+    def get_one_by_id(self, user_id: int) -> Optional[UserOutWithPassword]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -50,7 +50,7 @@ class UserRepository:
                         FROM users
                         WHERE id = %s
                         """,
-                        [id]
+                        [user_id]
                     )
                     record = result.fetchone()
                     if record is None:
@@ -59,6 +59,60 @@ class UserRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get that user"}
+
+    def get_one(self, username: str) -> Optional[UserOutWithPassword]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                        , username
+                        , first_name
+                        , last_name
+                        , email
+                        , password
+                        , profile_photo
+                        , description
+                        FROM users
+                        WHERE username = %s
+                        """,
+                        [username]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_user_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that user"}
+
+    # def get_one(self, username: str) -> Optional[UserOutWithPassword]:
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor() as db:
+    #                 result = db.execute(
+    #                     """
+    #                     SELECT id
+    #                     , username
+    #                     , first_name
+    #                     , last_name
+    #                     , email
+    #                     , password
+    #                     , profile_photo
+    #                     , description
+    #                     FROM users
+    #                     WHERE id = %s
+    #                     """,
+    #                     [id]
+    #                 )
+    #                 record = result.fetchone()
+    #                 if record is None:
+    #                     return None
+    #                 return self.record_to_user_out(record)
+    #     except Exception as e:
+    #         print(e)
+    #         return {"message": "Could not get that user"}
 
 
     def get_all(self) -> Union[Error, List[UserOut]]:
@@ -129,9 +183,9 @@ class UserRepository:
                             user_id
                         ]
                     )
-                    # old_data = user.dict()
-                    # return UserOut(id=user_id, **old_data)
-                    return self.user_in_to_out(user_id, user)
+                    old_data = user.dict()
+                    return UserOut(id=user_id, **old_data)
+                    # return self.user_in_to_out(user_id, user)
         except Exception as e:
             print(e)
             return {"message": "Could not update that user"}

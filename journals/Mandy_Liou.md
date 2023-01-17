@@ -6,7 +6,11 @@
 - Modified app.js to assign token to a specific user
 - moved router paths from index.js into app.js to keep it concise
 - included GetToken, BrowserRouter, AuthProvider into App.js in order for the auth process to work properly
-
+- Helped Khaled debug his issue with creating a user and updating a user by creating another function get_one_by_id in queries to specifically get the user by the id
+    - vs. get_one will get the user by the username
+    - modified routers.py to use the correct function to get user by id
+- worked on backend outfit.py in both queries and routers for the second microservice
+-successfully implemented authentication for outfit microservice
 
 ## Jan 13, 2023
 - Worked on front-end login

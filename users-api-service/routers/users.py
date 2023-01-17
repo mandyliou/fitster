@@ -33,7 +33,7 @@ def get_one_user(
     user: dict = Depends (authenticator.try_get_current_account_data),
     repo: UserRepository = Depends(),
 ) -> UserOut:
-    user = repo.get_one(user_id)
+    user = repo.get_one_by_id(user_id)
     if user is None:
         response.status_code = 404
     return user
