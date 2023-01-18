@@ -1,3 +1,30 @@
+## Jan 17, 2023
+Today I worked on:
+
+- Implementing the FE 5 star rating system
+- Not sure how to reference a users post and its user_id to save the ratings yet
+- Researching on methods to average users ratings on an outfit post
+
+## Jan 13, 2023
+Today I worked on:
+
+- Worked on the FE logout story
+- Was not able to figure out how to connect the FE to BE yet
+
+## Jan 12, 2023
+Today I worked on:
+
+- Resolved the authentication error and got login/logout backend to work
+- Started to work on our tables for our outfit service
+- Unsure how to get our postgres and authentication to grab a user from another microservice
+- Created data for our clothing items
+
+## Jan 11, 2023
+Today I worked on:
+
+- Continued to work on authenticators and jwtdown
+- Was able to get login and logout to show in browser but running into dict object no attribute 'hashed_password' error
+
 ## Jan 10, 2023
 Today I worked on:
 
