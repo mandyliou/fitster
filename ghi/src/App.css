@@ -12,3 +12,16 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.Ratings {
+  padding-top: 100px;
+  text-align: center;
+}
+
+li.starListItem{
+  display: inline;
+}
+
+.yellowStar {
+  fill: yellow;
+}
