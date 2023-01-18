@@ -1,3 +1,8 @@
+## Jan 17, 2023
+- Today I worked on:
+- helping the get_one user to work
+- starting the component for the Frontend 
+
 ## Jan 13, 2023
 
 Today I worked on:
