@@ -1,6 +1,4 @@
 steps = [
-
-
     [
         # "Up" SQL statement
         """
