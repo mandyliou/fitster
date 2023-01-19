@@ -25,51 +25,46 @@ const UserPost = () => {
 
   return (
     <div>
+        <h1 className="title">My Outfit Posts</h1>
+    <div className="row">
       {posts.map((post) => (
-        <div key={post.id}>
-          <h3>{post.post_title}</h3>
-          <img src={post.top} alt={post.post_title} />
-          <img src={post.bottom} alt={post.post_title} />
-          <img src={post.shoes} alt={post.post_title} />
-          <p>{post.post_description}</p>
+        <div key={post.id} className="col-sm-4 mb-3">
+          <div className="card">
+            <div className="card-header">
+              <h5 className="card-title">{post.post_title}</h5>
+            </div>
+            <div className="card-body d-flex">
+              <div className="col-4">
+                <img
+                  src={post.top}
+                  alt={post.post_title}
+                  className="img-fluid"
+                />
+              </div>
+              <div className="col-4">
+                <img
+                  src={post.bottom}
+                  alt={post.post_title}
+                  className="img-fluid"
+                />
+              </div>
+              <div className="col-4">
+                <img
+                  src={post.shoes}
+                  alt={post.post_title}
+                  className="img-fluid"
+                />
+              </div>
+            </div>
+            <div className="card-footer">
+              <p className="card-text">{post.post_description}</p>
+            </div>
+          </div>
         </div>
       ))}
+    </div>
     </div>
   );
 };
 
-
 export default UserPost;
-
-
-// import React, { useState, useEffect } from "react";
-
-
-// const UserPost = () => {
-//   const [posts, SetPosts] = useState([]);
-// //   const [user, SetUserID] = useState([])
-
-
-// let user_id = 1
-
-//   useEffect(() => {
-//       const fetchData = async () => {
-//       const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts/${user_id}`;
-//     //   const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/`;
-//       const res = await fetch(url);
-//       const data = await res.json();
-//       SetPosts(data);
-//     };
-//     fetchData();
-//   }, []);
-
-//   return (
-//     <div>
-//       {posts.map((post) => (
-//         <div key={post.id}>{post.post_title} {post.outfit_id} {post.post_description}</div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default UserPost;
