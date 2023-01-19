@@ -4,7 +4,7 @@ import { useAuthContext } from "./auth";
 const UserPost = () => {
   const [posts, SetPosts] = useState([]);
   //   const [user, SetUserID] = useState([])
-  const {token} = useAuthContext();
+  const { token } = useAuthContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,10 +13,10 @@ const UserPost = () => {
       console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
-            headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         SetPosts(data);
       }
     };
@@ -27,12 +27,17 @@ const UserPost = () => {
     <div>
       {posts.map((post) => (
         <div key={post.id}>
-          {post.post_title} {post.top} {post.post_description}
+          <h3>{post.post_title}</h3>
+          <img src={post.top} alt={post.post_title} />
+          <img src={post.bottom} alt={post.post_title} />
+          <img src={post.shoes} alt={post.post_title} />
+          <p>{post.post_description}</p>
         </div>
       ))}
     </div>
   );
 };
+
 
 export default UserPost;
 
