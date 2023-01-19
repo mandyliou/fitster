@@ -67,7 +67,6 @@ class PostRepository:
                         """,
                         [user_id]
                     )
-
                     return [
                         self.record_to_post_out(record)
                         for record in result
@@ -75,6 +74,92 @@ class PostRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get that user"}
+
+
+    def get_all(self) -> Union[Error, List[PostOut]]:
+        try:
+            with pool.connection as conn:
+                with conn.cursor() as db:
+                    result=db.execute(
+                        """
+                        SELECT id
+                        , user_id
+                        , outfit_id
+                        , post_description
+                        , post_title
+                        FROM posts
+                        ORDER BY post_title;
+                        """
+                    )
+                    return [
+                        self.record_to_post_out(record)
+                        for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {'alert':'could not get user posts'}
+
+    def delete_post(self, post_id:int)-> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM posts
+                        WHERE id=%s
+                        """,
+                        [post_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
+    def update_post(self, post_id: int, post:PostIn
+    )-> Union[PostOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result=db.execute(
+                        """
+                        UPDATE posts
+                        SET post_description=%s
+                            , post_title=%s
+                        WHERE id=%s
+                        """,
+                        [
+                            post.post_description,
+                            post.post_title
+                        ]
+                    )
+                    return self.post_update(post_id, post)
+        except Exception as e:
+            return{'alert':'could not update post'}
+
+    #get one post by post id
+    def get_one_post(self, post_id: int)->Optional[PostOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                        , user_id
+                        , outfit_id
+                        , post_description
+                        , post_title
+                        FROM posts
+                        WHERE id=%s
+                        """,
+                        [post_id]
+                    )
+                    record=result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_post_out(record)
+        except Exception as e:
+            return {'alert':'could not get post'}
+
 
     def record_to_post_out(self, record):
         return PostOut(
@@ -84,3 +169,6 @@ class PostRepository:
             post_description=record[3],
             post_title=record[4],
         )
+    def post_update(self, id:int, post:PostIn):
+        old_data=post.dict()
+        return PostOut(id=id, **old_data)
