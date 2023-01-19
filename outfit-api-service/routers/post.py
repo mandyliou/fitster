@@ -5,6 +5,7 @@ from queries.post import (
     PostIn,
     PostOut,
     PostRepository,
+    PostOutwithPics
 )
 import os
 from fastapi import Depends, HTTPException, status
@@ -25,12 +26,12 @@ def create_post(
     return repo.create(post, user_id, outfit_id)
 
 
-@router.get("/posts", response_model=Union[List[PostOut], Error])
+@router.get("/posts", response_model=Union[List[PostOutwithPics], Error])
 def get_posts_user(
     response: Response,
     account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
-) -> PostOut:
+) -> PostOutwithPics:
     post = repo.get_user_posts(account_data.id)
     if post is None:
         response.status_code = 404
