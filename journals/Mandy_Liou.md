@@ -1,3 +1,8 @@
+## Jan 18, 2023
+- changed auth from jwt to jose
+- modified my token_auth and outfit routers to match
+- still working on implementing star ratings
+
 ## Jan 17, 2023
 - Fixed auth problem with account setup
     - changed ROUTER_APP to correct name
