@@ -31,6 +31,17 @@ class PostOutwithPics(BaseModel):
     shoes: str
 
 
+class PostOutwithPics(BaseModel):
+    id: int
+    user_id: int
+    outfit_id: int
+    post_description: str
+    post_title: str
+    top: str
+    bottom: str
+    shoes: str
+
+
 
 class PostRepository:
     def create(self, post: PostIn, user_id: int, outfit_id: int) -> Union[PostOut, Error]:
@@ -87,7 +98,7 @@ class PostRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes,
+                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes, 
                         posts.user_id, outfit_id, post_description, post_title
                         FROM posts
                         JOIN outfits ON posts.outfit_id = outfits.id

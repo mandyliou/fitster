@@ -47,7 +47,7 @@ export default function App() {
               {/* <Route path="/" element={<MainPage />} /> */}
               <Route path="/new-user" element={<CreateUserForm />} />
               <Route path="/login" element={<LoginForm />} />
-              <Route path="/posts" element={<UserPost />} />
+              <Route path="/my-posts" element={<UserPost />} />
             </Routes>
           </div>
         </AuthProvider>
