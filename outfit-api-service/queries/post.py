@@ -199,11 +199,6 @@ class PostRepository:
             post_description=record[3],
             post_title=record[4],
         )
-<<<<<<< HEAD
-    def post_update(self, id:int, post:PostIn):
-        old_data=post.dict()
-        return PostOut(id=id, **old_data)
-=======
 
     def record_to_post_out_with_pics(self, record):
         return PostOutwithPics(
@@ -216,4 +211,3 @@ class PostRepository:
             bottom=record[6],
             shoes=record[7]
         )
->>>>>>> f6673d907b9d446357fea579bbaaa98279cf1325
