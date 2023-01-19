@@ -5,6 +5,7 @@ from queries.post import (
     PostIn,
     PostOut,
     PostRepository,
+    PostOutWithoutUser
 )
 import os
 from fastapi import Depends, HTTPException, status
@@ -56,7 +57,8 @@ def update_post(
     repo: PostRepository=Depends(),
 )-> Union[Error, PostOut]:
     return repo.update_post(post_id, post)
-@router.get('/posts/{post_id}', response_model=Optional[PostOut])
+
+@router.get('/post/{post_id}', response_model=Optional[PostOut])
 def get_post(
     post_id:int,
     response:Response,

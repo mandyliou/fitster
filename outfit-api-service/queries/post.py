@@ -20,6 +20,12 @@ class PostOut(BaseModel):
     post_description: str
     post_title: str
 
+class PostOutWithoutUser(BaseModel):
+    id: int
+    outfit_id: int
+    post_description: str
+    post_title: str
+
 
 class PostRepository:
     def create(self, post: PostIn, user_id: int, outfit_id: int) -> Union[PostOut, Error]:
@@ -111,7 +117,6 @@ class PostRepository:
                     )
                     return True
         except Exception as e:
-            print(e)
             return False
 
     def update_post(self, post_id: int, post:PostIn
@@ -136,7 +141,7 @@ class PostRepository:
             return{'alert':'could not update post'}
 
     #get one post by post id
-    def get_one_post(self, post_id: int)->Optional[PostOut]:
+    def get_one_post(self,  id: int)->Optional[PostOutWithoutUser]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -150,7 +155,7 @@ class PostRepository:
                         FROM posts
                         WHERE id=%s
                         """,
-                        [post_id]
+                        [id],
                     )
                     record=result.fetchone()
                     if record is None:
@@ -159,9 +164,7 @@ class PostRepository:
         except Exception as e:
             return {'alert':'could not get post'}
 
-
     def record_to_post_out(self, record):
-        print(f'{record} MATT SUGGESTION')
         return PostOut(
             id=record[0],
             user_id=record[1],
