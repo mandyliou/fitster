@@ -78,7 +78,7 @@ class PostRepository:
 
     def get_all(self) -> Union[Error, List[PostOut]]:
         try:
-            with pool.connection as conn:
+            with pool.connection() as conn:
                 with conn.cursor() as db:
                     result=db.execute(
                         """
@@ -96,7 +96,6 @@ class PostRepository:
                         for record in result
                     ]
         except Exception as e:
-            print(e)
             return {'alert':'could not get user posts'}
 
     def delete_post(self, post_id:int)-> bool:
@@ -162,6 +161,7 @@ class PostRepository:
 
 
     def record_to_post_out(self, record):
+        print(f'{record} MATT SUGGESTION')
         return PostOut(
             id=record[0],
             user_id=record[1],

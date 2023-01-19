@@ -30,7 +30,16 @@ class OutfitOut(BaseModel):
     outfit_gender: str
     outfit_description: str
 
-
+class OutfitOutWithoutUserId(BaseModel):
+    id: int
+    outfit_name: str
+    outfit_brand: str
+    top: str
+    bottom: str
+    shoes: str
+    outfit_category: str
+    outfit_gender: str
+    outfit_description: str
 
 class OutfitRepository:
     def create(self, outfit: OutfitIn, user_id: int) -> Union[OutfitOut, Error]:
@@ -177,14 +186,14 @@ class OutfitRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
+                    db.execute(
                         """
                         UPDATE outfits
                         SET outfit_name=%s
                             , outfit_brand=%s
                             , top=%s
                             , bottom=%s
-                            , shoe=%s
+                            , shoes=%s
                             , outfit_category=%s
                             , outfit_gender=%s
                             , outfit_description=%s
@@ -198,13 +207,16 @@ class OutfitRepository:
                             outfit.shoes,
                             outfit.outfit_category,
                             outfit.outfit_gender,
-                            outfit.outfit_description
+                            outfit.outfit_description,
+                            outfit_id,
                         ]
                         # old_data=vacation.dict()
                         # return VacationOut(id=vacation_id, **old_data)
                     )
-                    return self.outfit_update(outfit_id, outfit)
+                    old_outfit=outfit.dict()
+                    return OutfitOutWithoutUserId(id=outfit_id, **old_outfit)
         except Exception as e:
+            print(e)
             return {"message": "could not update outfit!"}
 
     def record_to_outfit_out(self, record):

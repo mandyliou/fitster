@@ -36,7 +36,7 @@ def get_posts_user(
         response.status_code = 404
     return post
 
-@router.get('/posts', response_model=Union[List[PostOut], Error])
+@router.get('/posts/', response_model=Union[List[PostOut], Error])
 def get_all_posts(
     repo: PostRepository=Depends()
 ):
@@ -48,6 +48,7 @@ def delete_post(
     repo:PostRepository=Depends(),
 )-> bool:
     return repo.delete_post(post_id)
+
 @router.put('/posts/{post_id}', response_model=Union[List[PostOut], Error])
 def update_post(
     post_id:int,

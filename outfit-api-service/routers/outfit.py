@@ -6,6 +6,7 @@ from queries.outfit import (
     OutfitIn,
     OutfitOut,
     OutfitRepository,
+    OutfitOutWithoutUserId
 )
 import os
 from fastapi import Depends, HTTPException, status
@@ -48,12 +49,12 @@ def delete_outfit(
 ) -> bool:
     return repo.delete_outfit(outfit_id)
 
-@router.put('/outfit/{outfit_id}', response_model=Union[List[OutfitOut], Error])
+@router.put('/outfit/{outfit_id}', response_model=Union[OutfitOutWithoutUserId, Error])
 def update_outfit(
     outfit_id:int,
     outfit:OutfitIn,
     repo:OutfitRepository=Depends(),
-)-> Union[Error, OutfitOut]:
+)-> Union[Error, OutfitOutWithoutUserId]:
     return repo.update_outfit(outfit_id, outfit)
 
 @router.get('/outfit/{user_id}', response_model=Optional[OutfitOut])
