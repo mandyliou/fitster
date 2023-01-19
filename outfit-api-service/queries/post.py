@@ -20,6 +20,17 @@ class PostOut(BaseModel):
     post_description: str
     post_title: str
 
+class PostOutwithPics(BaseModel):
+    id: int
+    user_id: int
+    outfit_id: int
+    post_description: str
+    post_title: str
+    top: str
+    bottom: str
+    shoes: str
+
+
 
 class PostRepository:
     def create(self, post: PostIn, user_id: int, outfit_id: int) -> Union[PostOut, Error]:
@@ -51,25 +62,23 @@ class PostRepository:
         except Exception:
             return {"message": "Failed to Post outfit"}
 
-    def get_user_posts(self, user_id: int) -> Union[Error, List[PostOut]]:
+    def get_user_posts(self, user_id: int) -> Union[Error, List[PostOutwithPics]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                        , user_id
-                        , outfit_id
-                        , post_description
-                        , post_title
+                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes, 
+                        posts.user_id, outfit_id, post_description, post_title
                         FROM posts
-                        WHERE user_id = %s
+                        JOIN outfits ON posts.outfit_id = outfits.id
+                        WHERE posts.user_id = %s
                         """,
                         [user_id]
                     )
 
                     return [
-                        self.record_to_post_out(record)
+                        self.record_to_post_out_with_pics(record)
                         for record in result
                     ]
         except Exception as e:
@@ -83,4 +92,16 @@ class PostRepository:
             outfit_id=record[2],
             post_description=record[3],
             post_title=record[4],
+        )
+
+    def record_to_post_out_with_pics(self, record):
+        return PostOutwithPics(
+            id=record[0],
+            user_id=record[1],
+            outfit_id=record[2],
+            post_description=record[3],
+            post_title=record[4],
+            top=record[5],
+            bottom=record[6],
+            shoes=record[7]
         )
