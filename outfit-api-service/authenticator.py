@@ -29,3 +29,8 @@ class MyAuthenticator(Authenticator):
 
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])
+
+# import os
+# from fastapi import Depends, HTTPException, status
+# from fastapi.security import OAuth2PasswordBearer
+# from jose import jwt, JWTError
