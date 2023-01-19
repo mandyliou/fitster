@@ -36,7 +36,7 @@ function GetToken() {
 //     getData();
 //   }, []);
 
-export default function App() {
+export default function App() {                                        
   return (
     <>
       <BrowserRouter>
