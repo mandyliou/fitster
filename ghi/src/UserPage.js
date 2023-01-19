@@ -1,8 +1,167 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
+import { Modal, Button } from "react-bootstrap";
 
-const UserPost = () => {
+function BootstrapInputFields(props) {
+  const { id, label, value, onChange, type, placeholder } = props;
+
+  return (
+    <div className="mb-3">
+      <label htmlFor={id} className="form-label">
+        {label}
+      </label>
+      <input
+        value={value}
+        onChange={onChange}
+        required
+        type={type}
+        className="form-control"
+        id={id}
+        placeholder={placeholder}
+      />
+    </div>
+  );
+}
+
+function UserUpdateModal(props) {
+  const [user, setUser] = useState({ ...props.user, password: "" });
+  const [errorMessage, setErrorMessage] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      props.update(user);
+      setErrorMessage(false);
+      props.setModalShow(false);
+    } catch (err) {
+      setErrorMessage(true);
+    }
+  }
+
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Update Profile
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form onSubmit={handleSubmit}>
+          <BootstrapInputFields
+            id="userName"
+            label="Enter Username"
+            value={user.username}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                username: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="Username"
+          />
+          <BootstrapInputFields
+            id="first"
+            label="Enter First Name"
+            value={user.first}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                first: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="First name"
+          />
+          <BootstrapInputFields
+            id="last"
+            label="Enter Last Name"
+            value={user.last}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                last: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="Last name"
+          />
+          <BootstrapInputFields
+            id="email"
+            label="Enter Email Address"
+            value={user.email}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                email: e.target.value,
+              })
+            }
+            type="email"
+            placeholder="name@website.com"
+          />
+          <BootstrapInputFields
+            id="password"
+            label="Enter Password"
+            value={user.password}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                password: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="Password"
+          />
+          <BootstrapInputFields
+            id="profile_photo"
+            label="Choose a profile picture"
+            value={user.profile_photo}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                profile_photo: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="Url"
+          />
+          <BootstrapInputFields
+            id="description"
+            label="Biography"
+            value={user.description}
+            onChange={(e) =>
+              setUser({
+                ...user,
+                reason: e.target.value,
+              })
+            }
+            type="text"
+            placeholder="Description"
+          />
+          <button type="submit" className="btn btn-outline-success">
+            Submit
+          </button>
+          <div className="text-center mt-4" style={{ color: "red" }}>
+            {errorMessage ? <h5>Email or Username already exists</h5> : ""}
+          </div>
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+const UserPost = (props) => {
   const [posts, SetPosts] = useState([]);
+  const [modalShow, setModalShow] = useState();
   //   const [user, SetUserID] = useState([])
   const { token } = useAuthContext();
 
@@ -26,6 +185,14 @@ const UserPost = () => {
   return (
     <div>
         <h1 className="title">My Outfit Posts</h1>
+          <div className="updateButton">
+            <Button
+              variant="btn btn-outline-success"
+              onClick={() => setModalShow(true)}
+            >
+              Update Profile
+            </Button>
+          </div>
     <div className="row">
       {posts.map((post) => (
         <div key={post.id} className="col-sm-4 mb-3">
@@ -63,6 +230,14 @@ const UserPost = () => {
         </div>
       ))}
     </div>
+    {/* </div> */}
+          <UserUpdateModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            user={props.user}
+            setModalShow={setModalShow}
+            update={props.update}
+          />
     </div>
   );
 };
