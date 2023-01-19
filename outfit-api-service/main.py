@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import outfit, post
+from routers import outfit, post, rating
 
 import os
 
 app = FastAPI()
 app.include_router(outfit.router)
 app.include_router(post.router)
+app.include_router(rating.router)
 
 
 app.add_middleware(
