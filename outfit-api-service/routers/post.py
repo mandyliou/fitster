@@ -25,6 +25,14 @@ def create_post(
 ):
     return repo.create(post, user_id, outfit_id)
 
+@router.delete("/posts/{user_id}", response_model=bool)
+def delete_post(
+    user_id: int,
+    repo: PostRepository = Depends(),
+) -> bool:
+    return repo.delete(user_id)
+
+
 
 @router.get("/posts", response_model=Union[List[PostOutwithPics], Error])
 def get_posts_user(

@@ -62,6 +62,25 @@ class PostRepository:
         except Exception:
             return {"message": "Failed to Post outfit"}
 
+    def delete(self, user_id : int, outfit_id : int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM posts
+                        WHERE id = %s, %s,
+                        """,
+                        [
+                            user_id,
+                            outfit_id,  
+                        ]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
     def get_user_posts(self, user_id: int) -> Union[Error, List[PostOutwithPics]]:
         try:
             with pool.connection() as conn:
