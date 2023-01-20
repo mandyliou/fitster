@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 import { Modal, Button } from "react-bootstrap";
+import Ratings from "./Ratings";
 
 function BootstrapInputFields(props) {
   const { id, label, value, onChange, type, placeholder } = props;

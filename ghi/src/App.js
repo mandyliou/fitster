@@ -49,6 +49,7 @@ export default function App() {
               <Route path="/new-user" element={<CreateUserForm />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/my-posts" element={<UserPost />} />
+              <Route path="/ratings" element={<Ratings />} />
             </Routes>
           </div>
         </AuthProvider>

@@ -34,6 +34,7 @@ class PostOutwithPics(BaseModel):
     top: str
     bottom: str
     shoes: str
+    ratings: int
 
 
 
@@ -92,10 +93,11 @@ class PostRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes,
+                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes, ratings.rating,
                         posts.user_id, outfit_id, post_description, post_title
                         FROM posts
                         JOIN outfits ON posts.outfit_id = outfits.id
+                        JOIN ratings ON posts.id = ratings.post_id
                         WHERE posts.user_id = %s
                         """,
                         [user_id]
@@ -215,5 +217,6 @@ class PostRepository:
             post_title=record[4],
             top=record[5],
             bottom=record[6],
-            shoes=record[7]
+            shoes=record[7],
+            ratings=record[8]
         )
