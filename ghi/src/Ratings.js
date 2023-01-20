@@ -18,29 +18,68 @@ function Star({yellow}) {
     )
 }
 
-function Ratings() {
-    const [hoverIndex, setHoverIndex] = useState(0);
-    const [rating, setRating] = useState(0);
+// function Ratings() {
+//     const [hoverIndex, setHoverIndex] = useState(0);
+//     const [rating, setRating] = useState(0);
 
-    function shouldBeHighlighted(index) {
-        return (index <= hoverIndex) || (index <= rating);
-    }
+//     function shouldBeHighlighted(index) {
+//         return (index <= hoverIndex) || (index <= rating);
+//     }
 
-    return (
-        <div className="Ratings">
-            <h2>Rate the Outfit</h2>
-            <ul className='starList'>
-            {[1,2,3,4,5].map((index) => {
-                return (
-                    <li onMouseEnter={() => setHoverIndex(index)} onMouseLeave={() => setHoverIndex(0)} onClick={() => setRating(index)} className='starListItem'>
-                        <Star yellow={shouldBeHighlighted(index)} />
-                    </li>
-                )
-            })}
-            </ul>
-            <button onClick={() => setRating(0)}>Clear Rating</button>
-        </div>
-    );
+//     return (
+//         <div className="Ratings">
+//             <h2>Rate the Outfit</h2>
+//             <ul className='starList'>
+//             {[1,2,3,4,5].map((index) => {
+//                 return (
+//                     <li onMouseEnter={() => setHoverIndex(index)} onMouseLeave={() => setHoverIndex(0)} onClick={() => setRating(index)} className='starListItem'>
+//                         <Star yellow={shouldBeHighlighted(index)} />
+//                     </li>
+//                 )
+//             })}
+//             </ul>
+//             <button onClick={() => setRating(0)}>Clear Rating</button>
+//         </div>
+//     );
+// }
+
+// export default Ratings;
+
+export default function Ratings() {
+  const [hoverIndex, setHoverIndex] = useState(0);
+  const [rating, setRating] = useState(0);
+
+  function shouldBeHighlighted(index) {
+    return index <= hoverIndex || index <= rating;
+  }
+
+  function updateRating(newRating) {
+    setRating(newRating);
+  }
+
+  function clearRating() {
+    setRating(0);
+  }
+
+  return (
+    <div className="Ratings">
+      <h2>Rate the Outfit</h2>
+      <ul className="starList">
+        {[1, 2, 3, 4, 5].map((index) => {
+          return (
+            <li
+              key={index}
+              onMouseEnter={() => setHoverIndex(index)}
+              onMouseLeave={() => setHoverIndex(0)}
+              onClick={() => updateRating(index)}
+              className="starListItem"
+            >
+              <Star yellow={shouldBeHighlighted(index)} />
+            </li>
+          );
+        })}
+      </ul>
+      <button onClick={clearRating}>Clear Rating</button>
+    </div>
+  );
 }
-
-export default Ratings;

@@ -1,3 +1,7 @@
+## Jan 19, 2023
+- set up part of star ratings FE
+- still working on 
+
 ## Jan 18, 2023
 - changed auth from jwt to jose
 - modified my token_auth and outfit routers to match
