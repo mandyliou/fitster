@@ -226,7 +226,8 @@ const UserPost = (props) => {
             </div>
             <div className="card-footer">
               <p className="card-text">{post.post_description}</p>
-              {/* <p className="card-text">{post.ratings}</p> */}
+              <p className="card-text">{post.ratings}</p>
+                <Ratings rating={posts.rating} />
             </div>
           </div>
         </div>
