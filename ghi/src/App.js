@@ -8,7 +8,10 @@ import LoginForm from "./LoginForm.js";
 import { AuthProvider, useToken } from "./auth.js";
 import UserPost from "./UserPage.js";
 import Nav from './Nav';
+<<<<<<< HEAD
 import ForYouPage from './ForYouPage'
+=======
+>>>>>>> 6d3fb13db80aab86946755ccde656a9892216ae1
 
 function GetToken() {
   useToken();
@@ -42,6 +45,14 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
+      <Nav>
+        <div className="container">
+          <Routes>
+            <Route path="/new-user" element={<CreateUserForm />} />
+            <Route path="/login" element={<LoginForm />} />
+          </Routes>
+          </div>
+      </Nav>
         <AuthProvider>
           <GetToken />
           <div className="container">
