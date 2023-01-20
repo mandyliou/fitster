@@ -1,10 +1,17 @@
+## Jan 19, 2023
+made significant progress/completed be for outfits
+worked on navigation of site
+work on for you page
+aiding with creating nav routes
+Added navbar
+
 ## Jan 18, 2023
 Finished up work/fixed errors regarding BE for post, outfits for both queries and routers
 Hoping to work more on FE for both services
 Get views and filtering operating
 
 ## Jan 17, 2023
-change was made regarding tables irrespective of group confirmation
+had to figure out next steps following changes made to tables for outfits
 worked on BE for posts, outfits
 
 ## Jan 13, 2023
