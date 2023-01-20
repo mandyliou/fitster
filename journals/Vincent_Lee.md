@@ -1,3 +1,13 @@
+## Jan 19, 2023
+Today I worked on:
+
+- Continued working on the FE 5 star rating
+- Was able to join the tables from posts to rating but unsure how to reference the rating value to update on the frontend star system
+- Implemented rating.js onto the userpage
+- Git pulled and resolved merge conflicts but now ratings is no longer working. May need to remake branch and continue again
+- Created a front end create outfit form
+- Having authentication issuess on creating the outfit post
+
 ## Jan 17, 2023
 Today I worked on:
 
