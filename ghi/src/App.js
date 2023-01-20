@@ -7,6 +7,7 @@ import CreateUserForm from "./CreateAccount";
 import LoginForm from "./LoginForm.js";
 import { AuthProvider, useToken } from "./auth.js";
 import UserPost from "./UserPage.js";
+import Nav from './Nav';
 
 function GetToken() {
   useToken();
@@ -40,14 +41,25 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
+      <Nav>
+        <div className="container">
+          <Routes>
+            <Route path="/new-user" element={<CreateUserForm />} />
+            <Route path="/login" element={<LoginForm />} />
+          </Routes>
+          </div>
+      </Nav>
         <AuthProvider>
           <GetToken />
           <div className="container">
             <Routes>
               {/* <Route path="/" element={<MainPage />} /> */}
-              <Route path="/new-user" element={<CreateUserForm />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/my-posts" element={<UserPost />} />
+              <Route path="/my-profile" element={<UserPost />} />
+            <Route path="/new-user" element={<CreateUserForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path='posts'>
+              {/* <Route path="new" element={<CreatePost />} /> */}
+            </Route>
             </Routes>
           </div>
         </AuthProvider>
