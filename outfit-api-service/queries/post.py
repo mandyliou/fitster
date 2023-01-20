@@ -68,24 +68,24 @@ class PostRepository:
         except Exception:
             return {"message": "Failed to Post outfit"}
 
-    def delete(self, user_id : int, outfit_id : int) -> bool:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        DELETE FROM posts
-                        WHERE id = %s, %s,
-                        """,
-                        [
-                            user_id,
-                            outfit_id,
-                        ]
-                    )
-                    return True
-        except Exception as e:
-            print(e)
-            return False
+    # def delete(self, user_id : int, outfit_id : int) -> bool:
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor() as db:
+    #                 db.execute(
+    #                     """
+    #                     DELETE FROM posts
+    #                     WHERE id = %s, %s,
+    #                     """,
+    #                     [
+    #                         user_id,
+    #                         outfit_id,
+    #                     ]
+    #                 )
+    #                 return True
+    #     except Exception as e:
+    #         print(e)
+    #         return False
 
     def get_user_posts(self, user_id: int) -> Union[Error, List[PostOutwithPics]]:
         try:
@@ -133,20 +133,23 @@ class PostRepository:
         except Exception as e:
             return {'alert':'could not get user posts'}
 
-    def delete_post(self, post_id:int)-> bool:
+    def delete_user_post(self, post_id:int, user_id: int)-> Union[str, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
+                    result = db.execute(
                         """
                         DELETE FROM posts
-                        WHERE id=%s
+                        WHERE id=%s and user_id=%s
                         """,
-                        [post_id],
+                        [post_id, user_id],
                     )
-                    return True
+                    if result == 0:
+                        return None
+                    return "Post deleted successfully."
         except Exception as e:
-            return False
+            print(e)
+            return {"message": "Could not delete that post"}
 
     def update_post(self, post_id: int, post:PostIn
     )-> Union[PostOut, Error]:
