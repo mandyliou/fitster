@@ -131,20 +131,23 @@ class PostRepository:
         except Exception as e:
             return {'alert':'could not get user posts'}
 
-    def delete_post(self, post_id:int)-> bool:
+    def delete_user_post(self, post_id:int, user_id: int)-> Union[str, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
+                    result = db.execute(
                         """
                         DELETE FROM posts
-                        WHERE id=%s
+                        WHERE id=%s and user_id=%s
                         """,
-                        [post_id],
+                        [post_id, user_id],
                     )
-                    return True
+                    if result == 0:
+                        return None
+                    return "Post deleted successfully."
         except Exception as e:
-            return False
+            print(e)
+            return {"message": "Could not delete that post"}
 
     def update_post(self, post_id: int, post:PostIn
     )-> Union[PostOut, Error]:

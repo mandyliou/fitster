@@ -33,6 +33,8 @@ def create_post(
 # ) -> bool:
 #     return repo.delete(user_id)
 
+
+
 @router.get("/posts", response_model=Union[List[PostOutwithPics], Error])
 def get_posts_user(
     response: Response,
@@ -50,12 +52,19 @@ def get_all_posts(
 ):
     return repo.get_all()
 
-@router.delete('/posts/{post_id}', response_model=bool)
+@router.delete('/posts/{post_id}', response_model=Union[str, Error])
 def delete_post(
     post_id:int,
-    repo:PostRepository=Depends(),
-)-> bool:
-    return repo.delete_post(post_id)
+    account_data: dict = Depends(get_current_user),
+    repo:PostRepository=Depends()
+):
+    result = repo.delete_user_post(post_id, account_data.id)
+    if result is None:
+        raise HTTPException(state_code= 404, detail="Post not found")
+    return {"message": "Post deleted successfully"}
+
+
+
 
 @router.put('/posts/{post_id}', response_model=Union[List[PostOut], Error])
 def update_post(
