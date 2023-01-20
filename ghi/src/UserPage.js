@@ -241,6 +241,8 @@ const UserPost = (props) => {
               </div>
               <div className="card-footer">
                 <p className="card-text">{post.post_description}</p>
+                <p className="card-text">{post.ratings}</p>
+                <Ratings />
                 <Button variant="danger" onClick={() => handleDelete(post.id)}>
                   Delete Post
                 </Button>
