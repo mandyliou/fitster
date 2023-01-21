@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 import { Modal, Button } from "react-bootstrap";
+import Ratings from './Stars';
 
 function BootstrapInputFields(props) {
   const { id, label, value, onChange, type, placeholder } = props;
@@ -240,6 +241,7 @@ const UserPost = (props) => {
               </div>
               <div className="card-footer">
                 <p className="card-text">{post.post_description}</p>
+                <Ratings />
                 <Button variant="danger" onClick={() => handleDelete(post.id)}>
                   Delete Post
                 </Button>
