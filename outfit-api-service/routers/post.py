@@ -16,15 +16,13 @@ from fastapi import Depends, HTTPException, status
 from token_auth import get_current_user
 router = APIRouter()
 
-@router.post("/posts", response_model=Union[PostOut, Error])
+@router.post("/api/posts", response_model=Union[PostOut, Error])
 def create_post(
     post: PostIn,
-    user_id: int,
-    outfit_id: int,
+    account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
-    user: dict = Depends(get_current_user),
 ):
-    return repo.create(post, user_id, outfit_id)
+    return repo.create(post, account_data.id)
 
 # @router.delete("/posts/{user_id}", response_model=bool)
 # def delete_post(
@@ -35,7 +33,7 @@ def create_post(
 
 
 
-@router.get("/posts", response_model=Union[List[PostOutwithPics], Error])
+@router.get("/api/user/posts", response_model=Union[List[PostOutwithPics], Error])
 def get_posts_user(
     response: Response,
     account_data: dict = Depends(get_current_user),

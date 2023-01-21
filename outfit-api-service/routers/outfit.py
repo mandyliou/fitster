@@ -68,6 +68,19 @@ def get_user_outfits(
         response.status_code=404
     return outfit
 
+
+@router.get("/api/user/outfits", response_model=Union[List[OutfitOut], Error])
+def get_outfits_user(
+    response: Response,
+    account_data: dict = Depends(get_current_user),
+    repo: OutfitRepository = Depends(),
+) -> OutfitOut:
+    outfits = repo.get_user_outfits(account_data.id)
+    if outfits is None:
+        response.status_code = 404
+    return outfits
+
+
 # usersURL = os.environ.get("REACT_APP_USERS_SERVICE_API_HOST", "localhost:8000")
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{usersURL}/token")
 # SECRET_KEY = os.environ.get("SIGNING_KEY", "blah")
