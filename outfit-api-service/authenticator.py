@@ -6,7 +6,6 @@ from jwtdown_fastapi.authentication import Authenticator
 class MyAuthenticator(Authenticator):
     async def get_account_data(
         self
-
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
@@ -14,7 +13,6 @@ class MyAuthenticator(Authenticator):
 
     def get_account_getter(
         self
-
     ):
         # Return the users. That's it.
         pass
@@ -31,3 +29,8 @@ class MyAuthenticator(Authenticator):
 
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])
+
+# import os
+# from fastapi import Depends, HTTPException, status
+# from fastapi.security import OAuth2PasswordBearer
+# from jose import jwt, JWTError

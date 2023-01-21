@@ -1,4 +1,19 @@
-<<<<<<< HEAD
+## Jan 19, 2023
+made significant progress/completed be for outfits
+worked on navigation of site
+work on for you page
+aiding with creating nav routes
+Added navbar
+
+## Jan 18, 2023
+Finished up work/fixed errors regarding BE for post, outfits for both queries and routers
+Hoping to work more on FE for both services
+Get views and filtering operating
+
+## Jan 17, 2023
+had to figure out next steps following changes made to tables for outfits
+worked on BE for posts, outfits
+
 ## Jan 13, 2023
 finalized outfits tables
 confirmed login form with K
@@ -6,8 +21,6 @@ working on login, logout FE
 excited to get rating system implemented
 implemented user tables
 
-=======
->>>>>>> 85e2319246578a1d1ad417c7a4f0ec191dc1aeef
 ## Jan 12, 2023
 finalized clothing_item and outfit tables
 finished auth for be
@@ -15,12 +28,8 @@ started on post table, going to have to add a rating table
 started creating outfit items ()
 
 ## Jan 11, 2023
-<<<<<<< HEAD
 Worked on more auth content
 got through blockers
-=======
-
->>>>>>> 85e2319246578a1d1ad417c7a4f0ec191dc1aeef
 
 ## Jan 10, 2023
 finalized/tested user db
