@@ -6,6 +6,7 @@ import "./App.css";
 import CreateUserForm from "./CreateAccount";
 import LoginForm from "./LoginForm.js";
 import { AuthProvider, useToken } from "./auth.js";
+import Ratings from "./Stars.js";
 
 function GetToken() {
   useToken();
@@ -46,6 +47,7 @@ export default function App() {
               {/* <Route path="/" element={<MainPage />} /> */}
               <Route path="/new-user" element={<CreateUserForm />} />
               <Route path="/login" element={<LoginForm />} />
+              <Route path="/ratings" element={<Ratings />} />
             </Routes>
           </div>
         </AuthProvider>
