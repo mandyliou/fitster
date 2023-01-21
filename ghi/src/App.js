@@ -7,6 +7,7 @@ import CreateUserForm from "./CreateAccount";
 import LoginForm from "./LoginForm.js";
 import { AuthProvider, useToken } from "./auth.js";
 import UserPost from "./UserPage.js";
+import CreateOutfitForm from "./CreateOutfit.js";
 // import Nav from './Nav';
 // import ForYouPage from './ForYouPage'
 
@@ -50,6 +51,8 @@ export default function App() {
               <Route path="/my-profile" element={<UserPost />} />
               <Route path="/new-user" element={<CreateUserForm />} />
               <Route path="/login" element={<LoginForm />} />
+              <Route path="/my-posts" element={<UserPost />} />
+              <Route path="/new-outfit" element={<CreateOutfitForm />} />
               {/* <Route path="/ForYou" element={<ForYouPage />} /> */}
               {/* <Route path="/TopFits" element={<TopFits />} /> */}
             </Routes>
