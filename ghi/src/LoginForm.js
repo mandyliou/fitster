@@ -5,7 +5,7 @@ import { useToken } from "./auth";
 export default function LoginForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [token, login] = useToken();
+    const [login] = useToken();
     const [invalid, setInvalid] = useState(false);
     let navigate = useNavigate();
 

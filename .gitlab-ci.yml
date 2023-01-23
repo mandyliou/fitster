@@ -10,6 +10,36 @@ lint-test-job:
   script:
     - pip install flake8
     - flake8 users-api-service
+    - flake8 outfit-api-service
+
+
+users-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  needs:
+    - lint-test-job
+  variables:
+    DATABASE_URL: postgres://users:password@postgres:5432/users
+    POSTGRES_PASSWORD: test
+    SIGNING_KEY: ${SIGNING_KEY}
+  script:
+    - cd users-api-service
+    - pip install -r requirements.txt
+    - python -m pytest
+
+outfit-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  needs:
+    - lint-test-job
+  variables:
+    DATABASE_URL: postgres://outfit:password@postgres:5432/outfit
+    POSTGRES_PASSWORD: test
+    SIGNING_KEY: ${SIGNING_KEY}
+  script:
+    - cd outfit-api-service
+    - pip install -r requirements.txt
+    - python -m pytest
 
 # Build the React/JavaScript front-end
 build-front-end-job:
@@ -22,8 +52,9 @@ build-front-end-job:
     # CI/CD variables, that value will override the value here.
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
-    PUBLIC_URL: https://GROUP_NAME.gitlab.io/PROJECT_NAME/
-    REACT_APP_USERS_API_SERVICE_API_HOST: https://WEBSERVICE_NAME.onrender.com
+    PUBLIC_URL: https://mandy-diner.gitlab.io/fitster/
+    REACT_APP_USERS_API_SERVICE_API_HOST: https://users-api-service.sept-pt-6.mod3projects.com
+    REACT_APP_OUTFIT_API_SERVICE_API_HOST: http://outfit-api-service.sept-pt-6.mod3projects.com
   script:
     - cd ghi
     - npm install
@@ -32,6 +63,60 @@ build-front-end-job:
   artifacts:
     paths:
       - ghi/build/
+
+
+build-api-one-backend:
+  image: docker:19.03.1
+  stage: build
+  services:
+    - docker:19.03.1-dind
+  before_script:
+    - export DOCKER_REGISTRY_USER=$CI_REGISTRY_USER # built-in GitLab Registry User
+    - export DOCKER_REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD # built-in GitLab Registry Password
+    - export DOCKER_REGISTRY_URL=$CI_REGISTRY # built-in GitLab Registry URL
+    - export COMMIT_HASH=$CI_COMMIT_SHA # Your current commit sha
+    - export IMAGE_NAME_WITH_REGISTRY_PREFIX=$CI_REGISTRY_IMAGE # Your repository prefixed with GitLab Registry URL
+    - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $DOCKER_REGISTRY_URL # Instructs GitLab to login to its registry
+
+  script:
+    - cd users-api-service
+    - echo "Building..." # MAKE SURE NO SPACE ON EITHER SIDE OF = IN THE FOLLOWING LINE
+    - export CONTAINER_FULL_IMAGE_NAME_WITH_TAG=$IMAGE_NAME_WITH_REGISTRY_PREFIX/users_api_service:$COMMIT_HASH
+    - docker build -f ./Dockerfile --pull -t users_api_service_img .
+    - docker tag users_api_service_img "$CONTAINER_FULL_IMAGE_NAME_WITH_TAG"
+    - docker push "$CONTAINER_FULL_IMAGE_NAME_WITH_TAG"
+    - echo $CONTAINER_FULL_IMAGE_NAME_WITH_TAG
+    - echo "Deploying on CapRover..."
+    - docker run caprover/cli-caprover:v2.1.1 caprover deploy --caproverUrl $CAPROVER_URL --caproverPassword $CAPROVER_PASSWORD --caproverApp $USERS_API_SERVICE --imageName $CONTAINER_FULL_IMAGE_NAME_WITH_TAG
+  only:
+    - main
+
+build-api-two-backend:
+  image: docker:19.03.1
+  stage: build
+  services:
+    - docker:19.03.1-dind
+  before_script:
+    - export DOCKER_REGISTRY_USER=$CI_REGISTRY_USER # built-in GitLab Registry User
+    - export DOCKER_REGISTRY_PASSWORD=$CI_REGISTRY_PASSWORD # built-in GitLab Registry Password
+    - export DOCKER_REGISTRY_URL=$CI_REGISTRY # built-in GitLab Registry URL
+    - export COMMIT_HASH=$CI_COMMIT_SHA # Your current commit sha
+    - export IMAGE_NAME_WITH_REGISTRY_PREFIX=$CI_REGISTRY_IMAGE # Your repository prefixed with GitLab Registry URL
+    - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $DOCKER_REGISTRY_URL # Instructs GitLab to login to its registry
+
+  script:
+    - cd outfit-api-service
+    - echo "Building..." # MAKE SURE NO SPACE ON EITHER SIDE OF = IN THE FOLLOWING LINE
+    - export CONTAINER_FULL_IMAGE_NAME_WITH_TAG=$IMAGE_NAME_WITH_REGISTRY_PREFIX/outfit_api_service:$COMMIT_HASH
+    - docker build -f ./Dockerfile --pull -t outfit_api_service_img .
+    - docker tag outfit_api_service_img "$CONTAINER_FULL_IMAGE_NAME_WITH_TAG"
+    - docker push "$CONTAINER_FULL_IMAGE_NAME_WITH_TAG"
+    - echo $CONTAINER_FULL_IMAGE_NAME_WITH_TAG
+    - echo "Deploying on CapRover..."
+    - docker run caprover/cli-caprover:v2.1.1 caprover deploy --caproverUrl $CAPROVER_URL --caproverPassword $CAPROVER_PASSWORD --caproverApp $OUTFIT_API_SERVICE --imageName $CONTAINER_FULL_IMAGE_NAME_WITH_TAG
+  only:
+    - main
+
 
 # Deploy the React/JavaScript front-end to GitLab pages
 pages:
