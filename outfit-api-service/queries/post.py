@@ -8,7 +8,7 @@ class Error(BaseModel):
 
 class PostIn(BaseModel):
     # user_id: int
-    # out_fit id:
+    outfit_id: int
     post_description: str
     post_title: str
 
@@ -41,7 +41,7 @@ class PostOutwithPics(BaseModel):
 
 
 class PostRepository:
-    def create(self, post: PostIn, user_id: int, outfit_id: int) -> Union[PostOut, Error]:
+    def create(self, post: PostIn, user_id: int) -> Union[PostOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -59,14 +59,14 @@ class PostRepository:
                         """,
                         [
                             user_id,
-                            outfit_id,
+                            post.outfit_id,
                             post.post_description,
                             post.post_title
                         ]
                     )
                     id = result.fetchone()[0]
                     old_data = post.dict()
-                    return PostOut(id=id, user_id=user_id, outfit_id=outfit_id, **old_data)
+                    return PostOut(id=id, user_id=user_id, **old_data)
         except Exception:
             return {"message": "Failed to Post outfit"}
 

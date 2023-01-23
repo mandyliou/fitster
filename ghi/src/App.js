@@ -7,10 +7,11 @@ import CreateUserForm from "./CreateAccount";
 import LoginForm from "./LoginForm.js";
 import { AuthProvider, useToken } from "./auth.js";
 import UserPost from "./UserPage.js";
-// import Nav from './Nav';
 import ForYou from "./ForYouPage.js";
 // import MainPage from ./MainPage'
 import TopFits from "./TopFits.js";
+import CreateOutfitForm from "./CreateOutfit.js";
+import CreatePostForm from "./PostForm.js";
 
 function GetToken() {
   useToken();
@@ -54,6 +55,9 @@ export default function App() {
               <Route path="/login" element={<LoginForm />} />
               <Route path="/ForYou" element={<ForYou />} />
               <Route path="/TopFits" element={<TopFits />} />
+              <Route path="/my-posts" element={<UserPost />} />
+              <Route path="/new-outfit" element={<CreateOutfitForm />} />
+              <Route path="/new-post" element={<CreatePostForm />} />
             </Routes>
           </div>
         </AuthProvider>

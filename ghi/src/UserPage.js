@@ -167,7 +167,7 @@ const UserPost = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
+      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/posts`;
       //   const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/`;
       console.log("From user post " + token);
       if (token !== null) {

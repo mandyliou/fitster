@@ -80,7 +80,7 @@ class OutfitRepository:
         except Exception:
             return {"message": "Failed to Create outfit"}
 
-    def get_user_outfits(self, user_id: int) ->Optional[OutfitOut]:
+    def get_user_outfits(self, user_id: int) -> Union[Error, List[OutfitOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

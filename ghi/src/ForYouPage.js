@@ -14,7 +14,7 @@ const ForYou=()=>{
             'search':search
         }
         console.log(search)
-        const searchURL=
+        // const searchURL=
     }
     useEffect(()=>{
         const fetchData= async () =>{
@@ -37,21 +37,21 @@ const ForYou=()=>{
         <>
       <div className="input-group mb-3">
                     <input
-                        onChange={this.handleInputChange}
+                        // onChange={this.handleInputChange}
                         type="text"
                         id="vin"
                         name="vin"
                         className="form-control"
-                        placeholder="VIN" aria-label="VIN"
+                        placeholder="Search for a User" aria-label="SearchUser"
                         aria-describedby="basic-addon2"
-                        value={this.state.vin}
+                        // value={this.state.vin}
                     />
                     <div className="input-group-append">
                         <button
                             className="btn btn-outline-secondary"
                             type="button"
                             onClick={() => this.handleOnClick(this.state.vin)}
-                        >Search VIN</button>
+                        >Search</button>
                     </div>
                 </div>
         <div className="container d-flex flex-wrap justify-content-center">

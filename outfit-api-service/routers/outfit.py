@@ -12,18 +12,18 @@ import os
 from fastapi import Depends, HTTPException, status
 # from fastapi.security import OAuth2PasswordBearer
 # from jose import jwt, JWTError
-from authenticator import authenticator
-# from token_auth import authenticator
+# from authenticator import authenticator
+from token_auth import get_current_user
 router = APIRouter()
 
-@router.post("/outfit/{user_id}", response_model=Union[OutfitOut, Error])
+@router.post("/api/user/outfit", response_model=Union[OutfitOut, Error])
 def create_outfit(
     outfit: OutfitIn,
-    user_id: int,
+    account_data: dict = Depends(get_current_user),
     repo: OutfitRepository = Depends(),
-    user: dict = Depends(authenticator.get_current_account_data),
+
 ):
-    return repo.create(outfit, user_id)
+    return repo.create(outfit, account_data.id)
 
 @router.get('/outfit', response_model=Union[List[OutfitOut], Error])
 def get_outfits(
@@ -67,6 +67,19 @@ def get_user_outfits(
     if outfit is None:
         response.status_code=404
     return outfit
+
+
+@router.get("/api/user/outfits", response_model=Union[List[OutfitOut], Error])
+def get_outfits_user(
+    response: Response,
+    account_data: dict = Depends(get_current_user),
+    repo: OutfitRepository = Depends(),
+) -> OutfitOut:
+    outfits = repo.get_user_outfits(account_data.id)
+    if outfits is None:
+        response.status_code = 404
+    return outfits
+
 
 # usersURL = os.environ.get("REACT_APP_USERS_SERVICE_API_HOST", "localhost:8000")
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{usersURL}/token")
