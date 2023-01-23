@@ -1,69 +1,118 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useToken } from "./auth";
+import { Link } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 
-export default function LoginForm() {
+function BootstrapInput(props) {
+    const { id, placeholder, labelText, value, onChange, type } = props;
+
+    return (
+        <div className="mb-3">
+            <label htmlFor={id} className="form-label">{labelText}</label>
+            <input value={value} onChange={onChange} required type={type} className="form-control" id={id} placeholder={placeholder} />
+        </div>
+    )
+}
+
+export default function LoginForm({
+    showLoginForm,
+    setShowLoginForm,
+    setLoginStatus,
+}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [token, login] = useToken();
+    const [showSpinner, setShowSpinner] = useState('d-none')
+    const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
+    
     const [invalid, setInvalid] = useState(false);
-    let navigate = useNavigate();
+
+    const handleCloseLoginForm = () => setShowLoginForm(false);
+
+    const loading = () => {
+        setShowSubmitButton("d-none btn btn-outline-secondary");
+        setShowSpinner('');
+        setInvalid(false);
+    }
+
+    const loginError = () => {
+        setShowSubmitButton("btn btn-outline-secondary");
+        setShowSpinner('d-none');
+        setInvalid(true);
+    }
+
+    const loginSuccess = () => {
+        setShowSubmitButton("btn btn-outline-secondary");
+        setShowSpinner('d-none');
+        setInvalid(false);
+    }
+
+    const clearForm = () => {
+        setUsername('');
+        setPassword('');
+    }
 
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        loading();
         const error = await login(username, password);
         if (error) {
-          setInvalid(true);
+           loginError();
         } else {
-          navigate("/");
+            setLoginStatus(true);
+            handleCloseLoginForm();
+            loginSuccess();
+            clearForm();
         }
-
-
     };
-    return (
-      <div className="row">
-        <div className="offset-3 col-6">
-          <div className="shadow p-4 mt-4">
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit} id="login-form" method="post">
-              <div className="form-floating mb-3">
-                <input
-                  onChange={(e) => setUsername(e.target.value)}
-                  id="username"
-                  className="form-control"
-                  value={username}
-                  required
-                  type="text"
-                />
-                <label htmlFor="username">Username </label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  className="form-control"
-                  value={password}
-                  required
-                  type="text"
-                />
-                <label htmlFor="password">Password</label>
-              </div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSubmit}
-              >
-                Log in
-              </button>
+     
+    const signupPhrase = `Don't have an account? Sign Up`;
+
+     return (
+        <Modal
+            show={showLoginForm}
+            onHide={handleCloseLoginForm}
+            centered
+        >
+            <Modal.Header
+                closeButton
+                closeLabel="Close"
+            >
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Login
+                </Modal.Title>
+            </Modal.Header>
+            <form className="register-form" onSubmit={handleSubmit}>
+                <Modal.Body>
+                    <BootstrapInput
+                        id="username"
+                        placeholder="foxtrot"
+                        labelText="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        type="username" />
+                    <BootstrapInput
+                        id="password"
+                        placeholder="Case Sensitive"
+                        labelText="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password" />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Alert variant="danger" show={invalid}>
+                        Invalid Username or Password.
+                    </Alert>
+                    <Link to="/new-user" className="float-end" variant="body2">
+                        {signupPhrase}
+                    </Link>
+                    <Spinner className={showSpinner} animation="border" variant="secondary" />
+                    <button type="submit" className={showSubmitButton}>Submit</button>
+                </Modal.Footer>
             </form>
-            {invalid && (
-              <div className="alert alert-danger" id="invalid-message">
-                <p>Incorrect Username or Password</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-    };
+        </Modal>
+ );
+};
