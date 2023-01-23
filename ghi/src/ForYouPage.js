@@ -3,10 +3,19 @@ import { useAuthContext } from "./auth";
 import { Modal, Button } from "react-bootstrap";
 import "./ForYouPage.css";
 
-const ForYou=(props)=>{
-    const[posts, SetPosts]=useState([]);
+const ForYou=()=>{
+    const[posts, setPosts]=useState([]);
+    const[search, setSearch]=useState([]);
     // const[modalShow, setModalShow]=useState();
     const { token } = useAuthContext();
+    const handleSubmit=(event)=>{
+        event.preventDefault();
+        const search={
+            'search':search
+        }
+        console.log(search)
+        const searchURL=
+    }
     useEffect(()=>{
         const fetchData= async () =>{
         const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts/`;
@@ -16,17 +25,35 @@ const ForYou=(props)=>{
         });
         const data = await res.json();
         console.log(data);
-        SetPosts(data);
+        setPosts(data);
       }
     };
     fetchData();
   }, [token]);
+    const handleSearch = async (e) =>{
 
+    }
     return(
         <>
-      <form className="col-12 col-lg-auto mb-3 mb-lg-0 p-3 ">
-        <input type="search" className="form-control" placeholder="Search..." aria-label="Search"/>
-      </form>
+      <div className="input-group mb-3">
+                    <input
+                        onChange={this.handleInputChange}
+                        type="text"
+                        id="vin"
+                        name="vin"
+                        className="form-control"
+                        placeholder="VIN" aria-label="VIN"
+                        aria-describedby="basic-addon2"
+                        value={this.state.vin}
+                    />
+                    <div className="input-group-append">
+                        <button
+                            className="btn btn-outline-secondary"
+                            type="button"
+                            onClick={() => this.handleOnClick(this.state.vin)}
+                        >Search VIN</button>
+                    </div>
+                </div>
         <div className="container d-flex flex-wrap justify-content-center">
             <h1 className="fs-1">For You</h1>
         </div>
