@@ -8,7 +8,9 @@ import LoginForm from "./LoginForm.js";
 import { AuthProvider, useToken } from "./auth.js";
 import UserPost from "./UserPage.js";
 // import Nav from './Nav';
-// import ForYouPage from './ForYouPage'
+import ForYou from "./ForYouPage.js";
+// import MainPage from ./MainPage'
+import TopFits from "./TopFits.js";
 
 function GetToken() {
   useToken();
@@ -50,8 +52,8 @@ export default function App() {
               <Route path="/my-profile" element={<UserPost />} />
               <Route path="/new-user" element={<CreateUserForm />} />
               <Route path="/login" element={<LoginForm />} />
-              {/* <Route path="/ForYou" element={<ForYouPage />} /> */}
-              {/* <Route path="/TopFits" element={<TopFits />} /> */}
+              <Route path="/ForYou" element={<ForYou />} />
+              <Route path="/TopFits" element={<TopFits />} />
             </Routes>
           </div>
         </AuthProvider>

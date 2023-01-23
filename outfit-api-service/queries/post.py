@@ -24,6 +24,9 @@ class PostOutWithoutUser(BaseModel):
     outfit_id: int
     post_description: str
     post_title: str
+    top:str
+    bottom: str
+    shoes: str
 
 class PostOutwithPics(BaseModel):
     id: int
@@ -115,13 +118,10 @@ class PostRepository:
                 with conn.cursor() as db:
                     result=db.execute(
                         """
-                        SELECT id
-                        , user_id
-                        , outfit_id
-                        , post_description
-                        , post_title
+                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes,
+                        posts.user_id, outfit_id, post_description, post_title
                         FROM posts
-                        ORDER BY post_title;
+                        JOIN outfits ON posts.outfit_id = outfits.id
                         """
                     )
                     return [

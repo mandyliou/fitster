@@ -1,0 +1,32 @@
+.bg-dark{
+    background-color: black
+}
+.text-white{
+    color: white
+}
+
+.p-3{
+    padding: 1rem!important;
+    padding-top: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 1rem !important;
+    padding-left: 1rem !important;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+header {
+    display: block;
+}
+
+body {
+    font-family: var(--bs-font-sans-serif);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
