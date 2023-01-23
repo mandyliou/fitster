@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
-import { Modal, Button } from "react-bootstrap";
 import "./ForYouPage.css";
 
-const TopFits=(props)=>{
+const TopFits=()=>{
     const[posts, SetPosts]=useState([]);
     // const[modalShow, setModalShow]=useState();
     const { token } = useAuthContext();

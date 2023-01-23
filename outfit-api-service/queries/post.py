@@ -125,7 +125,7 @@ class PostRepository:
                         """
                     )
                     return [
-                        self.record_to_post_out(record)
+                        self.record_to_post_out_with_pics(record)
                         for record in result
                     ]
         except Exception as e:
