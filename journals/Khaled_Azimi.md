@@ -1,3 +1,16 @@
+## Jan 24th, 2023
+- planning on meeting with instructors for mvp review
+- working on readme documentation
+
+
+
+## Jan 23rd, 2023
+- Assisted on Deployment
+- Worked on helping team member with changes to gitlab files for deployment
+- was able to see user-api service up and deployed
+- receiving an error when trying to log in
+
+
 ## Jan 22nd, 2023
 - I got a unit testing working and created a merge request to main
 - Assisted Vincent with Mandy to set up deployment
