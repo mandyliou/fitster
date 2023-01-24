@@ -1,3 +1,11 @@
+## Jan 23, 2023
+Today I worked on:
+
+- Worked on deployment again with Khaled and Mandy
+- Was able to get our backend builds up and running from our blocker from yesterday
+- We are now stuck on getting our servers up as we are running into a 502 error
+- Created a get all outfit test
+
 ## Jan 20, 2023
 Today I worked on:
 
