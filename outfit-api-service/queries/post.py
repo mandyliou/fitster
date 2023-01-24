@@ -1,16 +1,20 @@
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
+# from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
-from fastapi import HTTPException
+# from fastapi import HTTPException
+
 
 class Error(BaseModel):
     message: str
+
 
 class PostIn(BaseModel):
     # user_id: int
     outfit_id: int
     post_description: str
     post_title: str
+
 
 class PostOut(BaseModel):
     id: int
@@ -19,11 +23,13 @@ class PostOut(BaseModel):
     post_description: str
     post_title: str
 
+
 class PostOutWithoutUser(BaseModel):
     id: int
     outfit_id: int
     post_description: str
     post_title: str
+
 
 class PostOutwithPics(BaseModel):
     id: int
@@ -34,7 +40,6 @@ class PostOutwithPics(BaseModel):
     top: str
     bottom: str
     shoes: str
-
 
 
 class PostRepository:
@@ -58,8 +63,8 @@ class PostRepository:
                             user_id,
                             post.outfit_id,
                             post.post_description,
-                            post.post_title
-                        ]
+                            post.post_title,
+                        ],
                     )
                     id = result.fetchone()[0]
                     old_data = post.dict()
@@ -86,19 +91,27 @@ class PostRepository:
     #         print(e)
     #         return False
 
-    def get_user_posts(self, user_id: int) -> Union[Error, List[PostOutwithPics]]:
+    def get_user_posts(
+        self, user_id: int
+    ) -> Union[Error, List[PostOutwithPics]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes,
-                        posts.user_id, outfit_id, post_description, post_title
+                        SELECT posts.*,
+                        outfits.top,
+                        outfits.bottom,
+                        outfits.shoes,
+                        posts.user_id,
+                        outfit_id,
+                        post_description,
+                        post_title
                         FROM posts
                         JOIN outfits ON posts.outfit_id = outfits.id
                         WHERE posts.user_id = %s
                         """,
-                        [user_id]
+                        [user_id],
                     )
                     return [
                         self.record_to_post_out_with_pics(record)
@@ -108,12 +121,11 @@ class PostRepository:
             print(e)
             return {"message": "Could not get that user"}
 
-
     def get_all(self) -> Union[Error, List[PostOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result=db.execute(
+                    result = db.execute(
                         """
                         SELECT id
                         , user_id
@@ -125,13 +137,14 @@ class PostRepository:
                         """
                     )
                     return [
-                        self.record_to_post_out(record)
-                        for record in result
+                        self.record_to_post_out(record) for record in result
                     ]
-        except Exception as e:
-            return {'alert':'could not get user posts'}
+        except Exception:
+            return {"alert": "could not get user posts"}
 
-    def delete_user_post(self, post_id:int, user_id: int)-> Union[str, Error]:
+    def delete_user_post(
+        self, post_id: int, user_id: int
+    ) -> Union[str, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -145,33 +158,28 @@ class PostRepository:
                     if result == 0:
                         return None
                     return "Post deleted successfully."
-        except Exception as e:
-            print(e)
+        except Exception:
             return {"message": "Could not delete that post"}
 
-    def update_post(self, post_id: int, post:PostIn
-    )-> Union[PostOut, Error]:
+    def update_post(self, post_id: int, post: PostIn) -> Union[PostOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result=db.execute(
+                    db.execute(
                         """
                         UPDATE posts
                         SET post_description=%s
                             , post_title=%s
                         WHERE id=%s
                         """,
-                        [
-                            post.post_description,
-                            post.post_title
-                        ]
+                        [post.post_description, post.post_title],
                     )
                     return self.post_update(post_id, post)
-        except Exception as e:
-            return{'alert':'could not update post'}
+        except Exception:
+            return {"alert": "could not update post"}
 
-    #get one post by post id
-    def get_one_post(self,  id: int)->Optional[PostOutWithoutUser]:
+    # get one post by post id
+    def get_one_post(self, id: int) -> Optional[PostOutWithoutUser]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -187,12 +195,12 @@ class PostRepository:
                         """,
                         [id],
                     )
-                    record=result.fetchone()
+                    record = result.fetchone()
                     if record is None:
                         return None
                     return self.record_to_post_out(record)
-        except Exception as e:
-            return {'alert':'could not get post'}
+        except Exception:
+            return {"alert": "could not get post"}
 
     def record_to_post_out(self, record):
         return PostOut(
@@ -202,8 +210,9 @@ class PostRepository:
             post_description=record[3],
             post_title=record[4],
         )
-    def post_update(self, id:int, post:PostIn):
-        old_data=post.dict()
+
+    def post_update(self, id: int, post: PostIn):
+        old_data = post.dict()
         return PostOut(id=id, **old_data)
 
     def record_to_post_out_with_pics(self, record):
@@ -215,5 +224,5 @@ class PostRepository:
             post_title=record[4],
             top=record[5],
             bottom=record[6],
-            shoes=record[7]
+            shoes=record[7],
         )

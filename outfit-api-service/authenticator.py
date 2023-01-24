@@ -1,19 +1,15 @@
 import os
-from fastapi import Depends
+# from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
 
 
 class MyAuthenticator(Authenticator):
-    async def get_account_data(
-        self
-    ):
+    async def get_account_data(self):
         # Use your repo to get the account based on the
         # username (which could be an email)
         pass
 
-    def get_account_getter(
-        self
-    ):
+    def get_account_getter(self):
         # Return the users. That's it.
         pass
 

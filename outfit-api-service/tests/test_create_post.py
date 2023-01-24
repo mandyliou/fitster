@@ -5,7 +5,6 @@ from typing import Union
 from token_auth import get_current_user
 
 
-
 class AccountData:
     def __init__(self, id: int):
         self.id = id
@@ -24,22 +23,24 @@ def fake_get_current_user():
 
 
 expected_response = {
-    "id": 1, "user_id": 1, "outfit_id": 10,
-    "post_description": "Test Unit Post", "post_title": "Test Unit Title"
+    "id": 1,
+    "user_id": 1,
+    "outfit_id": 10,
+    "post_description": "Test Unit Post",
+    "post_title": "Test Unit Title",
 }
 
 client = TestClient(app)
+
 
 def test_create_post():
     app.dependency_overrides[PostRepository] = FakePostRepository
     app.dependency_overrides[get_current_user] = fake_get_current_user
 
-
     post_data = PostIn(
         outfit_id=10,
         post_description="Test Unit Post",
         post_title="Test Unit Title",
-
     )
 
     response = client.post("/api/posts", json=post_data.dict())

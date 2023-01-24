@@ -1,11 +1,18 @@
-from fastapi import Depends, HTTPException, status, Response, APIRouter, Request
+from fastapi import (
+    Depends,
+    HTTPException,
+    status,
+    Response,
+    APIRouter,
+    Request,
+)
 from typing import List, Optional, Union
 from queries.users import (
     Error,
     UserIn,
     UserOut,
     UserRepository,
-    DuplicateAccountError
+    DuplicateAccountError,
 )
 from authenticator import authenticator
 from jwtdown_fastapi.authentication import Token
@@ -17,11 +24,14 @@ class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: UserOut
 
+
 class HttpError(BaseModel):
     detail: str
+
 
 router = APIRouter()
 
@@ -30,7 +40,7 @@ router = APIRouter()
 def get_one_user(
     user_id: int,
     response: Response,
-    user: dict = Depends (authenticator.try_get_current_account_data),
+    user: dict = Depends(authenticator.try_get_current_account_data),
     repo: UserRepository = Depends(),
 ) -> UserOut:
     user = repo.get_one_by_id(user_id)
@@ -74,10 +84,11 @@ def update_user(
 ) -> Union[Error, UserOut]:
     return repo.update(user_id, user)
 
+
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: dict = Depends(authenticator.try_get_current_account_data)
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
         return {
@@ -86,7 +97,9 @@ async def get_token(
             "account": account,
         }
 
+
 @router.get("/users/current", response_model=UserOut)
 def get_user_by_info(
-    account: UserOut = Depends(authenticator.get_current_account_data)):
+    account: UserOut = Depends(authenticator.get_current_account_data),
+):
     return account

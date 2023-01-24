@@ -1,3 +1,11 @@
+## Jan 22, 2023
+Today I worked on:
+
+- Started the process of deployment in caprover with Mandy and Khaled
+- Got CI/CD Gitlab setup running
+- Created users and outfits app in Caprover to run test jobs
+- Was able to build front-end but having issues building our backend for deployment
+
 ## Jan 10, 2023
 Today I worked on:
 
