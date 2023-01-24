@@ -26,7 +26,7 @@ export default function LoginForm({
     const [token, login] = useToken();
     const [showSpinner, setShowSpinner] = useState('d-none')
     const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
-    
+
     const [invalid, setInvalid] = useState(false);
     if(token !== null) {
       console.log("You are already signed in")
@@ -70,7 +70,7 @@ export default function LoginForm({
             clearForm();
         }
     };
-     
+
     const signupPhrase = `Don't have an account? Sign Up`;
 
      return (
