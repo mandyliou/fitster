@@ -46,7 +46,7 @@ def get_posts_user(
         response.status_code = 404
     return post
 
-@router.get('/posts/', response_model=List[PostOutwithPics])
+@router.get('/posts/', response_model=List[PostOut])
 def get_all_posts(
     repo: PostRepository=Depends()
 ):

@@ -65,19 +65,16 @@ def get_all(
 ):
     return repo.get_all()
 
-# @router.get("/users/{username}", response_model=Optional[UserOut])
-# def get_user_by_username(
-#     username: str,
-#     q: str | None=None,
-#     response=Response,
-#     repo: UserRepository = Depends(),
-# ) -> UserOut:
-#     user = repo.get_one(username)
-#     if user is None:
-#         response.status_code = 404
-#         if q:
-#             return {"username":username, "q":q}
-#     return user
+@router.get("/users/{username}", response_model=Union[List[UserOut], Error])
+def get_user_by_user(
+    username: str,
+    response=Response,
+    repo: UserRepository = Depends(),
+) -> UserOut:
+    user = repo.get_one(username)
+    if user is None:
+        response.status_code = 404
+    return user
 
 @router.put("/users/{user_id}", response_model=Union[UserOut, Error])
 def update_user(
