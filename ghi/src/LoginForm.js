@@ -28,7 +28,9 @@ export default function LoginForm({
     const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
     
     const [invalid, setInvalid] = useState(false);
-
+    if(token !== null) {
+      console.log("You are already signed in")
+    }
     const handleCloseLoginForm = () => setShowLoginForm(false);
 
     const loading = () => {

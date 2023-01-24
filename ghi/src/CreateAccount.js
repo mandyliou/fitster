@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-import { useToken } from "./auth";
-import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-import Alert from 'react-bootstrap/Alert';
-import Spinner from 'react-bootstrap/Spinner';
+// import Alert from 'react-bootstrap/Alert';
+// import Spinner from 'react-bootstrap/Spinner';
 
 function BootstrapInput(props) {
     const { id, placeholder, labelText, value, onChange, type } = props;
@@ -19,7 +17,6 @@ function BootstrapInput(props) {
 export default function CreateUserForm({
     showSignupForm,
     setShowSignupForm,
-    setLoginStatus,
 }) {
   const [username, setUsername] = useState("");
   const [first_name, setFirstName] = useState("");
@@ -28,39 +25,39 @@ export default function CreateUserForm({
   const [password, setPassword] = useState("");
   const [profile_photo, setProfilePhoto] = useState("");
   const [description, setDescription] = useState("");
-  const [showError, setShowError] = useState(false)
-  const [showSpinner, setShowSpinner] = useState('d-none')
-  const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
+  // const [showError, setShowError] = useState(false)
+  // const [showSpinner, setShowSpinner] = useState('d-none')
+  // const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
 
   const handleCloseSignupForm = () => setShowSignupForm(false);
 
-      const loading = () => {
-        setShowSubmitButton("d-none btn btn-outline-secondary");
-        setShowSpinner('');
-        setShowError(false);
-    }
+    //   const loading = () => {
+    //     setShowSubmitButton("d-none btn btn-outline-secondary");
+    //     setShowSpinner('');
+    //     setShowError(false);
+    // }
 
-    const loginError = () => {
-        setShowSubmitButton("btn btn-outline-secondary");
-        setShowSpinner('d-none');
-        setShowError(true);
-    }
+    // const loginError = () => {
+    //     setShowSubmitButton("btn btn-outline-secondary");
+    //     setShowSpinner('d-none');
+    //     setShowError(true);
+    // }
 
-    const loginSuccess = () => {
-        setShowSubmitButton("btn btn-outline-secondary");
-        setShowSpinner('d-none');
-        setShowError(false);
-    }
+    // const loginSuccess = () => {
+    //     setShowSubmitButton("btn btn-outline-secondary");
+    //     setShowSpinner('d-none');
+    //     setShowError(false);
+    // }
 
-    const clearForm = () => {
-        setUsername('');
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setProfilePhoto('');
-        setDescription('');
-    }
+    // const clearForm = () => {
+    //     setUsername('');
+    //     setFirstName('');
+    //     setLastName('');
+    //     setEmail('');
+    //     setPassword('');
+    //     setProfilePhoto('');
+    //     setDescription('');
+    // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -203,11 +200,11 @@ export default function CreateUserForm({
                         type="description" />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Alert variant="danger" show={showError}>
+                    {/* <Alert variant="danger" show={showError}>
                         Please enter valid user credentials.
                     </Alert>
-                    <Spinner className={showSpinner} animation="border" variant="secondary" />
-                    <button type="submit" className={showSubmitButton}>Submit</button>
+                    <Spinner className={showSpinner} animation="border" variant="secondary" /> */}
+                    <button type="submit">Submit</button>
                 </Modal.Footer>
             </form>
         </Modal>
