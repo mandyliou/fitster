@@ -1,3 +1,55 @@
+## Jan 20, 2023
+Today I worked on:
+
+- Resolved a 401 authentication issue on my create outfit form
+- Tested the create outfit form, and merged to main
+- Remade a new branch for our star rating feature
+- Created a new stars.js and routers/queries for our star ratings page
+- Tried to link tables ratings with post, however, was causing issues on our posts page
+
+## Jan 19, 2023
+Today I worked on:
+
+- Continued working on the FE 5 star rating
+- Was able to join the tables from posts to rating but unsure how to reference the rating value to update on the frontend star system
+- Implemented rating.js onto the userpage
+- Git pulled and resolved merge conflicts but now ratings is no longer working. May need to remake branch and continue again
+- Created a front end create outfit form
+- Having authentication issuess on creating the outfit post
+
+## Jan 18, 2023
+Today I worked on:
+
+- Continued to work on our star rating system
+- Tried to join the tables and ratings but unsure how to do so. Will try to figure it out from our lectures
+
+## Jan 17, 2023
+Today I worked on:
+
+- Implementing the FE 5 star rating system
+- Not sure how to reference a users post and its user_id to save the ratings yet
+- Researching on methods to average users ratings on an outfit post
+
+## Jan 13, 2023
+Today I worked on:
+
+- Worked on the FE logout story
+- Was not able to figure out how to connect the FE to BE yet
+
+## Jan 12, 2023
+Today I worked on:
+
+- Resolved the authentication error and got login/logout backend to work
+- Started to work on our tables for our outfit service
+- Unsure how to get our postgres and authentication to grab a user from another microservice
+- Created data for our clothing items
+
+## Jan 11, 2023
+Today I worked on:
+
+- Continued to work on authenticators and jwtdown
+- Was able to get login and logout to show in browser but running into dict object no attribute 'hashed_password' error
+
 ## Jan 22, 2023
 Today I worked on:
 

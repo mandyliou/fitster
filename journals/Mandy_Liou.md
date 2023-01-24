@@ -1,3 +1,25 @@
+## Jan 23, 2023
+- started deployment with Vincent and Khaled
+    - encountered errors with formatting, signing_keys
+    - finished setting up Gitlab CI/CD running
+- created and successfully ran unit test working for duplicate accounts
+- got front-end up, encountering errors with backend
+
+## Jan 20, 2023
+- tried to debug stars branch since it broke after pulling from main
+- paired programed with vincent for our star feature
+- still encountering some merge conflicts
+- still working on stars feature
+
+## Jan 19, 2023
+- set up part of star ratings FE
+- still working on stars feature
+- encountered merge conflicts after pulling from main
+
+## Jan 18, 2023
+- changed auth from jwt to jose
+- modified my token_auth and outfit routers to match
+
 ## Jan 17, 2023
 - Fixed auth problem with account setup
     - changed ROUTER_APP to correct name

@@ -230,7 +230,6 @@ class UserRepository:
                     id = result.fetchone()[0]
                     # Return new data
                     # old_data = user.dict()
-                    # return UserOut(id=id, **old_data)
                     return self.user_in_to_out(id, user, hashed_password)
         except Exception:
             return {"message": "Create did not work"}
