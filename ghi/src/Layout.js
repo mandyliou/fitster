@@ -9,6 +9,8 @@ export default function Layout({
     setLoginStatus,
     showLoginForm,
     setShowLoginForm,
+    setShowSignupForm,
+    showSignupForm,
     userName,
     setUserName,
     userID,
@@ -23,6 +25,7 @@ export default function Layout({
                         setLoginStatus={setLoginStatus}
                         userName={userName}
                         setShowLoginForm={setShowLoginForm}
+                        setShowSignupForm={setShowSignupForm}
                     />
                 </div>
                 <div>
@@ -39,6 +42,8 @@ export default function Layout({
                 </div>
                 <div>
                     <CreateUserForm
+                        setShowSignupForm={setShowSignupForm}
+                        showSignupForm={showSignupForm}
                         setLoginStatus={setLoginStatus}
                         setUserID={setUserID}
                         setUserName={setUserName}

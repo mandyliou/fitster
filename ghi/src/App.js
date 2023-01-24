@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "./auth.js";
 import { useLocalStorage } from 'usehooks-ts'
 import "./App.css";
-import CreateUserForm from "./CreateAccount";
 import UserPost from "./UserPage.js";
 import CreateOutfitForm from "./CreateOutfit.js";
 import CreatePostForm from "./PostForm.js";
@@ -18,6 +17,7 @@ export default function App() {
    const [userID, setUserID] = useLocalStorage("userID", null)
    const [userName, setUserName] = useLocalStorage("userName", '')
    const [showLoginForm, setShowLoginForm] = useState(false)
+   const [showSignupForm, setShowSignupForm] = useState(false)
    const { token } = useAuthContext();
 
     useEffect(() => {
@@ -36,14 +36,14 @@ export default function App() {
             setLoginStatus={setLoginStatus}
             showLoginForm={showLoginForm}
             setShowLoginForm={setShowLoginForm}
+            showSignupForm={showSignupForm}
+            setShowSignupForm={setShowSignupForm}
             userName={userName}
             setUserName={setUserName}
             userID={userID}
             setUserID={setUserID}
         />} ></Route>
         <Route path="/my-profile" element={<UserPost />} />
-        <Route path="/new-user" element={<CreateUserForm />} />
-        <Route path="/my-posts" element={<UserPost />} />
         <Route path="/new-outfit" element={<CreateOutfitForm />} />
         <Route path="/new-post" element={<CreatePostForm />} />
         {/* <Route path="/ForYou" element={<ForYouPage />} /> */}
