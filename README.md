@@ -96,7 +96,7 @@ deployment, but it just consists of these steps:
 * make sure this project is in a group. If it isn't, stop
   now and move it to a GitLab group
 * remove the fork relationship: In GitLab go to:
-  
+
   Settings -> General -> Advanced -> Remove fork relationship
 
 * add these GitLab CI/CD variables:
@@ -145,3 +145,56 @@ in GitLab.
 Merge a change into main to kick off the initial deploy. Once the build pipeline
 finishes you should be able to see an "under construction" page on your GitLab
 pages site.
+
+
+
+
+
+# Fitster
+
+- Khaled Azimi
+- Gabriel Cruz
+- Mandy Liou
+- Vincent Lee
+- Craig Celestin
+
+
+## Design
+
+- API Design
+- Data Model
+- GHI
+- Integration
+
+
+## Intended Market
+
+We are targeting fashion forward and fashion expressive consumers in the
+
+
+## Functionality
+
+- Visitors to the site can create an account
+- Once an account is created users can create an outfit
+- Once an outfit is created, users can create a post with the outfits
+- Posts that are created can then be viewed on their profile page
+- Posts from all users can also be viewed on the Top Fits page
+
+
+## Future Functionality
+
+- Rating other users outfits
+- Displaying top rated outfits
+- Searching for users
+- Filtering outfit categories
+
+
+## Project Initiliation
+To fully get this application running on your local machine, please follow the steps below:
+1. Clone the repository on to your local machine
+2. CD into the new project directory
+3. Run docker volume create pg-admin
+4. Run docker volume create postgres-data
+5. Run docker compose build
+6. Run docker compose up
+7. Enjoy Fitster
