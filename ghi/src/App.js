@@ -4,13 +4,14 @@ import { useAuthContext } from "./auth.js";
 import { useLocalStorage } from 'usehooks-ts'
 import "./App.css";
 import UserPost from "./UserPage.js";
-import ForYou from "./ForYouPage.js";
+import ForYouPage from "./ForYouPage.js";
 // import MainPage from ./MainPage'
 import TopFits from "./TopFits.js";
 import CreateOutfitForm from "./CreateOutfit.js";
 import CreatePostForm from "./PostForm.js";
 import Layout from './Layout.js';
-// import ForYouPage from './ForYouPage'
+import LoginForm from "./LoginForm.js";
+import CreateUserForm from "./CreateAccount.js";
 
 
 
@@ -49,7 +50,7 @@ export default function App() {
               <Route path="/my-profile" element={<UserPost />} />
               <Route path="/new-user" element={<CreateUserForm />} />
               <Route path="/login" element={<LoginForm />} />
-              <Route path="/ForYou" element={<ForYou />} />
+              <Route path="/ForYou" element={<ForYouPage />} />
               <Route path="/TopFits" element={<TopFits />} />
               <Route path="/my-posts" element={<UserPost />} />
               <Route path="/new-outfit" element={<CreateOutfitForm />} />

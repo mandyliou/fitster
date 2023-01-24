@@ -124,7 +124,7 @@ class PostRepository:
             print(e)
             return {"message": "Could not get that user"}
 
-    def get_all(self) -> Union[Error, List[PostOut]]:
+    def get_all(self) -> Union[Error, List[PostOutwithPics]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -137,7 +137,8 @@ class PostRepository:
                         """
                     )
                     return [
-                        self.record_to_post_out(record) for record in result
+                        self.record_to_post_out_with_pics(record)
+                        for record in result
                     ]
         except Exception:
             return {"alert": "could not get user posts"}

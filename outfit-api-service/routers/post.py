@@ -60,8 +60,10 @@ def get_posts_user(
     return post
 
 
-@router.get("/posts/", response_model=Union[List[PostOut], Error])
-def get_all_posts(repo: PostRepository = Depends()):
+@router.get("/posts/", response_model=Union[List[PostOutwithPics], Error])
+def get_all_posts(
+    repo: PostRepository = Depends()
+    ):
     return repo.get_all()
 
 

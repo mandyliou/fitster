@@ -62,59 +62,59 @@ const ForYou=()=>{
   }, [token]);
     return(
         <>
-<form className="col-12 col-lg-auto mb-3 mb-lg-0 p-3 ">
-        <input type="search"
-         className="form-control"
-          placeholder="Search..."
-          onInput={handleChange}
-          value={searchInput} />
-      </form>
-        <div className="container d-flex flex-wrap justify-content-center">
-            <h1 className="fs-1">Top Fits</h1>
-        </div>
-        <div className="row">
-        {posts.map((post)=>(
-            <div key={post.id} className='p-3 col-sm-4 mb-3'>
-            <div className="card">
-                <div className='card-header'>
-                    <h5 className='card-title'>{post.post_title}</h5>
-                    <p>{userName}</p>
-                    <div>
-                      <img
-                      src={profilePhoto}
-                      alt={post.post_title}
-                      ></img>
-                      </div>
-                    <p>{profileDescription}</p>
-                </div>
-                <div className="card-body d-flex">
-                    <div className="col-4">
-                    <img
-                        src={post.top}
-                        alt={post.post_title}
-                        className="card-img-top img-fluid"
-                    />
+    <form className="col-12 col-lg-auto mb-3 mb-lg-0 p-3 ">
+            <input type="search"
+            className="form-control"
+              placeholder="Search..."
+              onInput={handleChange}
+              value={searchInput} />
+          </form>
+            <div className="container d-flex flex-wrap justify-content-center">
+                <h1 className="fs-1">For You</h1>
+            </div>
+            <div className="row">
+            {posts.map((post)=>(
+                <div key={post.id} className='p-3 col-sm-4 mb-3'>
+                <div className="card">
+                    <div className='card-header'>
+                        <h5 className='card-title'>{post.post_title}</h5>
+                        <p>{userName}</p>
+                        <div>
+                          <img
+                          src={profilePhoto}
+                          alt={post.post_title}
+                          ></img>
+                          </div>
+                        <p>{profileDescription}</p>
                     </div>
-                    <div className="col-4">
-                    <img
-                        src={post.bottom}
-                        alt={post.post_title}
-                        className="card-img-top img-fluid"
-                    />
+                    <div className="card-body d-flex">
+                        <div className="col-4">
+                        <img
+                            src={post.top}
+                            alt={post.post_title}
+                            className="card-img-top img-fluid"
+                        />
+                        </div>
+                        <div className="col-4">
+                        <img
+                            src={post.bottom}
+                            alt={post.post_title}
+                            className="card-img-top img-fluid"
+                        />
+                        </div>
+                        <div className="col-4">
+                        <img
+                            src={post.shoes}
+                            alt={post.post_title}
+                            className="card-img-top img-fluid"
+                        />
+                        </div>
                     </div>
-                    <div className="col-4">
-                    <img
-                        src={post.shoes}
-                        alt={post.post_title}
-                        className="card-img-top img-fluid"
-                    />
+                    <div className="card-footer">
+                    <p className="card-text">{post.post_description}</p>
                     </div>
-                </div>
-                 <div className="card-footer">
-                <p className="card-text">{post.post_description}</p>
                 </div>
             </div>
-         </div>
         ))}
         </div>
     </>
