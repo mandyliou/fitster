@@ -1,6 +1,23 @@
 import React, {useState} from 'react'
+import Modal from 'react-bootstrap/Modal';
+// import Alert from 'react-bootstrap/Alert';
+// import Spinner from 'react-bootstrap/Spinner';
 
-const CreateUserForm = () => {
+function BootstrapInput(props) {
+    const { id, placeholder, labelText, value, onChange, type } = props;
+
+    return (
+        <div className="mb-3">
+            <label htmlFor={id} className="form-label">{labelText}</label>
+            <input value={value} onChange={onChange} required type={type} className="form-control" id={id} placeholder={placeholder} />
+        </div>
+    )
+}
+
+export default function CreateUserForm({
+    showSignupForm,
+    setShowSignupForm,
+}) {
   const [username, setUsername] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
@@ -8,6 +25,39 @@ const CreateUserForm = () => {
   const [password, setPassword] = useState("");
   const [profile_photo, setProfilePhoto] = useState("");
   const [description, setDescription] = useState("");
+  // const [showError, setShowError] = useState(false)
+  // const [showSpinner, setShowSpinner] = useState('d-none')
+  // const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
+
+  const handleCloseSignupForm = () => setShowSignupForm(false);
+
+    //   const loading = () => {
+    //     setShowSubmitButton("d-none btn btn-outline-secondary");
+    //     setShowSpinner('');
+    //     setShowError(false);
+    // }
+
+    // const loginError = () => {
+    //     setShowSubmitButton("btn btn-outline-secondary");
+    //     setShowSpinner('d-none');
+    //     setShowError(true);
+    // }
+
+    // const loginSuccess = () => {
+    //     setShowSubmitButton("btn btn-outline-secondary");
+    //     setShowSpinner('d-none');
+    //     setShowError(false);
+    // }
+
+    // const clearForm = () => {
+    //     setUsername('');
+    //     setFirstName('');
+    //     setLastName('');
+    //     setEmail('');
+    //     setPassword('');
+    //     setProfilePhoto('');
+    //     setDescription('');
+    // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -83,101 +133,80 @@ const CreateUserForm = () => {
     setDescription(value);
   };
 
-
-  return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1>Create an Account!</h1>
-          <form onSubmit={handleSubmit} id="create-account-form">
-            <div className="form-floating mb-3">
-              <input
-                value={username}
-                onChange={handleUsernameChange}
-                required
-                type="text"
-                name="username"
-                id="username"
-                className="form-control"
-              />
-              <label>Username</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={first_name}
-                onChange={handFirstNameChange}
-                required
-                type="text"
-                name="first_name"
-                id="first_name"
-                className="form-control"
-              />
-              <label>First Name</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={last_name}
-                onChange={handleLastNameChange}
-                required
-                type="text"
-                name="last_name"
-                id="last_name"
-                className="form-control"
-              />
-              <label>Last Name</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={email}
-                onChange={handleEmailChange}
-                required
-                type="text"
-                name="email"
-                id="email"
-                className="form-control"
-              />
-              <label>E-mail</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={password}
-                onChange={handlePasswordChange}
-                required
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-              />
-              <label>Password</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={profile_photo}
-                onChange={handleProfilePhotoChange}
-                type="url"
-                name="profile_photo"
-                id="profile_photo"
-                className="form-control"
-              />
-              <label>Profile Photo</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={description}
-                onChange={handleDescriptionChange}
-                type="text"
-                name="description"
-                id="description"
-                className="form-control"
-              />
-              <label>Description</label>
-            </div>
-            <button className="btn btn-primary">Create</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default CreateUserForm;
+    return (
+        <Modal
+            show={showSignupForm}
+            onHide={handleCloseSignupForm}
+            centered
+        >
+            <Modal.Header
+                closeButton
+                closeLabel="Close"
+            >
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Sign Up!
+                </Modal.Title>
+            </Modal.Header>
+            <form className="register-form" onSubmit={handleSubmit}>
+                <Modal.Body>
+                   <BootstrapInput
+                        id="username"
+                        placeholder="username"
+                        labelText="Username"
+                        value={username}
+                        onChange={handleUsernameChange}
+                        type="username" />
+                    <BootstrapInput
+                        id="first_name"
+                        placeholder="Edgar"
+                        labelText="First Name"
+                        value={first_name}
+                        onChange={handFirstNameChange}
+                        type="name" />
+                    <BootstrapInput
+                        id="lastname"
+                        placeholder="Jones"
+                        labelText="Last Name"
+                        value={last_name}
+                        onChange={handleLastNameChange}
+                        type="name" />
+                    <BootstrapInput
+                        id="email"
+                        placeholder="name@example.com"
+                        labelText="Email Address"
+                        value={email}
+                        onChange={handleEmailChange}
+                        type="email" />
+                    <BootstrapInput
+                        id="password"
+                        placeholder="Case Sensitive"
+                        labelText="Password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        type="password" />
+                     <BootstrapInput
+                        id="profile_photo"
+                        placeholder="Url"
+                        labelText="Profile Photo"
+                        value={profile_photo}
+                        onChange={handleProfilePhotoChange}
+                        type="profile_photo" />
+                       <BootstrapInput
+                        id="description"
+                        placeholder="Biography"
+                        labelText="Description"
+                        value={description}
+                        onChange={handleDescriptionChange}
+                        type="description" />
+                </Modal.Body>
+                <Modal.Footer>
+                    {/* <Alert variant="danger" show={showError}>
+                        Please enter valid user credentials.
+                    </Alert>
+                    <Spinner className={showSpinner} animation="border" variant="secondary" /> */}
+                    <button type="submit">Submit</button>
+                </Modal.Footer>
+            </form>
+        </Modal>
+    );
+}

@@ -1,10 +1,15 @@
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
+
+# from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
-from fastapi import HTTPException
+
+# from fastapi import HTTPException
+
 
 class Error(BaseModel):
     message: str
+
 
 class UserIn(BaseModel):
     username: str
@@ -15,6 +20,7 @@ class UserIn(BaseModel):
     profile_photo: str
     description: str
 
+
 class UserOut(BaseModel):
     id: int
     username: str
@@ -24,11 +30,14 @@ class UserOut(BaseModel):
     profile_photo: str
     description: str
 
+
 class UserOutWithPassword(UserOut):
     hashed_password: str
 
+
 class DuplicateAccountError(ValueError):
     pass
+
 
 class UserRepository:
 
@@ -50,7 +59,7 @@ class UserRepository:
                         FROM users
                         WHERE id = %s
                         """,
-                        [user_id]
+                        [user_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -77,7 +86,7 @@ class UserRepository:
                         FROM users
                         WHERE username = %s
                         """,
-                        [username]
+                        [username],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -114,7 +123,6 @@ class UserRepository:
     #         print(e)
     #         return {"message": "Could not get that user"}
 
-
     def get_all(self) -> Union[Error, List[UserOut]]:
         try:
             with pool.connection() as conn:
@@ -149,8 +157,7 @@ class UserRepository:
                     # return result
 
                     return [
-                        self.record_to_user_out(record)
-                        for record in result
+                        self.record_to_user_out(record) for record in result
                     ]
         except Exception as e:
             print(e)
@@ -180,8 +187,8 @@ class UserRepository:
                             user.password,
                             user.profile_photo,
                             user.description,
-                            user_id
-                        ]
+                            user_id,
+                        ],
                     )
                     old_data = user.dict()
                     return UserOut(id=user_id, **old_data)
@@ -190,9 +197,9 @@ class UserRepository:
             print(e)
             return {"message": "Could not update that user"}
 
-
-
-    def create(self, user: UserIn, hashed_password: str) -> UserOutWithPassword:
+    def create(
+        self, user: UserIn, hashed_password: str
+    ) -> UserOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -218,7 +225,7 @@ class UserRepository:
                             hashed_password,
                             user.profile_photo,
                             user.description,
-                        ]
+                        ],
                     )
                     id = result.fetchone()[0]
                     # Return new data
@@ -230,8 +237,9 @@ class UserRepository:
 
     def user_in_to_out(self, id: int, user: UserIn, hashed_password: str):
         old_data = user.dict()
-        return UserOutWithPassword(id=id, hashed_password=hashed_password, **old_data)
-
+        return UserOutWithPassword(
+            id=id, hashed_password=hashed_password, **old_data
+        )
 
     def record_to_user_out(self, record):
         return UserOutWithPassword(

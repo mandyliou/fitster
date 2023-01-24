@@ -1,74 +1,136 @@
+import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
+import { useToken, useAuthContext } from "./auth.js";
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Dropdown from 'react-bootstrap/Dropdown';
 
-function Nav() {
-  return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
-      <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">FISTER</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li>
-              <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
-            </li>
-            <div className="dropdown">
-							<button
-								className="btn-sm dropdown-toggle text-black"
-								type="button"
-								id="dropdownMenuButton1"
-								data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Logged In User
-							</button>
-                    <ul
-                    className="dropdown-menu"
-                    labelledby="dropdownMenuButton4">
-                    <li className="nav-item">
-                        <NavLink to="/my-profile">
-                            <button className="dropdown-item-sm">My Profile </button>
-                            </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/posts/new">
-                            <button className="dropdown-item-sm">Create Post</button>
-                            </NavLink>
-                    </li>
-                </ul>
-              </div>
-                          <div className="dropdown">
-							<button
-								className="btn-sm dropdown-toggle text-black"
-								type="button"
-								id="dropdownMenuButton1"
-								data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Not Logged In User
-							</button>
-                    <ul
-                    className="dropdown-menu"
-                    labelledby="dropdownMenuButton4">
-                    <li className="nav-item">
-                        <NavLink to="/new-user">
-                            <button
-                            className="dropdown-item-sm" >
-                                New User
-                            </button>
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/login">
-                            <button className="dropdown-item-sm" >Login </button>
-                            </NavLink>
-                    </li>
-                </ul>
-              </div>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  )
-}
+function showProfileButton(status) {
+    if (status === true) {
+        return ""
+    } else {
+        return "d-none"
+    };
+};
 
-export default Nav;
+function showForYouButton(status) {
+    if (status === true) {
+        return ""
+    } else {
+        return "d-none"
+    };
+};
+
+function showPostButton(status) {
+    if (status === true) {
+        return ""
+    } else {
+        return "d-none"
+    };
+};
+
+
+function showOutfitButton(status) {
+    if (status === true) {
+        return ""
+    } else {
+        return "d-none"
+    };
+};
+
+function showUserName(status) {
+    if (status === true) {
+        return ""
+    } else {
+        return "d-none"
+    };
+};
+
+function showLoginButton(status) {
+    if (status === true) {
+        return "d-none"
+    } else {
+        return ""
+    };
+};
+
+function showLogoutButton(status) {
+    if (status === true) {
+        return ""
+    } else {
+        return "d-none"
+    };
+};
+
+function showSignupButton(status) {
+    if (status === true) {
+        return "d-none"
+    } else {
+        return ""
+    };
+};
+
+export default function Navigation({
+    loginStatus,
+    setLoginStatus,
+    setShowLoginForm,
+    setShowSignupForm
+}) {
+    const [, logout] = useToken();
+    const handleShowLoginForm = () => setShowLoginForm(true);
+    const handleShowSignupForm = () => setShowSignupForm(true);
+    const handleLogout = async e => {
+        e.preventDefault();
+        setLoginStatus(false);
+        await logout();
+    }
+    const { token } = useAuthContext();
+    const [userName, setUserName] = useState("");
+
+
+useEffect(() => {
+  if (token !== null) {
+    const tokenParts = token.split(".");
+    const userData = JSON.parse(atob(tokenParts[1]));
+    setUserName(userData.account.username);
+  }
+}, [token]);
+
+    return (
+        <Navbar
+            className="navbar-visual"
+            sticky="top"
+        >
+            <Navbar.Collapse>
+                <Navbar.Brand
+                    as={NavLink}
+                    to="/"
+                >
+                    <img
+                        alt="Fitster"
+                        src={`${process.env.PUBLIC_URL}/navlogo.svg`}
+                        height="50"
+                        className="d-inline-block align-top"
+                    />
+                </Navbar.Brand>
+            </Navbar.Collapse>
+            <Navbar.Collapse className="justify-content-end">
+                <Nav>
+                  <Nav.Link className={showOutfitButton(loginStatus)} as={NavLink} to="/new-outfit">Create Outfit</Nav.Link>
+                  <Nav.Link className={showPostButton(loginStatus)} as={NavLink} to="/new-post">Create Post</Nav.Link>
+                  <Nav.Link className={showForYouButton(loginStatus)} as={NavLink} to="/new-post">For You</Nav.Link>
+                  <Nav.Link className={showLoginButton(loginStatus)} onClick={handleShowLoginForm}>Login</Nav.Link>
+                  <Nav.Link className={showSignupButton(loginStatus)} onClick={handleShowSignupForm}>Signup</Nav.Link>
+                  <Dropdown>
+                  <Dropdown.Toggle className={showUserName(loginStatus)} > {userName}</Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item className={showProfileButton(loginStatus)} as={NavLink} to="/my-profile">Profile</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item className={showLogoutButton(loginStatus)} onClick={handleLogout}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                  </Dropdown>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar >
+    )
+};

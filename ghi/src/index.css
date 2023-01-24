@@ -33,3 +33,7 @@ code {
   font-weight: bold;
   margin-bottom: 30px,
 }
+
+.navbar-visual {
+  background-color: #2a837f00;
+}

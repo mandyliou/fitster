@@ -3,7 +3,8 @@
 # from fastapi.security import OAuth2PasswordBearer
 # from jose import jwt, JWTError
 
-# usersURL = os.environ.get("REACT_APP_USERS_SERVICE_API_HOST", "localhost:8000")
+# usersURL = os.environ.get("REACT_APP_USERS_SERVICE_API_HOST",
+# "localhost:8000")
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{usersURL}/token")
 # SECRET_KEY = os.environ.get("SIGNING_KEY", "blah")
 
@@ -51,6 +52,7 @@ class UserOut(BaseModel):
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 SECRET_KEY = os.environ.get("SIGNING_KEY", "blah")
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(

@@ -1,71 +1,88 @@
 # from token_auth import get_current_user
 from typing import List, Optional, Union
-from fastapi import Depends, HTTPException, status, Response, APIRouter, Request
+from fastapi import (
+    Depends,
+    # HTTPException,
+    # status,
+    Response,
+    APIRouter,
+    # Request,
+)
 from queries.outfit import (
     Error,
     OutfitIn,
     OutfitOut,
     OutfitRepository,
-    OutfitOutWithoutUserId
+    OutfitOutWithoutUserId,
 )
-import os
-from fastapi import Depends, HTTPException, status
+# import os
+# from fastapi import Depends
+# from fastapi import Depends, HTTPException, status
+
 # from fastapi.security import OAuth2PasswordBearer
 # from jose import jwt, JWTError
 # from authenticator import authenticator
 from token_auth import get_current_user
+
 router = APIRouter()
+
 
 @router.post("/api/user/outfit", response_model=Union[OutfitOut, Error])
 def create_outfit(
     outfit: OutfitIn,
     account_data: dict = Depends(get_current_user),
     repo: OutfitRepository = Depends(),
-
 ):
     return repo.create(outfit, account_data.id)
 
-@router.get('/outfit', response_model=Union[List[OutfitOut], Error])
+
+@router.get("/outfit", response_model=Union[List[OutfitOut], Error])
 def get_outfits(
     repo: OutfitRepository = Depends(),
 ):
     return repo.get_all()
 
-@router.get('/outfit/{outfit_id}', response_model=Optional[OutfitOut])
+
+@router.get("/outfit/{outfit_id}", response_model=Optional[OutfitOut])
 def get_one_outfit(
     outfit_id: int,
     response: Response,
     repo: OutfitRepository = Depends(),
 ) -> OutfitOut:
-    outfit=repo.get_one_outfit(outfit_id)
+    outfit = repo.get_one_outfit(outfit_id)
     if outfit is None:
-        response.status_code=400
+        response.status_code = 400
     return outfit
 
-@router.delete('/outfit/{outfit_id}', response_model=bool)
+
+@router.delete("/outfit/{outfit_id}", response_model=bool)
 def delete_outfit(
-    outfit_id:int,
-    repo: OutfitRepository=Depends(),
+    outfit_id: int,
+    repo: OutfitRepository = Depends(),
 ) -> bool:
     return repo.delete_outfit(outfit_id)
 
-@router.put('/outfit/{outfit_id}', response_model=Union[OutfitOutWithoutUserId, Error])
+
+@router.put(
+    "/outfit/{outfit_id}", response_model=Union[OutfitOutWithoutUserId, Error]
+)
 def update_outfit(
-    outfit_id:int,
-    outfit:OutfitIn,
-    repo:OutfitRepository=Depends(),
-)-> Union[Error, OutfitOutWithoutUserId]:
+    outfit_id: int,
+    outfit: OutfitIn,
+    repo: OutfitRepository = Depends(),
+) -> Union[Error, OutfitOutWithoutUserId]:
     return repo.update_outfit(outfit_id, outfit)
 
-@router.get('/outfit/{user_id}', response_model=Optional[OutfitOut])
+
+@router.get("/outfit/{user_id}", response_model=Optional[OutfitOut])
 def get_user_outfits(
-    user_id:int,
-    response:Response,
-    repo: OutfitRepository=Depends(),
-)-> OutfitOut:
-    outfit=repo.get_user_outfits(user_id)
+    user_id: int,
+    response: Response,
+    repo: OutfitRepository = Depends(),
+) -> OutfitOut:
+    outfit = repo.get_user_outfits(user_id)
     if outfit is None:
-        response.status_code=404
+        response.status_code = 404
     return outfit
 
 
@@ -81,7 +98,8 @@ def get_outfits_user(
     return outfits
 
 
-# usersURL = os.environ.get("REACT_APP_USERS_SERVICE_API_HOST", "localhost:8000")
+# usersURL = os.environ.get("REACT_APP_USERS_SERVICE_API_HOST",
+# "localhost:8000")
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{usersURL}/token")
 # SECRET_KEY = os.environ.get("SIGNING_KEY", "blah")
 
@@ -119,7 +137,6 @@ def get_outfits_user(
 #     user: dict = Depends(authenticator.get_current_account_data),
 # ):
 #     return repo.create(outfit, user["id"])
-
 
 
 # @router.get("/outfit", response_model=OutfitOut)

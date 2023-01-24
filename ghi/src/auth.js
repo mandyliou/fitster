@@ -64,12 +64,14 @@ export function useToken() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
+    
     async function fetchToken() {
       const token = await getTokenInternal();
       console.log("From fetch token " + token);
       setToken(token);
     }
-    if (!token) {
+    if (!token && loginStatus) {
       fetchToken();
     }
   }, [setToken, token]);
