@@ -1,15 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
-import "./ForYouPage.css";
+import "./TopFits.css";
 
 const TopFits=()=>{
     const[posts, SetPosts]=useState([]);
+    const [searchInput, setSearchInput] = useState("");
+    const [userName, setUserName] = useState("");
+    const [profilePhoto, setProfilePhoto]=useState("");
+    const [profileDescription, setProfileDescription]=useState("");
+    const [userOutfits, setUserOutfits] = useState([]);
     // const[modalShow, setModalShow]=useState();
     const { token } = useAuthContext();
-    useEffect(()=>{
-        const fetchData= async () =>{
-        const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts/`;
+
+    useEffect(() => {
         if (token !== null) {
+          const tokenParts = token.split(".");
+          console.log(tokenParts)
+          const userData = JSON.parse(atob(tokenParts[1]));
+          console.log(userData)
+          setUserName(userData.account.username);
+          setProfilePhoto(userData.account.profile_photo);
+          setProfileDescription(userData.account.description);
+        }
+    }, [token]);
+    const handleChange = async (e) => {
+      e.preventDefault();
+      const searchUrl= `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/users/${e}`;
+      console.log(searchUrl)
+      const res2=await fetch(searchUrl)
+      if(res2.ok){
+        console.log(res2)
+      }
+    };
+
+    useEffect(()=>{
+      const fetchData= async () =>{
+      const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts/`;
+      console.log("From user post " + token);
+      if (token !== null) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -24,7 +52,11 @@ const TopFits=()=>{
     return(
         <>
       <form className="col-12 col-lg-auto mb-3 mb-lg-0 p-3 ">
-        <input type="search" className="form-control" placeholder="Search..." aria-label="Search"/>
+        <input type="search"
+         className="form-control"
+          placeholder="Search..."
+          onInput={handleChange}
+          value={searchInput} />
       </form>
         <div className="container d-flex flex-wrap justify-content-center">
             <h1 className="fs-1">Top Fits</h1>
@@ -35,6 +67,14 @@ const TopFits=()=>{
             <div className="card">
                 <div className='card-header'>
                     <h5 className='card-title'>{post.post_title}</h5>
+                    <p>{userName}</p>
+                    <div>
+                      <img
+                      src={profilePhoto}
+                      alt={post.post_title}
+                      ></img>
+                      </div>
+                    <p>{profileDescription}</p>
                 </div>
                 <div className="card-body d-flex">
                     <div className="col-4">

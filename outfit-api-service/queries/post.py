@@ -8,7 +8,7 @@ class Error(BaseModel):
 
 class PostIn(BaseModel):
     # user_id: int
-    outfit_id: int
+    # out_fit id:
     post_description: str
     post_title: str
 
@@ -41,7 +41,7 @@ class PostOutwithPics(BaseModel):
 
 
 class PostRepository:
-    def create(self, post: PostIn, user_id: int) -> Union[PostOut, Error]:
+    def create(self, post: PostIn, user_id: int, outfit_id: int) -> Union[PostOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -59,14 +59,14 @@ class PostRepository:
                         """,
                         [
                             user_id,
-                            post.outfit_id,
+                            outfit_id,
                             post.post_description,
                             post.post_title
                         ]
                     )
                     id = result.fetchone()[0]
                     old_data = post.dict()
-                    return PostOut(id=id, user_id=user_id, **old_data)
+                    return PostOut(id=id, user_id=user_id, outfit_id=outfit_id, **old_data)
         except Exception:
             return {"message": "Failed to Post outfit"}
 
@@ -112,7 +112,7 @@ class PostRepository:
             return {"message": "Could not get that user"}
 
 
-    def get_all(self) -> Union[Error, List[PostOut]]:
+    def get_all(self) -> Union[Error, List[PostOutwithPics]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -217,3 +217,10 @@ class PostRepository:
             bottom=record[6],
             shoes=record[7]
         )
+
+                        # SELECT posts.*, outfits.top, outfits.bottom, outfits.shoes,
+                        # posts.user_id, outfit_id, post_description, post_title,
+                        # u.username as user, u.profile_photo, u.description
+                        # FROM posts
+                        # JOIN outfits ON posts.outfit_id = outfits.id
+                        # JOIN users as u ON posts.user_id = user.id
