@@ -1,6 +1,13 @@
+## Jan 25th, 2023
+- Met with andrew to discuss MVP
+- working on deployment issues and fixing the mixed content error
+- continue working on mvp
+
+
 ## Jan 24th, 2023
 - planning on meeting with instructors for mvp review
 - working on readme documentation
+- fixing deployment issues
 
 
 
