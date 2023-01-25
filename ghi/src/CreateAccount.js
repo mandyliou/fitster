@@ -73,7 +73,7 @@ export default function CreateUserForm({
 
     console.log(newUser)
 
-    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/`;
+    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users`;
 
     const fetchConfig = {
       method: "post",

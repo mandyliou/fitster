@@ -8,7 +8,7 @@ const AllPosts=(props)=>{
     const { token } = useAuthContext();
     useEffect(()=>{
         const fetchData=async()=>{
-        const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts/`;
+        const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
         }
     },[token]);
     if(token!==null){

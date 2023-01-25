@@ -65,7 +65,7 @@ export function useToken() {
 
   useEffect(() => {
     const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
-    
+
     async function fetchToken() {
       const token = await getTokenInternal();
       console.log("From fetch token " + token);
@@ -78,7 +78,7 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/token/refresh/logout/`;
+      const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/token/refresh/logout`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
@@ -129,7 +129,7 @@ export function useToken() {
   }
 
   async function update(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/accounts/`;
+    const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/accounts`;
     const response = await fetch(url, {
       method: "patch",
       body: JSON.stringify({
