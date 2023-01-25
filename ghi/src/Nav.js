@@ -118,7 +118,7 @@ useEffect(() => {
                 <Nav>
                   <Nav.Link className={showOutfitButton(loginStatus)} as={NavLink} to="/new-outfit">Create Outfit</Nav.Link>
                   <Nav.Link className={showPostButton(loginStatus)} as={NavLink} to="/new-post">Create Post</Nav.Link>
-                  <Nav.Link className={showForYouButton(loginStatus)} as={NavLink} to="/new-post">For You</Nav.Link>
+                  <Nav.Link className={showForYouButton(loginStatus)} as={NavLink} to="/ForYou">For You</Nav.Link>
                   <Nav.Link className={showLoginButton(loginStatus)} onClick={handleShowLoginForm}>Login</Nav.Link>
                   <Nav.Link className={showSignupButton(loginStatus)} onClick={handleShowSignupForm}>Signup</Nav.Link>
                   <Dropdown>

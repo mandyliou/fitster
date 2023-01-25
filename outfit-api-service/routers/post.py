@@ -14,6 +14,7 @@ from queries.post import (
     PostRepository,
     PostOutWithoutUser,
     PostOutwithPics,
+    PostOutWithPicsMore
 )
 # import os
 # from fastapi import Depends, HTTPException
@@ -58,8 +59,10 @@ def get_posts_user(
     return post
 
 
-@router.get("/posts/", response_model=Union[List[PostOut], Error])
-def get_all_posts(repo: PostRepository = Depends()):
+@router.get("/posts", response_model=Union[List[PostOutWithPicsMore], Error])
+def get_all_posts(
+    repo: PostRepository = Depends()
+    ):
     return repo.get_all()
 
 
@@ -91,6 +94,17 @@ def get_post(
     repo: PostRepository = Depends(),
 ) -> PostOutWithoutUser:
     post = repo.get_one_post(post_id)
+    if post is None:
+        response.status_code = 404
+    return post
+
+@router.get("/searchpost/{post_title}", response_model=Optional[PostOutwithPics])
+def get_post(
+    post_title: str,
+    response: Response,
+    repo: PostRepository = Depends(),
+) -> PostOutwithPics:
+    post = repo.get_post_by_title(post_title)
     if post is None:
         response.status_code = 404
     return post

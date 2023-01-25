@@ -7,8 +7,8 @@ import UserPost from "./UserPage.js";
 import CreateOutfitForm from "./CreateOutfit.js";
 import CreatePostForm from "./PostForm.js";
 import Layout from './Layout.js';
-// import ForYouPage from './ForYouPage'
-
+import ForYouPage from "./ForYouPage.js";
+import TopFits from "./TopFits.js";
 
 
 export default function App() {
@@ -42,12 +42,13 @@ export default function App() {
             setUserName={setUserName}
             userID={userID}
             setUserID={setUserID}
-        />} ></Route>
+        />} >
         <Route path="/my-profile" element={<UserPost />} />
         <Route path="/new-outfit" element={<CreateOutfitForm />} />
         <Route path="/new-post" element={<CreatePostForm />} />
-        {/* <Route path="/ForYou" element={<ForYouPage />} /> */}
-        {/* <Route path="/TopFits" element={<TopFits />} /> */}
+        <Route path="/ForYou" element={<ForYouPage />} />
+        <Route path="/TopFits" element={<TopFits />} />
+        </Route>
       </Routes>
     </div>
   );

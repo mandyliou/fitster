@@ -1,13 +1,12 @@
+
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
-
 const CreatePostForm = () => {
   const [outfitId, setOutfitId] = useState("");
   const [postDescription, setPostDescription] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [userOutfits, setUserOutfits] = useState([]);
   const { token } = useAuthContext();
-
   useEffect(() => {
       const fetchOutfits = async () => {
       const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/outfits`;
@@ -21,7 +20,6 @@ const CreatePostForm = () => {
     };
     fetchOutfits();
   }, [token]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const newPost = {
@@ -29,11 +27,8 @@ const CreatePostForm = () => {
       "post_description": postDescription,
       "post_title": postTitle,
     };
-
     console.log(newPost)
-
     const postURL = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/posts`;
-
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(newPost),
@@ -42,7 +37,6 @@ const CreatePostForm = () => {
         Authorization: `Bearer ${token}`,
       },
     };
-
     fetch(postURL, fetchConfig)
       .then((response) => response.json())
       .then(() => {
@@ -52,22 +46,18 @@ const CreatePostForm = () => {
       })
       .catch((e) => console.error("Error creating post: ", e));
   };
-
   const handleOutfitIdChange = (event) => {
     const value = event.target.value;
     setOutfitId(value);
   };
-
   const handlePostDescriptionChange = (event) => {
     const value = event.target.value;
     setPostDescription(value);
   };
-
   const handlePostTitleChange = (event) => {
     const value = event.target.value;
     setPostTitle(value);
   };
-
   return (
     <div>
       <h1>Create a Post</h1>
@@ -118,5 +108,4 @@ const CreatePostForm = () => {
     </div>
   );
 };
-
 export default CreatePostForm;
