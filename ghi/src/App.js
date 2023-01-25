@@ -6,8 +6,10 @@ import "./App.css";
 import UserPost from "./UserPage.js";
 import CreateOutfitForm from "./CreateOutfit.js";
 import CreatePostForm from "./PostForm.js";
+import UpdateAccountForm from "./UpdateAccount.js";
+import Featured from './TopFits.js'
 import Layout from './Layout.js';
-// import ForYouPage from './ForYouPage'
+import ForYouPage from './ForYouPage.js'
 
 
 
@@ -42,15 +44,16 @@ export default function App() {
             setUserName={setUserName}
             userID={userID}
             setUserID={setUserID}
-        />} ></Route>
+            
+        />} >
+        <Route index element={<Featured />} />
         <Route path="/my-profile" element={<UserPost />} />
         <Route path="/new-outfit" element={<CreateOutfitForm />} />
+        <Route path="/update-account" element={<UpdateAccountForm />} />
         <Route path="/new-post" element={<CreatePostForm />} />
-        {/* <Route path="/ForYou" element={<ForYouPage />} /> */}
-        {/* <Route path="/TopFits" element={<TopFits />} /> */}
+        <Route path="/ForYou" element={<ForYouPage />} />
+        </Route>
       </Routes>
     </div>
   );
 }
-
-// export default App;
