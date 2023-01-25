@@ -121,23 +121,28 @@ class PostRepository:
             print(e)
             return {"message": "Could not get that user"}
 
-    def get_all(self) -> Union[Error, List[PostOut]]:
+    def get_all(self) -> Union[Error, List[PostOutwithPics]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                        , user_id
-                        , outfit_id
-                        , post_description
-                        , post_title
+                        SELECT posts.*,
+                        outfits.top,
+                        outfits.bottom,
+                        outfits.shoes,
+                        posts.user_id,
+                        outfit_id,
+                        post_description,
+                        post_title
                         FROM posts
+                        JOIN outfits ON posts.outfit_id = outfits.id
                         ORDER BY post_title;
                         """
                     )
                     return [
-                        self.record_to_post_out(record) for record in result
+                        self.record_to_post_out_with_pics(record)
+                        for record in result
                     ]
         except Exception:
             return {"alert": "could not get user posts"}

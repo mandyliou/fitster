@@ -1,0 +1,69 @@
+h1 {
+    span {
+        color:#ede5e5;
+    }
+}
+
+.featured {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    align-content: space-around;
+
+
+    .card1,
+    .card2,
+    .card3 {
+        animation: fadeIn 1s;
+        padding: 12px;
+        flex-direction: column;
+        color: rgb(0, 0, 0);
+        .title {
+            text-align: center;
+            max-width: fit-content;
+            border-radius: 25px;
+            border: 2px solid #090909;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 500;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .handle {
+            transform: translateY(-40%);
+        }
+        .bio {
+            transform: translateY(-40%);
+        }
+        .footer {
+            text-align: center;
+            font-size: 25px;
+            max-width: fit-content;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 300;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .img {
+            width: 100% \ 9;
+        }
+        .card-footer {
+            background: transparent;
+        }
+        &:hover {
+            transform: scaleY(1.03) scaleX(1.03);
+        }
+        .btn:hover {
+        transform: translateY(-3px);
+        background: #2a837f00;
+        }
+    }
+}
+
+.featured-title {
+    color: #080909;
+    font-style: oblique;
+}
