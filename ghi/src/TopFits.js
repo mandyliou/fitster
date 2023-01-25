@@ -7,7 +7,7 @@ import "./TopFits.scss";
 export default function Featured({ setID }) {
     const [posts, setPosts] = useState([]);
     const [userName, setUserName] = useState("");
-    const [profilePhoto, setProfilePhoto]=useState("");
+
     const [profileDescription, setProfileDescription]=useState("");
     const { token } = useAuthContext();
 
@@ -18,7 +18,6 @@ export default function Featured({ setID }) {
           const userData = JSON.parse(atob(tokenParts[1]));
           console.log(userData)
           setUserName(userData.account.username);
-          setProfilePhoto(userData.account.profile_photo);
           setProfileDescription(userData.account.description);
         }
     }, [token]);

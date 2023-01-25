@@ -87,7 +87,6 @@ export default function Navigation({
     }
     const { token } = useAuthContext();
     const [userName, setUserName] = useState("");
-    const [profilePhoto, setProfilePhoto]=useState("");
 
 
 useEffect(() => {
@@ -95,7 +94,6 @@ useEffect(() => {
     const tokenParts = token.split(".");
     const userData = JSON.parse(atob(tokenParts[1]));
     setUserName(userData.account.username)
-    setProfilePhoto(userData.account.profile_photo)
   }
 }, [token]);
 
