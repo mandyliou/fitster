@@ -69,7 +69,7 @@ class UserRepository:
             print(e)
             return {"message": "Could not get that user"}
 
-    def get_one(self, username: str) -> Optional[UserOut]:
+    def get_one_by_username(self, username: str) -> Optional[UserOutWithPassword]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -83,7 +83,7 @@ class UserRepository:
                         , password
                         , profile_photo
                         , description
-                        FROM users
+                        # FROM users
                         WHERE username = %s
                         """,
                         [username],

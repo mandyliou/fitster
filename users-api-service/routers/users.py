@@ -37,7 +37,7 @@ router = APIRouter()
 
 
 @router.get("/users/{user_id}", response_model=Optional[UserOut])
-def get_one_user(
+async def get_one_user(
     user_id: int,
     response: Response,
     user: dict = Depends(authenticator.try_get_current_account_data),
@@ -70,18 +70,19 @@ async def create_user(
 
 
 @router.get("/users", response_model=Union[List[UserOut], Error])
-def get_all(
+async def get_all(
     repo: UserRepository = Depends(),
 ):
     return repo.get_all()
 
-@router.get("/users/{username}", response_model=Union[List[UserOut], Error])
-def get_user_by_user(
+@router.get("/searchuser/{username}", response_model=Optional[UserOut])
+async def get_user_by_username(
     username: str,
-    response=Response,
+    response: Response,
     repo: UserRepository = Depends(),
+    user: dict = Depends(authenticator.try_get_current_account_data),
 ) -> UserOut:
-    user = repo.get_one(username)
+    user = repo.get_one_by_username(username)
     if user is None:
         response.status_code = 404
     return user
@@ -109,7 +110,7 @@ async def get_token(
 
 
 @router.get("/users/current", response_model=UserOut)
-def get_user_by_info(
+async def get_user_by_info(
     account: UserOut = Depends(authenticator.get_current_account_data),
 ):
     return account
