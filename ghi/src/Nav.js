@@ -4,6 +4,7 @@ import { useToken, useAuthContext } from "./auth.js";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
+import "./Nav.css";
 
 function showProfileButton(status) {
     if (status === true) {
@@ -15,7 +16,7 @@ function showProfileButton(status) {
 
 function showForYouButton(status) {
     if (status === true) {
-        return ""
+        return "nav-box"
     } else {
         return "d-none"
     };
@@ -23,7 +24,7 @@ function showForYouButton(status) {
 
 function showPostButton(status) {
     if (status === true) {
-        return ""
+        return "nav-box"
     } else {
         return "d-none"
     };
@@ -32,7 +33,7 @@ function showPostButton(status) {
 
 function showOutfitButton(status) {
     if (status === true) {
-        return ""
+        return "nav-box"
     } else {
         return "d-none"
     };
@@ -40,7 +41,7 @@ function showOutfitButton(status) {
 
 function showUserName(status) {
     if (status === true) {
-        return ""
+        return "user-box"
     } else {
         return "d-none"
     };
@@ -50,7 +51,7 @@ function showLoginButton(status) {
     if (status === true) {
         return "d-none"
     } else {
-        return ""
+        return "nav-box"
     };
 };
 
@@ -66,7 +67,7 @@ function showSignupButton(status) {
     if (status === true) {
         return "d-none"
     } else {
-        return ""
+        return "nav-box"
     };
 };
 
@@ -86,13 +87,15 @@ export default function Navigation({
     }
     const { token } = useAuthContext();
     const [userName, setUserName] = useState("");
+    const [profilePhoto, setProfilePhoto]=useState("");
 
 
 useEffect(() => {
   if (token !== null) {
     const tokenParts = token.split(".");
     const userData = JSON.parse(atob(tokenParts[1]));
-    setUserName(userData.account.username);
+    setUserName(userData.account.username)
+    setProfilePhoto(userData.account.profile_photo)
   }
 }, [token]);
 
@@ -108,9 +111,9 @@ useEffect(() => {
                 >
                     <img
                         alt="Fitster"
-                        src={`${process.env.PUBLIC_URL}/navlogo.svg`}
+                        src={`${process.env.PUBLIC_URL}/navlogo.png`}
                         height="50"
-                        className="d-inline-block align-top"
+                        className="Fitster-logo"
                     />
                 </Navbar.Brand>
             </Navbar.Collapse>
@@ -118,11 +121,11 @@ useEffect(() => {
                 <Nav>
                   <Nav.Link className={showOutfitButton(loginStatus)} as={NavLink} to="/new-outfit">Create Outfit</Nav.Link>
                   <Nav.Link className={showPostButton(loginStatus)} as={NavLink} to="/new-post">Create Post</Nav.Link>
-                  <Nav.Link className={showForYouButton(loginStatus)} as={NavLink} to="/new-post">For You</Nav.Link>
+                  <Nav.Link className={showForYouButton(loginStatus)} as={NavLink} to="/ForYou">For You</Nav.Link>
                   <Nav.Link className={showLoginButton(loginStatus)} onClick={handleShowLoginForm}>Login</Nav.Link>
                   <Nav.Link className={showSignupButton(loginStatus)} onClick={handleShowSignupForm}>Signup</Nav.Link>
                   <Dropdown>
-                  <Dropdown.Toggle className={showUserName(loginStatus)} > {userName}</Dropdown.Toggle>
+                  <Dropdown.Toggle className={showUserName(loginStatus)} >@{userName}</Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item className={showProfileButton(loginStatus)} as={NavLink} to="/my-profile">Profile</Dropdown.Item>
                     <Dropdown.Divider />

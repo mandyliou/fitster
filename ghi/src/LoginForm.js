@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useToken } from "./auth";
-import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
@@ -71,8 +70,6 @@ export default function LoginForm({
         }
     };
 
-    const signupPhrase = `Don't have an account? Sign Up`;
-
      return (
         <Modal
             show={showLoginForm}
@@ -108,9 +105,6 @@ export default function LoginForm({
                     <Alert variant="danger" show={invalid}>
                         Invalid Username or Password.
                     </Alert>
-                    <Link to="/new-user" className="float-end" variant="body2">
-                        {signupPhrase}
-                    </Link>
                     <Spinner className={showSpinner} animation="border" variant="secondary" />
                     <button type="submit" className={showSubmitButton}>Submit</button>
                 </Modal.Footer>

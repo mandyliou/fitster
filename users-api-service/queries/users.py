@@ -187,7 +187,6 @@ class UserRepository:
                             user.password,
                             user.profile_photo,
                             user.description,
-                            user_id,
                         ],
                     )
                     old_data = user.dict()

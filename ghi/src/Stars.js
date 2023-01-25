@@ -87,7 +87,6 @@ export default function Ratings() {
           value={postId}
           onChange={(e) => setPostId(e.target.value)}
         />
-        {/* <button type="submit">Save Rating</button> */}
       </form>
       <button onClick={clearRating}>Clear Rating</button>
     </div>

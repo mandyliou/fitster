@@ -14,25 +14,8 @@ function LogoutForm(props) {
     }
 }, [navigate, token])
 
-  // async function handleSubmit (e) {
-  //   e.preventDefault()
-  //   await logout()
-  // }
-
-  // return (
-  //   <button onClick={handleSubmit} type="submit" className="btn btn-primary">Logout</button>
-  // )
 }
 
 export default LogoutForm
 
 
-// import { Navigate } from 'react-router-dom';
-
-// function Logout(props) {
-//   const { logout } = props;
-//   logout();
-//   return <Navigate to="/my-posts" />;
-// }
-
-// export default Logout;

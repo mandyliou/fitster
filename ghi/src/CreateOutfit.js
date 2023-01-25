@@ -172,14 +172,6 @@ const CreateOutfitForm = () => {
               />
               <label>Outfit Category</label>
             </div>
-            {/* <div className="form-floating mb-3">
-              <select value={outfit_gender} onChange={handleOutfitCategoryChange}>
-                <option value="fitness">Fitness</option>
-                <option value="casual">Casual</option>
-                <option value="formal">Formal</option>
-              </select>
-              <label>Outfit Category</label>
-            </div> */}
             <div className="form-floating mb-3">
               <input
                 value={outfit_gender}
@@ -191,13 +183,6 @@ const CreateOutfitForm = () => {
               />
               <label>Outfit Gender</label>
             </div>
-            {/* <div className="form-floating mb-3">
-              <select value={outfit_gender} onChange={handleOutfitGenderChange}>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-              <label>Outfit Gender</label>
-            </div> */}
               <div className="form-floating mb-3">
               <input
                 value={outfit_description}
