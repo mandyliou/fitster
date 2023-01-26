@@ -3,6 +3,7 @@ import { useAuthContext } from "./auth";
 import {  Button } from "react-bootstrap";
 import { useNavigate } from 'react-router';
 
+
 const UserPost = () => {
   const [posts, SetPosts] = useState([]);
   const navigate = useNavigate();
@@ -11,13 +12,11 @@ const UserPost = () => {
   useEffect(() => {
     const fetchData = async () => {
       const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/posts`;
-      console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data);
         SetPosts(data);
       }
     };

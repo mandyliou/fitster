@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+
 let internalToken = null;
 
 export function getToken() {
   return internalToken;
 }
+
 
 export async function getTokenInternal() {
   const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/token`;
@@ -20,6 +23,7 @@ export async function getTokenInternal() {
   } catch (e) {}
   return false;
 }
+
 
 function handleErrorMessage(error) {
   if ("error" in error) {
@@ -42,10 +46,12 @@ function handleErrorMessage(error) {
   return error;
 }
 
+
 export const AuthContext = createContext({
   token: null,
   setToken: () => null,
 });
+
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
@@ -57,7 +63,9 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+
 export const useAuthContext = () => useContext(AuthContext);
+
 
 export function useToken() {
   const { token, setToken } = useAuthContext();
@@ -68,13 +76,13 @@ export function useToken() {
 
     async function fetchToken() {
       const token = await getTokenInternal();
-      console.log("From fetch token " + token);
       setToken(token);
     }
     if (!token && loginStatus) {
       fetchToken();
     }
   }, [setToken, token]);
+
 
   async function logout() {
     if (token) {
@@ -85,6 +93,7 @@ export function useToken() {
       navigate("/");
     }
   }
+
 
   async function login(username, password) {
     const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/token`;
@@ -107,6 +116,7 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
+
   async function signup(username, password, email, firstName, lastName) {
     const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users`;
     const response = await fetch(url, {
@@ -127,6 +137,7 @@ export function useToken() {
     }
     return false;
   }
+
 
   async function update(username, password, email, firstName, lastName) {
     const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/accounts`;

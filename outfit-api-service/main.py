@@ -7,8 +7,6 @@ import os
 app = FastAPI()
 app.include_router(outfit.router)
 app.include_router(post.router)
-# app.include_router(stars.router)
-
 
 app.add_middleware(
     CORSMiddleware,

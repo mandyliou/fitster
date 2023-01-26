@@ -1,8 +1,6 @@
 from pydantic import BaseModel
-# from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
-# from fastapi import HTTPException
 
 
 class Error(BaseModel):
@@ -10,7 +8,6 @@ class Error(BaseModel):
 
 
 class OutfitIn(BaseModel):
-    # user_id: int
     outfit_name: str
     outfit_brand: str
     top: str
@@ -140,7 +137,6 @@ class OutfitRepository:
         except Exception:
             return {"alert": "could not get all outfits"}
 
-    # get one outfit by outfit id
     def get_one_outfit(self, outfit_id: int) -> Optional[OutfitOut]:
         try:
             with pool.connection() as conn:
@@ -214,8 +210,6 @@ class OutfitRepository:
                             outfit.outfit_description,
                             outfit_id,
                         ]
-                        # old_data=vacation.dict()
-                        # return VacationOut(id=vacation_id, **old_data)
                     )
                     old_outfit = outfit.dict()
                     return OutfitOutWithoutUserId(id=outfit_id, **old_outfit)

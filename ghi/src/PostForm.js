@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 
+
 const CreatePostForm = () => {
   const [outfitId, setOutfitId] = useState("");
   const [postDescription, setPostDescription] = useState("");
@@ -15,7 +16,6 @@ const CreatePostForm = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      console.log(token)
       setUserOutfits(data);
       }
     };
@@ -30,7 +30,6 @@ const CreatePostForm = () => {
       "post_title": postTitle,
     };
 
-    console.log(newPost)
 
     const postURL = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/posts`;
 

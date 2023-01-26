@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useAuthContext } from './auth';
 
+
 const CreateOutfitForm = () => {
   const [outfit_name, setOutfitName] = useState("");
   const [outfit_brand, setOutfitBrand] = useState("");
@@ -11,6 +12,7 @@ const CreateOutfitForm = () => {
   const [outfit_gender, setOutfitGender] = useState("");
   const [outfit_description, setOutfitDescription] = useState("");
   const { token } = useAuthContext();
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,7 +27,6 @@ const CreateOutfitForm = () => {
       "outfit_description": outfit_description,
     };
 
-    console.log(newOutfit)
 
     const userURL = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/outfit`;
 

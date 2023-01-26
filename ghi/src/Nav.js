@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./Nav.css";
 
+
 function showProfileButton(status) {
     if (status === true) {
         return ""
@@ -70,6 +71,7 @@ function showSignupButton(status) {
         return "nav-box"
     };
 };
+
 
 export default function Navigation({
     loginStatus,

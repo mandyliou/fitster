@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 
+
 function BootstrapInput(props) {
     const { id, placeholder, labelText, value, onChange, type } = props;
 
@@ -15,6 +16,7 @@ function BootstrapInput(props) {
     )
 }
 
+
 export default function LoginForm({
     showLoginForm,
     setShowLoginForm,
@@ -22,14 +24,14 @@ export default function LoginForm({
 }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [token, login] = useToken();
+    const [, login] = useToken();
     const [showSpinner, setShowSpinner] = useState('d-none')
     const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
 
     const [invalid, setInvalid] = useState(false);
-    if(token !== null) {
-      console.log("You are already signed in")
-    }
+
+
+
     const handleCloseLoginForm = () => setShowLoginForm(false);
 
     const loading = () => {
