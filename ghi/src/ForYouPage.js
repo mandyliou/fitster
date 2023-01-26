@@ -32,6 +32,7 @@ const ForYouPage=()=>{
           setProfileDescription(userData.account.description);
         }
     }, [token]);
+
     const handleInputChange = async (e) => {
       e.preventDefault();
       const searchUrl= `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/users/${e}`;
@@ -44,7 +45,7 @@ const ForYouPage=()=>{
 
     useEffect(()=>{
       const fetchData= async () =>{
-      const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts/`;
+      const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
       console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {

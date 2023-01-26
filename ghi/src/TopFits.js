@@ -4,41 +4,36 @@ import { Card, Stack } from "react-bootstrap";
 import { useAuthContext } from "./auth";
 import "./TopFits.scss";
 
-export default function Featured({ setID }) {
+
+export default function Featured() {
     const [posts, setPosts] = useState([]);
     const [userName, setUserName] = useState("");
-
     const [profileDescription, setProfileDescription]=useState("");
     const { token } = useAuthContext();
 
     useEffect(() => {
         if (token !== null) {
           const tokenParts = token.split(".");
-          console.log(tokenParts)
           const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
           setUserName(userData.account.username);
           setProfileDescription(userData.account.description);
         }
     }, [token]);
 
-    
     useEffect(() => {
       const fetchData = async () => {
       const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/posts`;
-      console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data);
         setPosts(data);
       }
     };
     fetchData();
   }, [token]);
-  
+
     return (
         <>
                 <div className="App">
@@ -48,11 +43,10 @@ export default function Featured({ setID }) {
                         </h1>
                         <div  className="featured">
                             {posts.map((post) => (
-                                <div key={post.id} className="col-sm-4 mb-3"> 
-                                
+                                <div key={post.id} className="col-sm-4 mb-3">
                                 <div className="card1">
                                 <Card style={{ width: '22rem', height: '40rem',  position: "relative" }}>
-                                        <Card.Header  
+                                        <Card.Header
                                             className="title">
                                             {post.post_title}
                                         </Card.Header>
@@ -81,7 +75,7 @@ export default function Featured({ setID }) {
                                             <Card.Footer style={{ position: "relative", bottom: -450,  }}>
                                               <Card.Text
                                                 className="footer">
-                                                {post.post_description} 
+                                                {post.post_description}
                                               </Card.Text>
                                             </Card.Footer>
                                         </Card.Body>

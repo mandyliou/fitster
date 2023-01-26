@@ -17,7 +17,6 @@ from queries.users import (
 )
 from authenticator import authenticator
 from jwtdown_fastapi.authentication import Token
-
 from pydantic import BaseModel
 
 
