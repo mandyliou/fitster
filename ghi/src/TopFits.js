@@ -26,7 +26,6 @@ export default function Featured({}) {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data);
         setPosts(data);
       }
     };

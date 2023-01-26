@@ -1,6 +1,16 @@
+## Jan 25, 2023
+Today I worked on:
+
+- Discussed with Andrew our MVPs and restructuring
+- Continued to work on deployment with Khaled and Mandy
+- When we were accessing our features such as our sign up form, we were running into a http error in our deployed server. We determined the cause was due to a few trailing '/' in our endpoints. We adjusted them and now have our site up and working.
+- Worked on documentation and the read.me with Mandy and Khaled
+- Restructured our issues list after refactoring our MVPs. Closed stories that have been completed as well.
+
 ## Jan 24, 2023
 Today I worked on:
 
+- Continued to work on deployment with Mandy and Khaled
 - Resolved the 502 error we were running into for deployment. The resolution was to add our auth files into our api service dockerfiles
 - Once we had our deployment up and running, we then ran into a 404 error. We were able to determine our gitlab yml file did not reference our variables for API HOST correctly.
 
@@ -12,19 +22,25 @@ Today I worked on:
 - We are now stuck on getting our servers up as we are running into a 502 error
 - Created a get all outfit test
 
+## Jan 22, 2023
+Today I worked on:
+
+- Started deployment with Khaled and Mandy
+- Read and watched gitlabyml setup lectures and notes
+
 ## Jan 20, 2023
 Today I worked on:
 
 - Resolved a 401 authentication issue on my create outfit form
 - Tested the create outfit form, and merged to main
 - Remade a new branch for our star rating feature
-- Created a new stars.js and routers/queries for our star ratings page
+- Created a new stars.js and routers/queries for our star ratings page with Mandy
 - Tried to link tables ratings with post, however, was causing issues on our posts page
 
 ## Jan 19, 2023
 Today I worked on:
 
-- Continued working on the FE 5 star rating
+- Continued working on the FE 5 star rating with Mandy
 - Was able to join the tables from posts to rating but unsure how to reference the rating value to update on the frontend star system
 - Implemented rating.js onto the userpage
 - Git pulled and resolved merge conflicts but now ratings is no longer working. May need to remake branch and continue again

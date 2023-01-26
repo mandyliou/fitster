@@ -1,3 +1,17 @@
+## Jan 25, 2023
+- finished setting up deployment
+- met with Andrew with Khaled and Vincent to modify the MVP
+- finished all features assigned for MVP
+- worked with Khaled and Vincent for the Readme
+- closed issues on gitlab
+- modified Readme
+    - added wireframe images to the readme
+
+## Jan 24, 2023
+- worked on deployment with Vincent and Khaled
+    - got FE and BE to connect for deployment
+        - fixed gitlab yml file
+
 ## Jan 23, 2023
 - started deployment with Vincent and Khaled
     - encountered errors with formatting, signing_keys

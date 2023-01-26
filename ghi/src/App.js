@@ -12,7 +12,6 @@ import Layout from './Layout.js';
 import ForYouPage from './ForYouPage.js'
 
 
-
 export default function App() {
 
    const [loginStatus, setLoginStatus] = useLocalStorage("loginStatus", false)
@@ -44,7 +43,6 @@ export default function App() {
             setUserName={setUserName}
             userID={userID}
             setUserID={setUserID}
-            
         />} >
         <Route index element={<Featured />} />
         <Route path="/my-profile" element={<UserPost />} />

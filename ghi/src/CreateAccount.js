@@ -12,6 +12,7 @@ function BootstrapInput(props) {
     )
 }
 
+
 export default function CreateUserForm({
     showSignupForm,
     setShowSignupForm,
@@ -39,8 +40,7 @@ export default function CreateUserForm({
       "description": description,
     };
 
-    console.log(newUser)
-
+  
     const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users`;
 
     const fetchConfig = {

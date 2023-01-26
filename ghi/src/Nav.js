@@ -71,6 +71,7 @@ function showSignupButton(status) {
     };
 };
 
+
 export default function Navigation({
     loginStatus,
     setLoginStatus,

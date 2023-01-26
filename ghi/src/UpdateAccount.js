@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useAuthContext } from './auth';
 
+
 const UpdateAccountForm = () => {
     const [username, setUsername] = useState("");
     const [first_name, setFirstName] = useState("");
@@ -22,8 +23,6 @@ const UpdateAccountForm = () => {
       "profile_photo": profile_photo,
       "description": description,
     };
-
-    console.log(updateUser)
 
     const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/{user_id}`;
 
@@ -85,7 +84,6 @@ const UpdateAccountForm = () => {
     const value = event.target.value;
     setDescription(value);
   };
-
 
   return (
     <div className="row">
