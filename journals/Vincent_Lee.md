@@ -1,3 +1,9 @@
+## Jan 24, 2023
+Today I worked on:
+
+- Resolved the 502 error we were running into for deployment. The resolution was to add our auth files into our api service dockerfiles
+- Once we had our deployment up and running, we then ran into a 404 error. We were able to determine our gitlab yml file did not reference our variables for API HOST correctly.
+
 ## Jan 23, 2023
 Today I worked on:
 
