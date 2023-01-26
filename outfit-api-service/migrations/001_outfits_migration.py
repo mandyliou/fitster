@@ -25,6 +25,12 @@ steps = [
         CREATE TABLE posts (
             id SERIAL PRIMARY KEY NOT NULL,
             user_id int not null,
+            user_username varchar(100) not null,
+            user_first_name varchar(100)not null,
+            user_last_name varchar(100) not null,
+            user_profile_photo varchar(100) not null,
+            user_description varchar(100) not null,
+            user_email varchar(100) not null,
             outfit_id int not null references outfits(id),
             post_description text not null,
             post_title varchar(100) not null

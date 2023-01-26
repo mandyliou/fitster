@@ -13,6 +13,9 @@ const UpdateAccountForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data=token.split(".")
+    const user_data=JSON.parse(atob(data[1]))
+    const user_id=user_data.account.id
     const updateUser = {
       "username": username,
       "first_name": first_name,
@@ -23,9 +26,7 @@ const UpdateAccountForm = () => {
       "description": description,
     };
 
-    console.log(updateUser)
-
-    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/{user_id}`;
+    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/${user_id}`;
 
     const fetchConfig = {
       method: "put",

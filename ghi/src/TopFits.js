@@ -22,10 +22,10 @@ export default function Featured({ setID }) {
         }
     }, [token]);
 
-    
+
     useEffect(() => {
       const fetchData = async () => {
-      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/posts`;
+      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
       console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
@@ -38,7 +38,7 @@ export default function Featured({ setID }) {
     };
     fetchData();
   }, [token]);
-  
+
     return (
         <>
                 <div className="App">
@@ -48,11 +48,11 @@ export default function Featured({ setID }) {
                         </h1>
                         <div  className="featured">
                             {posts.map((post) => (
-                                <div key={post.id} className="col-sm-4 mb-3"> 
-                                
+                                <div key={post.id} className="col-sm-4 mb-3">
+
                                 <div className="card1">
                                 <Card style={{ width: '22rem', height: '40rem',  position: "relative" }}>
-                                        <Card.Header  
+                                        <Card.Header
                                             className="title">
                                             {post.post_title}
                                         </Card.Header>
@@ -81,7 +81,7 @@ export default function Featured({ setID }) {
                                             <Card.Footer style={{ position: "relative", bottom: -450,  }}>
                                               <Card.Text
                                                 className="footer">
-                                                {post.post_description} 
+                                                {post.post_description}
                                               </Card.Text>
                                             </Card.Footer>
                                         </Card.Body>
