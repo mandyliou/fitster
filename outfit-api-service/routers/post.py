@@ -14,6 +14,7 @@ from queries.post import (
     PostRepository,
     PostOutWithoutUser,
     PostOutwithPics,
+    PostOutWithPicsMore,
 )
 # import os
 # from fastapi import Depends, HTTPException
@@ -58,8 +59,10 @@ def get_posts_user(
     return post
 
 
-@router.get("/posts/", response_model=Union[List[PostOutwithPics], Error])
-def get_all_posts(repo: PostRepository = Depends()):
+@router.get("/posts", response_model=Union[List[PostOutWithPicsMore], Error])
+def get_all_posts(
+    repo: PostRepository = Depends()
+):
     return repo.get_all()
 
 

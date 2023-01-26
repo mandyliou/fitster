@@ -68,53 +68,61 @@ const CreatePostForm = () => {
     setPostTitle(value);
   };
 
-  return (
-    <div>
-      <h1>Create a Post</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="outfit-select">Select an Outfit:</label>
-          <select
-            className="form-control"
-            id="outfit-select"
-            value={outfitId}
-            onChange={handleOutfitIdChange}
-          >
-            <option value="" disabled>
-              Select an Outfit
-            </option>
-            {userOutfits.map((outfit) => (
-              <option key={outfit.id} value={outfit.id}>
-                {outfit.outfit_name}
-              </option>
+
+    return (
+    <div className="row">
+      <div className="offset-3 col-6">
+        <div className="shadow p-4 mt-4">
+          <h1>Create a Post</h1>
+          <form onSubmit={handleSubmit} id="create-post-form">
+            <div className="form-floating mb-3">
+                <select
+                  className="form-control"
+                  id="outfit-select"
+                  value={outfitId}
+                  onChange={handleOutfitIdChange}
+                >
+                <option 
+                  value="" 
+                  disabled> Select an Outfit </option>
+                {userOutfits.map((outfit) => (
+                <option 
+                  key={outfit.id}
+                  value={outfit.id}>
+                  {outfit.outfit_name}
+                </option>
             ))}
-          </select>
+                </select>
+              <label>Select a Fit!</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                value={postTitle}
+                onChange={handlePostTitleChange}
+                required
+                type="text"
+                name="post-title"
+                id="post-title"
+                className="form-control"
+              />
+              <label>Post Title</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                value={postDescription}
+                onChange={handlePostDescriptionChange}
+                required
+                type="post-description"
+                name="post-description"
+                id="post-description"
+                className="form-control"
+              />
+              <label>Post Description</label>
+            </div>
+            <button className="btn btn-primary">Create Post</button>
+          </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="post-title">Post Title:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="post-title"
-            value={postTitle}
-            onChange={handlePostTitleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="post-description">Post Description:</label>
-          <textarea
-            className="form-control"
-            id="post-description"
-            value={postDescription}
-            onChange={handlePostDescriptionChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Create Post
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

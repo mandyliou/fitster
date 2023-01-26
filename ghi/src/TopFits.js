@@ -4,11 +4,8 @@ import { Card, Stack } from "react-bootstrap";
 import { useAuthContext } from "./auth";
 import "./TopFits.scss";
 
-export default function Featured({ setID }) {
+export default function Featured({}) {
     const [posts, setPosts] = useState([]);
-    const [userName, setUserName] = useState("");
-
-    const [profileDescription, setProfileDescription]=useState("");
     const { token } = useAuthContext();
 
     useEffect(() => {
@@ -17,15 +14,12 @@ export default function Featured({ setID }) {
           console.log(tokenParts)
           const userData = JSON.parse(atob(tokenParts[1]));
           console.log(userData)
-          setUserName(userData.account.username);
-          setProfileDescription(userData.account.description);
         }
     }, [token]);
 
-    
     useEffect(() => {
       const fetchData = async () => {
-      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/posts`;
+      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
       console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
@@ -38,7 +32,7 @@ export default function Featured({ setID }) {
     };
     fetchData();
   }, [token]);
-  
+  const random_posts=posts.sort(() => 0.5 - Math.random());
     return (
         <>
                 <div className="App">
@@ -47,7 +41,7 @@ export default function Featured({ setID }) {
                            Top Fits Of The Day!
                         </h1>
                         <div  className="featured">
-                            {posts.map((post) => (
+                            {random_posts.slice(0,3).map((post) => (
                                 <div key={post.id} className="col-sm-4 mb-3"> 
                                 
                                 <div className="card1">
@@ -58,13 +52,9 @@ export default function Featured({ setID }) {
                                         </Card.Header>
                                         <Card.Body>
                                             <Card.Title
-                                                className="handle">
-                                                @{userName}
+                                                className="username">
+                                                @{post.outfit_name}
                                             </Card.Title>
-                                            <Card.Subtitle
-                                                className="bio">
-                                                {profileDescription}
-                                            </Card.Subtitle>
                                            <Stack
                                             style={{ position: "absolute" }}
                                             direction="vertical"
@@ -78,7 +68,17 @@ export default function Featured({ setID }) {
                                                 <img src={post.shoes}  alt={post.post_title} className="img-fluid" /> </div>
                                                 </div>
                                             </Stack>
-                                            <Card.Footer style={{ position: "relative", bottom: -450,  }}>
+                                            <Card.Text 
+                                                 style={{ position: "right" }}
+                                                 className="Middle-Text">
+                                                 <div>Outfit Category:</div>
+                                                 <div className="Sub-Text">{post.outfit_category}</div>
+                                                 <div>Gender:</div>
+                                                 <div className="Sub-Text">{post.outfit_gender}</div>
+                                                 <div>Outfit Description:</div>
+                                                 <div className="Sub-Text">{post.outfit_brand}</div>
+                                            </Card.Text>
+                                            <Card.Footer style={{ position: "relative", bottom: -270,  }}>
                                               <Card.Text
                                                 className="footer">
                                                 {post.post_description} 
