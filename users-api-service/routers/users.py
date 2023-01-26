@@ -11,6 +11,7 @@ from queries.users import (
     Error,
     UserIn,
     UserOut,
+    UserOutWithPassword,
     UserRepository,
     DuplicateAccountError,
 )
@@ -76,13 +77,24 @@ def get_all(
     return repo.get_all()
 
 
-@router.put("/users/{user_id}", response_model=Union[UserOut, Error])
+@router.put(
+  "/users/{user_id}", response_model=Union[UserOutWithPassword, Error])
 def update_user(
-    user_id: int,
-    user: UserIn,
-    repo: UserRepository = Depends(),
-) -> Union[Error, UserOut]:
-    return repo.update(user_id, user)
+  user_id: int,
+  user: UserIn,
+  repo: UserRepository = Depends(),
+):
+    hashed_password = authenticator.get_hashed_password(user.password)
+    try:
+        updated_user = repo.update(user_id, user, hashed_password)
+    except Exception as e:
+        raise HTTPException(
+          status_code=status.HTTP_400_BAD_REQUEST,
+          detail=str(e)
+        )
+
+    return updated_user
+
 
 
 @router.get("/token", response_model=AccountToken | None)
