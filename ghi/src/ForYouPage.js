@@ -2,27 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 import "./ForYouPage.css"
 
+
 const ForYouPage=()=>{
     const[posts, SetPosts]=useState([]);
     const [userName, setUserName] = useState("");
     const [profilePhoto, setProfilePhoto]=useState("");
     const [profileDescription, setProfileDescription]=useState("");
-    // const [userOutfits, setUserOutfits] = useState([]);
-    // const[modalShow, setModalShow]=useState();
     const { token } = useAuthContext();
-  //   useEffect(() => {
-  //     const fetchOutfits = async () => {
-  //     const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/outfits`;
-  //     if (token != null) {const res = await fetch(url, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const data = await res.json();
-  //     console.log(token)
-  //     setUserOutfits(data);
-  //     }
-  //   };
-  //   fetchOutfits();
-  // }, [token]);
+
+
     useEffect(() => {
         if (token !== null) {
           const tokenParts = token.split(".");

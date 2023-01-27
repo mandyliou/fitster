@@ -2,7 +2,10 @@ from fastapi.testclient import TestClient
 from queries.outfit import OutfitRepository
 from main import app
 from token_auth import get_current_user
+
+
 client = TestClient(app)
+
 
 test_outfit = [
     {

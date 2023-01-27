@@ -3,6 +3,7 @@
     height: 50px;
     transform: translate(40%);
 }
+
 .nav-box {
             height: 35px;
             border: 2px solid #090909;
@@ -58,4 +59,3 @@
 .navbar-visual {
   background-color: #9e272700;
 }
-

@@ -1,3 +1,8 @@
+## Jan 26, 2023
+- finalizing last bit of the project
+- working on nav bar
+- removed unnecessary parts of the code as a team
+
 ## Jan 25, 2023
 - finished setting up deployment
 - met with Andrew with Khaled and Vincent to modify the MVP

@@ -13,7 +13,7 @@ const CreateOutfitForm = () => {
   const [outfit_description, setOutfitDescription] = useState("");
   const { token } = useAuthContext();
 
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const newOutfit = {

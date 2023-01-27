@@ -4,6 +4,7 @@ import { Card, Stack } from "react-bootstrap";
 import { useAuthContext } from "./auth";
 import "./TopFits.scss";
 
+
 export default function Featured() {
     const [posts, setPosts] = useState([]);
     const { token } = useAuthContext();

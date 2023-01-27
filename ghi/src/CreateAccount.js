@@ -41,7 +41,6 @@ export default function CreateUserForm({
       "description": description,
     };
 
-
     const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users`;
 
     const fetchConfig = {

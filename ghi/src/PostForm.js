@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 
+
 const CreatePostForm = () => {
   const [outfitId, setOutfitId] = useState("");
   const [postDescription, setPostDescription] = useState("");
