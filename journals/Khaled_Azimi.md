@@ -1,3 +1,9 @@
+## Jan 27th, 2023
+- updating readme
+- reviewed changes to be merged
+- will look at deployment after updates
+
+
 ## Jan 26th, 2023
 - working on deployment refresh
 - code clean up

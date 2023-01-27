@@ -69,7 +69,7 @@ const ForYouPage=()=>{
                           src={profilePhoto}
                           alt={post.post_title}
                           ></img>
-                          </div>
+                        </div>
                         <p>{profileDescription}</p>
                     </div>
                     <ul className="list-group list-group-flush">
