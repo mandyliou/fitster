@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import { useAuthContext } from './auth';
 
-
-const UpdateAccountForm = () => {
+const UpdateAccountForm = ({userId}) => {
   const [username, setUsername] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
@@ -24,7 +23,7 @@ const UpdateAccountForm = () => {
       description: description,
     };
 
-    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/{user_id}`;
+    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/${userId}`;
 
     const fetchConfig = {
       method: "put",
@@ -84,100 +83,94 @@ const UpdateAccountForm = () => {
     setDescription(value);
   };
 
-  return (
+    return (
     <div className="row">
       <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1>Update Account</h1>
-          <form onSubmit={handleSubmit} id="update-account-form">
-            <div className="form-floating mb-3">
-              <input
-                value={username}
-                onChange={handleUsernameChange}
-                required
-                type="username"
-                name="user_name"
-                id="username"
-                className="form-control"
-              />
-              <label>Username</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={first_name}
-                onChange={handFirstNameChange}
-                required
-                type="name"
-                name="first_name"
-                id="first_name"
-                className="form-control"
-              />
-              <label>First Name</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={last_name}
-                onChange={handleLastNameChange}
-                required
-                type="name"
-                name="last_name"
-                id="last_name"
-                className="form-control"
-              />
-              <label>Last Name</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={email}
-                onChange={handleEmailChange}
-                required
-                type="email"
-                name="email"
-                id="email"
-                className="form-control"
-              />
-              <label>Email</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={password}
-                onChange={handlePasswordChange}
-                required
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-              />
-              <label>Password</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={profile_photo}
-                onChange={handleProfilePhotoChange}
-                type="profile_photo"
-                name="profile_photo"
-                id="profile_photo"
-                className="form-control"
-              />
-              <label>Profile Photo</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={description}
-                onChange={handleDescriptionChange}
-                type="description"
-                name="description"
-                id="description"
-                className="form-control"
-              />
-              <label>Description</label>
-            </div>
-            <button className="btn btn-primary">Update</button>
-          </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              placeholder="Enter username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="first_name">First Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="first_name"
+              placeholder="Enter first name"
+              value={first_name}
+              onChange={handFirstNameChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="last_name">Last Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="last_name"
+              placeholder="Enter last name"
+              value={last_name}
+              onChange={handleLastNameChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="profile_photo">Profile Photo</label>
+            <input
+              type="text"
+              className="form-control"
+              id="profile_photo"
+              placeholder="Enter profile photo URL"
+              value={profile_photo}
+              onChange={handleProfilePhotoChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              className="form-control"
+              id="description"
+              rows="3"
+              value={description}
+              onChange={handleDescriptionChange}
+            ></textarea>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Update Account
+          </button>
+        </form>
       </div>
     </div>
   );
-};
+}
+
 
 export default UpdateAccountForm;
