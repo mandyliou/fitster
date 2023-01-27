@@ -1,0 +1,85 @@
+h1 {
+    span {
+        color:#ede5e5;
+    }
+}
+
+.ForYou {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    align-content: space-around;
+
+
+    .card1,
+    .card2,
+    .card3 {
+        animation: fadeIn 1s;
+        padding: 25px;
+        flex-direction: column;
+        color: rgb(0, 0, 0);
+        .post_title {
+            text-align: center;
+            max-width: fit-content;
+            border-bottom: 1px solid hsla(0, 0%, 0%, 1);
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 500;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+            transform: translateY(50%);
+        }
+        .PostName {
+            transform: translateY(-20%);
+            font-size: 19px;
+            font-weight: 500;
+            text-transform: lowercase
+        }
+
+        .Post-text {
+            text-align: center;
+            font-size: 18px;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 400;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+            transform: translate(30%, 75%);
+
+            .PostText{
+                font-size: 15px;
+            }
+        }
+        .PostFooter {
+            text-align: center;
+            font-size: 20px;
+            max-width: fit-content;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 300;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+            transform: translateY(10%);
+        }
+        .PostImages {
+            width: 30px;
+            height: 30px;
+            transform: translateY(0%);
+        }
+        .card-footer {
+            background: transparent;
+        }
+        &:hover {
+            transform: scaleY(1.03) scaleX(1.03);
+        }
+    }
+}
+
+.ForYouTitle {
+    color: #080909;
+    font-style: oblique;
+}
+

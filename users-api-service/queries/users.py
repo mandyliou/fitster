@@ -115,9 +115,7 @@ class UserRepository:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(
-        self, user_id: int, user: UserIn, hashed_password: str
-    ) -> Union[UserOut, Error]:
+    def update(self, user_id: int, user: UserIn) -> Union[UserOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -138,7 +136,7 @@ class UserRepository:
                             user.first_name,
                             user.last_name,
                             user.email,
-                            hashed_password,
+                            user.password,
                             user.profile_photo,
                             user.description,
                             user_id,

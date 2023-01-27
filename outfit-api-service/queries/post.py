@@ -1,8 +1,6 @@
 from pydantic import BaseModel
-# from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
-# from fastapi import HTTPException
 
 
 class Error(BaseModel):
@@ -10,7 +8,6 @@ class Error(BaseModel):
 
 
 class PostIn(BaseModel):
-    # user_id: int
     outfit_id: int
     post_description: str
     post_title: str
@@ -87,25 +84,6 @@ class PostRepository:
                     return PostOut(id=id, user_id=user_id, **old_data)
         except Exception:
             return {"message": "Failed to Post outfit"}
-
-    # def delete(self, user_id : int, outfit_id : int) -> bool:
-    #     try:
-    #         with pool.connection() as conn:
-    #             with conn.cursor() as db:
-    #                 db.execute(
-    #                     """
-    #                     DELETE FROM posts
-    #                     WHERE id = %s, %s,
-    #                     """,
-    #                     [
-    #                         user_id,
-    #                         outfit_id,
-    #                     ]
-    #                 )
-    #                 return True
-    #     except Exception as e:
-    #         print(e)
-    #         return False
 
     def get_user_posts(
         self, user_id: int

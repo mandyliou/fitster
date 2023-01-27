@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useAuthContext } from "./auth";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./ForYouPage.scss"
 import { useSearchParams } from "react-router-dom";
 
 const UserPostPage=()=>{
     const navigate=useNavigate();
     const [searchParams] = useSearchParams();
-    const postId = searchParams.get("postid");
     const post_title=searchParams.get("post_title")
     const post_description=searchParams.get("post_description")
-    const outfit_id=searchParams.get("outfit_id")
     const outfit_name=searchParams.get("outfit_name")
     const outfit_brand=searchParams.get("outfit_brand")
     const outfit_category=searchParams.get("outfit_category")
@@ -19,7 +16,6 @@ const UserPostPage=()=>{
     const outfit_bottom=searchParams.get("outfit_bottom")
     const outfit_shoes=searchParams.get("outfit_shoes")
     const outfit_description=searchParams.get("outfit_description")
-    const profile_username=searchParams.get("profile_name")
     return(
         <>
         <div className="input-group-append">
@@ -74,57 +70,3 @@ const UserPostPage=()=>{
     )
 }
 export default UserPostPage;
-
-
-
-
-                            //    <div className="card1"  style={{ position: "relative", top: 40 }} >
-                            //     <Card style={{ width: '22rem', height: '38rem',  position: "relative" }}>
-                            //             <Card.Header 
-                            //                 className="ForTitle">
-                            //                 {post_title}
-                            //             </Card.Header>
-                            //             <Card.Body>
-                            //                 <Card.Title
-                            //                     className="ForName">
-                            //                     @{outfit_name}
-                            //                 </Card.Title>
-                            //                <Stack
-                            //                 style={{ position: "absolute" }}
-                            //                 direction="vertical"
-                            //                 className="ForImages">
-                            //                     <div className="card-body d-flex-column">
-                            //                     <div className="col-5">
-                            //                     <img src={outfit_top}  alt={post_title} className="img-fluid"/> </div>
-                            //                     <div className="col-5">
-                            //                     <img src={outfit_bottom}  alt={post_title} className="img-fluid" /> </div>
-                            //                     <div className="col-5">
-                            //                     <img src={outfit_shoes}  alt={post_title} className="img-fluid" /> </div>
-                            //                     </div>
-                            //                 </Stack>
-                            //                 <Card.Text
-                            //                      style={{ position: "right" }}
-                            //                      className="ForYou-text">
-                            //                      <div>Outfit Category:</div>
-                            //                      <div className="ForText">{outfit_category}</div>
-                            //                      <div>Gender:</div>
-                            //                      <div className="ForText">{outfit_gender}</div>
-                            //                      <div>Outfit Description:</div>
-                            //                      <div className="ForText">{outfit_description}</div>
-                            //                 </Card.Text>
-                            //                 <Card.Footer style={{ position: "relative", bottom: -270,  }}>
-                            //                   <Card.Text
-                            //                     className="ForFooter">
-                            //                     {post_description}
-                            //                   </Card.Text>
-                            //                 </Card.Footer>
-                            //             </Card.Body>
-                            //     </Card>
-                            //     <div className="input-group-append">
-                            //         <button
-                            //             className="btn-sm btn-outline-secondary"
-                            //             type="button"
-                            //             onClick={e=>navigate("/ForYou")}
-                            //             >Back To For You</button>
-                            //     </div>
-                            //  </div>

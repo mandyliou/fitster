@@ -1,39 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { createSearchParams, Navigate, useNavigate } from "react-router-dom";
-import { useAuthContext } from "./auth";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import "./ForYouPage.scss"
-import UserPostPage from "./PostPage";
 import { Card, Stack } from "react-bootstrap";
-
 
 const ForYouPage=()=>{
     const[posts, SetPosts]=useState([]);
     const [searchInput, setSearchInput] = useState("");
-    const [userName, setUserName] = useState("");
-    const [profilePhoto, setProfilePhoto]=useState("");
-    const [profileDescription, setProfileDescription]=useState("");
-    const [userOutfits, setUserOutfits] = useState([]);
-    const navigate=useNavigate();
-    const [postdata, setPostData]=useState("")
-    const { token } = useAuthContext();
 
-    useEffect(() => {
-        if (token) {
-          const tokenParts = token.split(".");
-          console.log(tokenParts)
-          const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
-        }
-    }, [token]);
+    const navigate=useNavigate();
 
     const handleOnClick= async (event)=>{
       const postsUrl=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/searchpost/${event}`
       const res= await fetch(postsUrl)
       if(res.ok){
-      const tokenParts = token.split(".");
-      console.log(tokenParts)
        const data=await res.json()
-       console.log(data)
+
        navigate({
         pathname:`/PostPage`,
         search: createSearchParams({
@@ -61,20 +42,12 @@ const ForYouPage=()=>{
     useEffect(()=>{
       const fetchData= async () =>{
       const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      console.log("From user post " + token);
-      if (token !== null) {
-        const res = await fetch(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        console.log(data);
-        SetPosts(data);
-      }
-    };
+      const res = await fetch(url)
+      const data = await res.json();
+      SetPosts(data);
+        }
     fetchData();
-  }, [token]);
-
-
+    }, []);
     const random_posts=posts.sort(() => 0.5 - Math.random());
     return(
         <>
@@ -160,18 +133,3 @@ const ForYouPage=()=>{
 
 
 export default ForYouPage;
-
-
-  //   useEffect(() => {
-  //     const fetchOutfits = async () => {
-  //     const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/outfits`;
-  //     if (token != null) {const res = await fetch(url, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const data = await res.json();
-  //     console.log(token)
-  //     setUserOutfits(data);
-  //     }
-  //   };
-  //   fetchOutfits();
-  // }, [token]);

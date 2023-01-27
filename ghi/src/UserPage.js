@@ -59,33 +59,24 @@ export default function UserPost() {
                            @{user?.username}
                         </h2>
                         <h3
-                          style={{ position: "absolute", top: 315 }} 
+                          style={{ position: "absolute", top: 275 }} 
                           className="profileName" >
                           {user?.first_name} {user?.last_name}
                         </h3>
-                        <h4>
-                          <Button
-                            className="EditProfile"
-                            variant="EditProfile" 
-                            onClick={() => navigate("/update-account")} 
-                            style={{ position: "absolute", top: 278}}>
-                            Edit Profile
-                          </Button>
-                        </h4>
                         <h4
-                         style={{ position: "absolute", top: 340 }} 
+                         style={{ position: "absolute", top: 300 }} 
                          className="profileDescription" >
                            {user?.description}
                         </h4>
                         <h5
-                          style={{ position: "absolute", top: 400 }} 
+                          style={{ position: "absolute", top: 360 }} 
                           className="MyPosts" >
                           My Posts
                         </h5>
                         <div className="featured">
                             {posts.map((post) => (
                                 <div key={post.id} className="col-sm-4 mb-3">
-                                <div className="profilecard1"  style={{ position: "relative", top: 300 }} >
+                                <div className="profilecard1"  style={{ position: "relative", top: 250 }} >
                                 <Card style={{ width: '20rem', height: '29rem',  position: "relative" }}>
                                         <Card.Header
                                             className="Profile-Title">

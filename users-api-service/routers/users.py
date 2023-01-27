@@ -35,6 +35,19 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
+@router.get("/users/current_user", response_model=Optional[UserOut])
+def get_current_user(
+    response: Response,
+    user: dict = Depends(authenticator.try_get_current_account_data),
+    repo: UserRepository = Depends(),
+) -> UserOut:
+    user = repo.get_one_by_id(user["id"])
+    if user is None:
+        response.status_code = 404
+    del user.hashed_password
+    return user
+
+
 @router.get("/users/{user_id}", response_model=Optional[UserOut])
 def get_one_user(
     user_id: int,
@@ -45,18 +58,7 @@ def get_one_user(
     user = repo.get_one_by_id(user_id)
     if user is None:
         response.status_code = 404
-    return user
-
-
-@router.get("/users/current_user", response_model=Optional[UserOut])
-def get_current_user(
-    response: Response,
-    user: dict = Depends(authenticator.try_get_current_account_data),
-    repo: UserRepository = Depends(),
-) -> UserOut:
-    user = repo.get_one_by_id(user.id)
-    if user is None:
-        response.status_code = 404
+    del user.hashed_password
     return user
 
 
@@ -115,10 +117,3 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
-
-
-@router.get("/users/current", response_model=UserOut)
-def get_user_by_info(
-    account: UserOut = Depends(authenticator.get_current_account_data),
-):
-    return account
