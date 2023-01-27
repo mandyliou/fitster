@@ -108,4 +108,5 @@ def get_user_by_info(
     user = repo.get_one(username)
     if user is None:
         response.status_code = 404
+    del user.hashed_password
     return user

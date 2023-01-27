@@ -29,7 +29,7 @@ export default function Featured({ setID }) {
           user_last_name:data.last_name,
           user_profile_photo: data.profile_photo,
           user_username: data.username,
-          post_data: data2
+          user_id: data.id
         }).toString(),
        });
        }

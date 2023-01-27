@@ -9,7 +9,7 @@ class MyAuthenticator(Authenticator):
         self,
         username: str,
         users: UserRepository,
-    ):
+    ) -> UserOutWithPassword:
         # Use your repo to get the account based on the
         # username (which could be an email)
         return users.get_one(username)
@@ -26,7 +26,7 @@ class MyAuthenticator(Authenticator):
         # account object
         return user.hashed_password
 
-    def get_account_data_for_cookie(self, user: UserOut):
+    def get_account_data_for_cookie(self, user: UserOutWithPassword):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return user.username, UserOut(**user.dict())
