@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext, useUser } from "./auth";
 import { Button, Card, Stack } from "react-bootstrap";
-import { useNavigate } from 'react-router';
 import "./UserPage.scss";
 
 
 export default function UserPost() {
   const [posts, SetPosts] = useState([]);
-  const navigate = useNavigate();
   const { token } = useAuthContext();
   const user = useUser (token);
 
