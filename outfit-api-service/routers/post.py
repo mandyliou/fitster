@@ -10,11 +10,14 @@ from fastapi import (
 from queries.post import (
     Error,
     PostIn,
+    PostIn2,
     PostOut,
     PostRepository,
     PostOutWithoutUser,
     PostOutwithPics,
-    PostOutWithPicsMore
+    PostOutWithPicsMore,
+    PostOutWithPicsMore2,
+    PostOutWithPicsMore3
 )
 # import os
 # from fastapi import Depends, HTTPException
@@ -28,14 +31,29 @@ from token_auth import get_current_user
 router = APIRouter()
 
 
-@router.post("/api/posts", response_model=Union[PostOut, Error])
+@router.post("/api/posts", response_model=Union[PostOutWithPicsMore2, Error])
 def create_post(
-    post: PostIn,
+    post: PostIn2,
     account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
 ):
+    print(post)
     print(account_data)
-    return repo.create(post, account_data.id)
+    # post.poster_username=account_data.username
+    # post.poster_first_name=account_data.first_name
+    # post.poster_last_name=account_data.last_name
+    # post.poster_email=account_data.email
+    # post.poster_profile_photo=account_data.profile_photo
+    # post.poster_description=account_data.description
+    return repo.create(
+        post, account_data.id,
+        account_data.username,
+        account_data.first_name,
+        account_data.last_name,
+        account_data.profile_photo,
+        account_data.description,
+        account_data.email,
+        )
 
 
 # @router.delete("/posts/{user_id}", response_model=bool)
@@ -47,20 +65,20 @@ def create_post(
 
 
 @router.get(
-    "/api/user/posts", response_model=Union[List[PostOutwithPics], Error]
+    "/api/user/posts", response_model=Union[List[PostOutWithPicsMore2], Error]
 )
 def get_posts_user(
     response: Response,
     account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
-) -> PostOutwithPics:
+) -> PostOutWithPicsMore2:
     post = repo.get_user_posts(account_data.id)
     if post is None:
         response.status_code = 404
     return post
 
 
-@router.get("/posts", response_model=Union[List[PostOutWithPicsMore], Error])
+@router.get("/posts", response_model=Union[List[PostOutWithPicsMore3], Error])
 def get_all_posts(
     repo: PostRepository = Depends(),
     ):
@@ -99,8 +117,8 @@ def get_post(
         response.status_code = 404
     return post
 
-@router.get("/searchpost/{post_title}", response_model=Optional[PostOutwithPics])
-def get_post(
+@router.get("/searchpost/{post_title}", response_model=Optional[PostOutWithPicsMore3])
+def get_post_by_title(
     post_title: str,
     response: Response,
     repo: PostRepository = Depends(),

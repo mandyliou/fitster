@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { useToken, useAuthContext } from "./auth.js";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./Nav.css";
+
 
 function showProfileButton(status) {
     if (status === true) {
@@ -84,7 +85,9 @@ export default function Navigation({
         e.preventDefault();
         setLoginStatus(false);
         await logout();
+
     }
+
     const { token } = useAuthContext();
     const [userName, setUserName] = useState("");
 

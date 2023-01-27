@@ -10,6 +10,7 @@ import UpdateAccountForm from "./UpdateAccount.js";
 import Featured from './TopFits.js'
 import Layout from './Layout.js';
 import ForYouPage from './ForYouPage.js'
+import UserPostPage from "./PostPage.js";
 
 
 
@@ -44,7 +45,7 @@ export default function App() {
             setUserName={setUserName}
             userID={userID}
             setUserID={setUserID}
-            
+
         />} >
         <Route index element={<Featured />} />
         <Route path="/my-profile" element={<UserPost />} />
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/update-account" element={<UpdateAccountForm />} />
         <Route path="/new-post" element={<CreatePostForm />} />
         <Route path="/ForYou" element={<ForYouPage />} />
+        <Route path="/PostPage" element={<UserPostPage />} />
         </Route>
       </Routes>
     </div>

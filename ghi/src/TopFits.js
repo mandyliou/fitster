@@ -59,11 +59,11 @@ export default function Featured({ setID }) {
                                         <Card.Body>
                                             <Card.Title
                                                 className="handle">
-                                                @{userName}
+                                                @{post.poster_username}
                                             </Card.Title>
                                             <Card.Subtitle
                                                 className="bio">
-                                                {profileDescription}
+                                                {post.poster_description}
                                             </Card.Subtitle>
                                            <Stack
                                             style={{ position: "absolute" }}

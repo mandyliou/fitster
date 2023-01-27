@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "./auth";
 import "./ForYouPage.css"
+import UserPostPage from "./PostPage";
 
 const ForYouPage=()=>{
     const[posts, SetPosts]=useState([]);
@@ -8,28 +10,16 @@ const ForYouPage=()=>{
     const [userName, setUserName] = useState("");
     const [profilePhoto, setProfilePhoto]=useState("");
     const [profileDescription, setProfileDescription]=useState("");
-    const [userOutfits, setUserOutfits] = useState([]);
-    // const[modalShow, setModalShow]=useState();
+
+    const navigate=useNavigate();
+
     const { token } = useAuthContext();
-  //   useEffect(() => {
-  //     const fetchOutfits = async () => {
-  //     const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/outfits`;
-  //     if (token != null) {const res = await fetch(url, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const data = await res.json();
-  //     console.log(token)
-  //     setUserOutfits(data);
-  //     }
-  //   };
-  //   fetchOutfits();
-  // }, [token]);
     useEffect(() => {
         if (token !== null) {
           const tokenParts = token.split(".");
-          console.log(tokenParts)
+
           const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
+
           setUserName(userData.account.username);
           setProfilePhoto(userData.account.profile_photo);
           setProfileDescription(userData.account.description);
@@ -38,6 +28,28 @@ const ForYouPage=()=>{
 
     const handleOnClick= async (event)=>{
       const postsUrl=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/searchpost/${event}`
+      const res= await fetch(postsUrl)
+      if(res.ok){
+       const data=await res.json()
+
+       navigate({
+        pathname:`/PostPage`,
+        search: createSearchParams({
+          postid: data.id,
+          post_title: data.post_title,
+          post_description: data.post_description,
+          outfit_id: data.outfit_id,
+          outfit_name: data.outfit_name,
+          outfit_brand: data.outfit_brand,
+          outfit_category: data.outfit_category,
+          outfit_gender: data.outfit_gender,
+          outfit_top: data.top,
+          outfit_bottom: data.bottom,
+          outfit_shoes:data.shoes,
+          outfit_description:data.outfit_description,
+        }).toString(),
+       });
+      }
     };
     const handleInputChange = (e) => {
       const value=e.target.value;
@@ -47,14 +59,14 @@ const ForYouPage=()=>{
     useEffect(()=>{
       const fetchData= async () =>{
       const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      console.log("From user post " + token);
+
       if (token !== null) {
-        const res = await fetch(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        console.log(data);
-        SetPosts(data);
+        const res = await fetch(url)
+        if(res.ok){
+          const data = await res.json();
+
+          SetPosts(data);
+        }
       }
     };
     fetchData();
@@ -89,11 +101,11 @@ const ForYouPage=()=>{
                 <div className="card">
                     <div className='card-header'>
                         <h5 className='card-title'>{post.post_title}</h5>
-                        <p>{userName}</p>
+                        <p>{post.poster_username}</p>
                         <div>
                           <img
                           className="post-photo"
-                          src={profilePhoto}
+                          src={post.poster_profile_phot}
                           alt={post.post_title}
                           ></img>
                           </div>
