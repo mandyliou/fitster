@@ -97,7 +97,7 @@ export default function Navigation({
 useEffect(() => {
   if (token !== null) {
     const tokenParts = token.split(".");
-    const userData = JSON.parse(atob(tokenParts[1]));
+    const userData = JSON.parse(window.atob(tokenParts[1]));
     setUserName(userData.account.username)
   }
 }, [token]);

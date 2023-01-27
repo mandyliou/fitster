@@ -1,0 +1,181 @@
+.profilePhoto {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 70px;
+    transform: translateX(-50%);
+}
+
+.profileUser {
+    color: #080909;
+    font-style: italic;
+    font-size: 21px;
+    font-weight: 500;
+    text-transform: lowercase;
+
+}
+
+.profileName {
+    color: #080909;
+    font-style: normal;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.EditProfile {
+            height: 30px;
+            width: 110px;
+            padding: 5px;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            font-size: 12px;
+            color: rgb(0, 0, 0);
+            background: transparent;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+            position: absolute;
+            transform: translateX(-50%);
+}
+
+.EditProfile:hover {
+    color: rgb(255, 255, 255);
+    background-color: black;
+    
+}
+
+.profileDescription {
+    text-align: center;
+    color: #080909;
+    font-style: oblique;
+    font-size: 16px;
+    font-weight: 300;
+    border-radius: 50px;
+    border: 2px solid #090909;
+    width: 160px;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    box-sizing: content-box;
+    
+}
+
+.MyPosts {
+    color: #080909;
+    font-style: oblique;
+    font-size: 35px;
+    font-weight: 500;
+    border-top: 2px solid rgba(0, 0, 0, 0.38);
+    width: 100vw;
+}
+
+.App-header {
+  margin-bottom: '100px';
+  margin-top: '20px';
+  min-height: calc(100vh - 120px);
+  background-color: #282c3400;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.featured {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    align-content: space-around;
+
+
+    .profilecard1 {
+        animation: fadeIn 1s;
+        padding: 25px;
+        flex-direction: column;
+        color: rgb(0, 0, 0);
+        .Profile-Title {
+            font-size: 18px;
+            text-align: center;
+            max-width: fit-content;
+            width: 100vw;
+            border-bottom: 2px solid hsla(0, 0%, 0%, 1);
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 500;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .Profile-User {
+            transform: translateY(-10%);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: lowercase
+        }
+
+        .post-user {
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: lowercase
+        }
+
+        .Mid-Text {
+            text-align: center;
+            font-size: 15px;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 500;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+            transform: translate(20%, 15%);
+
+            .SubText {
+                font-size: 13px;
+            }
+        }
+        .profile-footer {
+            text-align: center;
+            font-size: 20px;
+            max-width: fit-content;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 300;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+            transform: translateY(10%);
+        }
+        .post-images {
+            width: 350px;
+            height: 350px;
+            transform: translateY(-15%);
+        }
+        .card-footer {
+            background: transparent;
+        }
+        &:hover {
+            transform: scaleY(1.03) scaleX(1.03);
+        }
+        .DeletePost{
+            height: 30px;
+            width: 110px;
+            padding: 5px;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            font-size: 12px;
+            color: rgb(0, 0, 0);
+            background: transparent;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .DeletePost:hover {
+        transform: translateY(2px);
+        background: #832a2a9b;
+        }
+    }
+}

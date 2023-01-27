@@ -1,6 +1,8 @@
 from pydantic import BaseModel
+# from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
+# from fastapi import HTTPException
 
 
 class Error(BaseModel):
@@ -8,6 +10,7 @@ class Error(BaseModel):
 
 
 class PostIn(BaseModel):
+    # user_id: int
     outfit_id: int
     post_description: str
     post_title: str
@@ -84,6 +87,25 @@ class PostRepository:
                     return PostOut(id=id, user_id=user_id, **old_data)
         except Exception:
             return {"message": "Failed to Post outfit"}
+
+    # def delete(self, user_id : int, outfit_id : int) -> bool:
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor() as db:
+    #                 db.execute(
+    #                     """
+    #                     DELETE FROM posts
+    #                     WHERE id = %s, %s,
+    #                     """,
+    #                     [
+    #                         user_id,
+    #                         outfit_id,
+    #                     ]
+    #                 )
+    #                 return True
+    #     except Exception as e:
+    #         print(e)
+    #         return False
 
     def get_user_posts(
         self, user_id: int
@@ -181,6 +203,7 @@ class PostRepository:
         except Exception:
             return {"alert": "could not update post"}
 
+    # get one post by post id
     def get_one_post(self, id: int) -> Optional[PostOutWithoutUser]:
         try:
             with pool.connection() as conn:
@@ -201,6 +224,40 @@ class PostRepository:
                     if record is None:
                         return None
                     return self.record_to_post_out(record)
+        except Exception:
+            return {"alert": "could not get post"}
+
+    def get_post_by_title(
+        self, post_title: str
+    ) -> Optional[PostOutWithPicsMore]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT posts.*,
+                        outfits.top,
+                        outfits.bottom,
+                        outfits.shoes,
+                        outfits.outfit_category,
+                        outfits.outfit_gender,
+                        outfits.outfit_description,
+                        outfits.outfit_name,
+                        outfits.outfit_brand,
+                        posts.user_id,
+                        outfit_id,
+                        post_description,
+                        post_title
+                        FROM posts
+                        JOIN outfits ON posts.outfit_id = outfits.id
+                        WHERE post_title=%s
+                        """,
+                        [post_title],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_post_out_with_pics_and_more(record)
         except Exception:
             return {"alert": "could not get post"}
 
@@ -241,7 +298,7 @@ class PostRepository:
             shoes=record[7],
             outfit_category=record[8],
             outfit_gender=record[9],
-            outfit_name=record[10],
-            outfit_brand=record[11],
-            outfit_description=record[12],
+            outfit_description=record[10],
+            outfit_name=record[11],
+            outfit_brand=record[12],
         )

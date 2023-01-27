@@ -4,7 +4,7 @@ h1 {
     }
 }
 
-.featured {
+.ForYou {
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
@@ -18,7 +18,7 @@ h1 {
         padding: 25px;
         flex-direction: column;
         color: rgb(0, 0, 0);
-        .title {
+        .ForTitle {
             text-align: center;
             max-width: fit-content;
             border-bottom: 1px solid hsla(0, 0%, 0%, 1);
@@ -29,14 +29,14 @@ h1 {
             width: 80%;
             margin: 0 auto;
         }
-        .username {
+        .ForName {
             transform: translateY(-20%);
             font-size: 19px;
             font-weight: 500;
             text-transform: lowercase
         }
 
-        .Middle-Text {
+        .ForYou-text {
             text-align: center;
             font-size: 18px;
             background-color: transparent;
@@ -47,11 +47,11 @@ h1 {
             margin: 0 auto;
             transform: translate(30%, 75%);
 
-            .Sub-Text {
+            .ForText{
                 font-size: 15px;
             }
         }
-        .footer {
+        .ForFooter {
             text-align: center;
             font-size: 20px;
             max-width: fit-content;
@@ -63,7 +63,7 @@ h1 {
             margin: 0 auto;
             transform: translateY(10%);
         }
-        .featured-images {
+        .ForImages {
             width: 320px;
             height: 320px;
             transform: translateY(0%);
@@ -77,7 +77,7 @@ h1 {
     }
 }
 
-.featured-title {
+.ForYouTitle {
     color: #080909;
     font-style: oblique;
 }

@@ -35,15 +35,16 @@ export default function Featured() {
         <>
                 <div className="App">
                     <div className="App-header">
-                        <h1 className="featured-title">
-                           Top Fits Of The Day!
+                        <h1 
+                          style={{ position: "absolute", top: 90 }} 
+                          className="featured-title">
+                          Top Fits Of The Day!
                         </h1>
                         <div  className="featured">
                             {random_posts.slice(0,3).map((post) => (
                                 <div key={post.id} className="col-sm-4 mb-3">
-
-                                <div className="card1">
-                                <Card style={{ width: '22rem', height: '40rem',  position: "relative" }}>
+                                <div className="card1"  style={{ position: "relative", top: 40 }} >
+                                <Card style={{ width: '22rem', height: '38rem',  position: "relative" }}>
                                         <Card.Header
                                             className="title">
                                             {post.post_title}
@@ -56,7 +57,7 @@ export default function Featured() {
                                            <Stack
                                             style={{ position: "absolute" }}
                                             direction="vertical"
-                                            className="justify-content-between mb-3">
+                                            className="featured-images">
                                                 <div className="card-body d-flex-column">
                                                 <div className="col-5">
                                                 <img src={post.top}  alt={post.post_title} className="img-fluid"/> </div>

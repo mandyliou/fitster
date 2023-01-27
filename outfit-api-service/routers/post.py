@@ -50,6 +50,20 @@ def get_all_posts(
     return repo.get_all()
 
 
+@router.get(
+    "/searchpost/{post_title}", response_model=Optional[PostOutWithPicsMore]
+    )
+def get_post_title(
+    post_title: str,
+    response: Response,
+    repo: PostRepository = Depends(),
+) -> PostOutwithPics:
+    post = repo.get_post_by_title(post_title)
+    if post is None:
+        response.status_code = 404
+    return post
+
+
 @router.delete("/posts/{post_id}", response_model=Union[str, Error])
 def delete_post(
     post_id: int,
