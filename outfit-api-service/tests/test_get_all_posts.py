@@ -14,6 +14,12 @@ test_post = [
             "top": "post top",
             "bottom": "post bottom",
             "shoes": "post shoes",
+            "outfit_category": "str",
+            "outfit_gender": "str",
+            "outfit_description": "str",
+            "outfit_name": "str",
+            "outfit_brand": "str",
+
     }
 ]
 
@@ -26,5 +32,5 @@ class EmptyRepo:
 def test_get_all():
     app.dependency_overrides[get_current_user] = EmptyRepo
     app.dependency_overrides[PostRepository] = EmptyRepo
-    response = client.get("/posts/")
+    response = client.get("/posts")
     assert response.json() == test_post

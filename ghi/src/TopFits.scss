@@ -30,15 +30,30 @@ h1 {
             width: 80%;
             margin: 0 auto;
         }
-        .handle {
-            transform: translateY(-40%);
+        .username {
+            transform: translateY(-20%);
+            font-size: 19px;
+            font-weight: 500;
         }
-        .bio {
-            transform: translateY(-40%);
+
+        .Middle-Text {
+            text-align: center;
+            font-size: 18px;
+            background-color: transparent;
+            color: rgb(17, 16, 16);
+            font-weight: 400;
+            font-style: oblique;
+            width: 80%;
+            margin: 0 auto;
+            transform: translate(30%, 85%);
+
+            .Sub-Text {
+                font-size: 15px;
+            }
         }
         .footer {
             text-align: center;
-            font-size: 25px;
+            font-size: 20px;
             max-width: fit-content;
             background-color: transparent;
             color: rgb(17, 16, 16);
@@ -46,6 +61,7 @@ h1 {
             font-style: oblique;
             width: 80%;
             margin: 0 auto;
+            transform: translateY(10%);
         }
         .img {
             width: 100% \ 9;

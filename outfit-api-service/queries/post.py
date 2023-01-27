@@ -1,6 +1,8 @@
 from pydantic import BaseModel
+# from pydantic import BaseModel, ValidationError
 from typing import Optional, List, Union
 from queries.pool import pool
+# from fastapi import HTTPException
 
 
 class Error(BaseModel):
@@ -8,6 +10,7 @@ class Error(BaseModel):
 
 
 class PostIn(BaseModel):
+    # user_id: int
     outfit_id: int
     post_description: str
     post_title: str
@@ -37,6 +40,22 @@ class PostOutwithPics(BaseModel):
     top: str
     bottom: str
     shoes: str
+
+
+class PostOutWithPicsMore(BaseModel):
+    id: int
+    user_id: int
+    outfit_id: int
+    post_description: str
+    post_title: str
+    top: str
+    bottom: str
+    shoes: str
+    outfit_category: str
+    outfit_gender: str
+    outfit_description: str
+    outfit_name: str
+    outfit_brand: str
 
 
 class PostRepository:
@@ -69,6 +88,25 @@ class PostRepository:
         except Exception:
             return {"message": "Failed to Post outfit"}
 
+    # def delete(self, user_id : int, outfit_id : int) -> bool:
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor() as db:
+    #                 db.execute(
+    #                     """
+    #                     DELETE FROM posts
+    #                     WHERE id = %s, %s,
+    #                     """,
+    #                     [
+    #                         user_id,
+    #                         outfit_id,
+    #                     ]
+    #                 )
+    #                 return True
+    #     except Exception as e:
+    #         print(e)
+    #         return False
+
     def get_user_posts(
         self, user_id: int
     ) -> Union[Error, List[PostOutwithPics]]:
@@ -99,7 +137,7 @@ class PostRepository:
             print(e)
             return {"message": "Could not get that user"}
 
-    def get_all(self) -> Union[Error, List[PostOutwithPics]]:
+    def get_all(self) -> Union[Error, List[PostOutWithPicsMore]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -109,17 +147,21 @@ class PostRepository:
                         outfits.top,
                         outfits.bottom,
                         outfits.shoes,
+                        outfits.outfit_category,
+                        outfits.outfit_gender,
+                        outfits.outfit_description,
+                        outfits.outfit_name,
+                        outfits.outfit_brand,
                         posts.user_id,
                         outfit_id,
                         post_description,
                         post_title
                         FROM posts
-                        JOIN outfits ON posts.outfit_id = outfits.id
-                        ORDER BY post_title;
+                        JOIN outfits ON posts.outfit_id = outfits.id;
                         """
                     )
                     return [
-                        self.record_to_post_out_with_pics(record)
+                        self.record_to_post_out_with_pics_and_more(record)
                         for record in result
                     ]
         except Exception:
@@ -161,6 +203,7 @@ class PostRepository:
         except Exception:
             return {"alert": "could not update post"}
 
+    # get one post by post id
     def get_one_post(self, id: int) -> Optional[PostOutWithoutUser]:
         try:
             with pool.connection() as conn:
@@ -207,4 +250,21 @@ class PostRepository:
             top=record[5],
             bottom=record[6],
             shoes=record[7],
+        )
+
+    def record_to_post_out_with_pics_and_more(self, record):
+        return PostOutWithPicsMore(
+            id=record[0],
+            user_id=record[1],
+            outfit_id=record[2],
+            post_description=record[3],
+            post_title=record[4],
+            top=record[5],
+            bottom=record[6],
+            shoes=record[7],
+            outfit_category=record[8],
+            outfit_gender=record[9],
+            outfit_name=record[10],
+            outfit_brand=record[11],
+            outfit_description=record[12],
         )

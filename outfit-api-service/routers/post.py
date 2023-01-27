@@ -2,8 +2,10 @@ from typing import List, Optional, Union
 from fastapi import (
     Depends,
     HTTPException,
+    # status,
     Response,
     APIRouter,
+    # Request,
 )
 from queries.post import (
     Error,
@@ -12,7 +14,15 @@ from queries.post import (
     PostRepository,
     PostOutWithoutUser,
     PostOutwithPics,
+    PostOutWithPicsMore,
 )
+# import os
+# from fastapi import Depends, HTTPException
+# from fastapi import Depends, HTTPException, status
+
+# from fastapi.security import OAuth2PasswordBearer
+# from jose import jwt, JWTError
+# from authenticator import authenticator
 from token_auth import get_current_user
 
 router = APIRouter()
@@ -25,6 +35,14 @@ def create_post(
     repo: PostRepository = Depends(),
 ):
     return repo.create(post, account_data.id)
+
+
+# @router.delete("/posts/{user_id}", response_model=bool)
+# def delete_post(
+#     user_id: int,
+#     repo: PostRepository = Depends(),
+# ) -> bool:
+#     return repo.delete(user_id)
 
 
 @router.get(
@@ -41,8 +59,10 @@ def get_posts_user(
     return post
 
 
-@router.get("/posts", response_model=Union[List[PostOutwithPics], Error])
-def get_all_posts(repo: PostRepository = Depends()):
+@router.get("/posts", response_model=Union[List[PostOutWithPicsMore], Error])
+def get_all_posts(
+    repo: PostRepository = Depends()
+):
     return repo.get_all()
 
 
