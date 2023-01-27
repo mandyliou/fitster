@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
+import { useNavigate } from "react-router-dom";
 
 
 const CreatePostForm = () => {
@@ -8,6 +9,7 @@ const CreatePostForm = () => {
   const [postTitle, setPostTitle] = useState("");
   const [userOutfits, setUserOutfits] = useState([]);
   const { token } = useAuthContext();
+   const navigate = useNavigate();
 
   useEffect(() => {
       const fetchOutfits = async () => {
@@ -16,7 +18,6 @@ const CreatePostForm = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      console.log(token)
       setUserOutfits(data);
       }
     };
@@ -30,8 +31,6 @@ const CreatePostForm = () => {
       "post_description": postDescription,
       "post_title": postTitle,
     };
-
-    console.log(newPost)
 
     const postURL = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/posts`;
 
@@ -52,6 +51,8 @@ const CreatePostForm = () => {
         setPostTitle("");
       })
       .catch((e) => console.error("Error creating post: ", e));
+
+      navigate("/")
   };
 
   const handleOutfitIdChange = (event) => {

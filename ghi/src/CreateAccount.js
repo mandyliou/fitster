@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Modal from 'react-bootstrap/Modal';
 
-
 function BootstrapInput(props) {
     const { id, placeholder, labelText, value, onChange, type } = props;
 
@@ -12,7 +11,6 @@ function BootstrapInput(props) {
         </div>
     )
 }
-
 
 export default function CreateUserForm({
     showSignupForm,

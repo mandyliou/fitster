@@ -12,7 +12,6 @@ export default function Featured() {
     useEffect(() => {
         if (token !== null) {
           const tokenParts = token.split(".");
-          console.log(tokenParts)
           const userData = JSON.parse(atob(tokenParts[1]));
           console.log(userData)
         }
@@ -21,13 +20,11 @@ export default function Featured() {
     useEffect(() => {
       const fetchData = async () => {
       const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data);
         setPosts(data);
       }
     };

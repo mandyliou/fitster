@@ -14,9 +14,7 @@ const ForYouPage=()=>{
     useEffect(() => {
         if (token !== null) {
           const tokenParts = token.split(".");
-          console.log(tokenParts)
           const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
           setUserName(userData.account.username);
           setProfilePhoto(userData.account.profile_photo);
           setProfileDescription(userData.account.description);
@@ -25,23 +23,22 @@ const ForYouPage=()=>{
     const handleChange = async (e) => {
       e.preventDefault();
       const searchUrl= `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/users/${e}`;
-      console.log(searchUrl)
       const res2=await fetch(searchUrl)
-      if(res2.ok){
-        console.log(res2)
-      }
+       if (res2.ok) {
+         console.log(res2);
+       }
     };
+
+
 
     useEffect(()=>{
       const fetchData= async () =>{
       const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data);
         SetPosts(data);
       }
     };

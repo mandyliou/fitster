@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useAuthContext } from './auth';
-
+import { useNavigate } from "react-router-dom";
 
 const CreateOutfitForm = () => {
   const [outfit_name, setOutfitName] = useState("");
@@ -12,8 +12,9 @@ const CreateOutfitForm = () => {
   const [outfit_gender, setOutfitGender] = useState("");
   const [outfit_description, setOutfitDescription] = useState("");
   const { token } = useAuthContext();
+  const navigate = useNavigate();
 
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const newOutfit = {
@@ -52,6 +53,8 @@ const CreateOutfitForm = () => {
         setOutfitDescription("");
       })
       .catch((e) => console.error("error: ", e));
+
+      navigate("/")
   };
 
   const handleOutfitNameChange = (event) => {
