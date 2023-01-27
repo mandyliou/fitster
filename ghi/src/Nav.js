@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import { useToken, useAuthContext } from "./auth.js";
+import { useToken, useAuthContext, useUser } from "./auth.js";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -91,16 +91,10 @@ export default function Navigation({
         navigate("/")
     }
     const { token } = useAuthContext();
-    const [userName, setUserName] = useState("");
+
+    const user = useUser (token);
 
 
-useEffect(() => {
-  if (token !== null) {
-    const tokenParts = token.split(".");
-    const userData = JSON.parse(window.atob(tokenParts[1]));
-    setUserName(userData.account.username)
-  }
-}, [token]);
 
     return (
         <Navbar
@@ -128,7 +122,7 @@ useEffect(() => {
                   <Nav.Link className={showLoginButton(loginStatus)} onClick={handleShowLoginForm}>Login</Nav.Link>
                   <Nav.Link className={showSignupButton(loginStatus)} onClick={handleShowSignupForm}>Signup</Nav.Link>
                   <Dropdown>
-                  <Dropdown.Toggle className={showUserName(loginStatus)} >@{userName}</Dropdown.Toggle>
+                  <Dropdown.Toggle className={showUserName(loginStatus)} >@{user?.username}</Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item className={showProfileButton(loginStatus)} as={NavLink} to="/my-profile">Profile</Dropdown.Item>
                     <Dropdown.Divider />

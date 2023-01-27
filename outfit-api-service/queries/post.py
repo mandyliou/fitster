@@ -109,7 +109,7 @@ class PostRepository:
 
     def get_user_posts(
         self, user_id: int
-    ) -> Union[Error, List[PostOutwithPics]]:
+    ) -> Union[Error, List[PostOutWithPicsMore]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -119,6 +119,11 @@ class PostRepository:
                         outfits.top,
                         outfits.bottom,
                         outfits.shoes,
+                        outfits.outfit_category,
+                        outfits.outfit_gender,
+                        outfits.outfit_description,
+                        outfits.outfit_name,
+                        outfits.outfit_brand,
                         posts.user_id,
                         outfit_id,
                         post_description,
@@ -130,7 +135,7 @@ class PostRepository:
                         [user_id],
                     )
                     return [
-                        self.record_to_post_out_with_pics(record)
+                        self.record_to_post_out_with_pics_and_more(record)
                         for record in result
                     ]
         except Exception as e:

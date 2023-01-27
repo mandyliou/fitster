@@ -30,13 +30,13 @@ def create_post(
 
 
 @router.get(
-    "/api/user/posts", response_model=Union[List[PostOutwithPics], Error]
+    "/api/user/posts", response_model=Union[List[PostOutWithPicsMore], Error]
 )
 def get_posts_user(
     response: Response,
     account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
-) -> PostOutwithPics:
+) -> PostOutWithPicsMore:
     post = repo.get_user_posts(account_data.id)
     if post is None:
         response.status_code = 404

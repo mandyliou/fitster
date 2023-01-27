@@ -18,14 +18,11 @@ const ForYouPage=()=>{
     const { token } = useAuthContext();
 
     useEffect(() => {
-        if (token !== null) {
+        if (token) {
           const tokenParts = token.split(".");
           console.log(tokenParts)
           const userData = JSON.parse(atob(tokenParts[1]));
           console.log(userData)
-          setUserName(userData.account.username);
-          setProfilePhoto(userData.account.profile_photo);
-          setProfileDescription(userData.account.description);
         }
     }, [token]);
 
@@ -76,6 +73,8 @@ const ForYouPage=()=>{
     };
     fetchData();
   }, [token]);
+
+
     const random_posts=posts.sort(() => 0.5 - Math.random());
     return(
         <>
@@ -106,7 +105,7 @@ const ForYouPage=()=>{
                           For You
                         </h1>
                         <div  className="ForYou">
-                            {random_posts.slice(0,3).map((post) => (
+                            {random_posts.map((post) => (
                                 <div key={post.id} className="col-sm-4 mb-3">
                                 <div className="card1"  style={{ position: "relative", top: 40 }} >
                                 <Card style={{ width: '22rem', height: '38rem',  position: "relative" }}>

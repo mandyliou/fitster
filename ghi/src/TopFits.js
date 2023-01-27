@@ -10,17 +10,9 @@ export default function Featured() {
     const { token } = useAuthContext();
 
     useEffect(() => {
-        if (token !== null) {
-          const tokenParts = token.split(".");
-          const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
-        }
-    }, [token]);
-
-    useEffect(() => {
       const fetchData = async () => {
       const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      if (token !== null) {
+      if (token ) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -75,7 +67,7 @@ export default function Featured() {
                                                  <div>Gender:</div>
                                                  <div className="Sub-Text">{post.outfit_gender}</div>
                                                  <div>Outfit Description:</div>
-                                                 <div className="Sub-Text">{post.outfit_brand}</div>
+                                                 <div className="Sub-Text">{post.outfit_description}</div>
                                             </Card.Text>
                                             <Card.Footer style={{ position: "relative", bottom: -270,  }}>
                                               <Card.Text

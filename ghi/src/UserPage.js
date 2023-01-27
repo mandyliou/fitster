@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuthContext } from "./auth";
+import { useAuthContext, useUser } from "./auth";
 import { Button, Card, Stack } from "react-bootstrap";
 import { useNavigate } from 'react-router';
 import "./UserPage.scss";
@@ -7,41 +7,9 @@ import "./UserPage.scss";
 
 export default function UserPost() {
   const [posts, SetPosts] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [profilePhoto, setProfilePhoto]=useState("");
-  const [profileDescription, setProfileDescription]=useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName]=useState("");
   const navigate = useNavigate();
   const { token } = useAuthContext();
-
-    useEffect(() => {
-        if (token !== null) {
-          const tokenParts = token.split(".");
-          console.log(tokenParts)
-          const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
-          setUserName(userData.account.username);
-          setProfilePhoto(userData.account.profile_photo);
-          setProfileDescription(userData.account.description);
-          setFirstName(userData.account.first_name)
-          setLastName(userData.account.last_name)
-        }
-    }, [token]);
-
-     useEffect(() => {
-      const fetchData = async () => {
-      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      if (token !== null) {
-        const res = await fetch(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        SetPosts(data);
-      }
-    };
-     fetchData();
-  }, [token]);
+  const user = useUser (token);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,19 +49,19 @@ export default function UserPost() {
                             style={{ position: "absolute", top: 90, }} 
                             className="profilePhoto"
                             type="profile_photo"
-                            src={profilePhoto}
+                            src={user?.profile_photo}
                             alt="profile_photo"
                            ></img>
                         </h1>
                         <h2
                            style={{ position: "absolute", top: 245 }} 
                            className="profileUser" >
-                           @{userName}
+                           @{user?.username}
                         </h2>
                         <h3
                           style={{ position: "absolute", top: 315 }} 
                           className="profileName" >
-                          {firstName} {lastName}
+                          {user?.first_name} {user?.last_name}
                         </h3>
                         <h4>
                           <Button
@@ -104,20 +72,20 @@ export default function UserPost() {
                             Edit Profile
                           </Button>
                         </h4>
-                        <h5
+                        <h4
                          style={{ position: "absolute", top: 340 }} 
                          className="profileDescription" >
-                           {profileDescription}
-                        </h5>
-                        <h6
+                           {user?.description}
+                        </h4>
+                        <h5
                           style={{ position: "absolute", top: 400 }} 
                           className="MyPosts" >
                           My Posts
-                        </h6>
+                        </h5>
                         <div className="featured">
                             {posts.map((post) => (
                                 <div key={post.id} className="col-sm-4 mb-3">
-                                <div className="profilecard1"  style={{ position: "relative", top: 350 }} >
+                                <div className="profilecard1"  style={{ position: "relative", top: 300 }} >
                                 <Card style={{ width: '20rem', height: '29rem',  position: "relative" }}>
                                         <Card.Header
                                             className="Profile-Title">
@@ -129,11 +97,11 @@ export default function UserPost() {
                                             <div>                          
                                               <img
                                                   className="post-photo"
-                                                  src={profilePhoto}
+                                                  src={user?.profile_photo}
                                                   alt={post.post_title}>
                                               </img>
                                             </div>
-                                                <div className="post-user">@{userName}</div>
+                                                <div className="post-user">@{user?.username}</div>
                                             </Card.Title>
                                             <Card.Subtitle>
                                             </Card.Subtitle>
@@ -158,7 +126,7 @@ export default function UserPost() {
                                                  <div>Gender:</div>
                                                  <div className="SubText">{post.outfit_gender}</div>
                                                  <div>Outfit Description:</div>
-                                                 <div className="SubText">{post.outfit_brand}</div>
+                                                 <div className="SubText">{post.outfit_description}</div>
                                             </Card.Text>
                                             <Card.Footer style={{ position: "relative", bottom: -75,  }}>
                                               <Card.Text

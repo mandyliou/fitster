@@ -74,3 +74,57 @@ const UserPostPage=()=>{
     )
 }
 export default UserPostPage;
+
+
+
+
+                            //    <div className="card1"  style={{ position: "relative", top: 40 }} >
+                            //     <Card style={{ width: '22rem', height: '38rem',  position: "relative" }}>
+                            //             <Card.Header 
+                            //                 className="ForTitle">
+                            //                 {post_title}
+                            //             </Card.Header>
+                            //             <Card.Body>
+                            //                 <Card.Title
+                            //                     className="ForName">
+                            //                     @{outfit_name}
+                            //                 </Card.Title>
+                            //                <Stack
+                            //                 style={{ position: "absolute" }}
+                            //                 direction="vertical"
+                            //                 className="ForImages">
+                            //                     <div className="card-body d-flex-column">
+                            //                     <div className="col-5">
+                            //                     <img src={outfit_top}  alt={post_title} className="img-fluid"/> </div>
+                            //                     <div className="col-5">
+                            //                     <img src={outfit_bottom}  alt={post_title} className="img-fluid" /> </div>
+                            //                     <div className="col-5">
+                            //                     <img src={outfit_shoes}  alt={post_title} className="img-fluid" /> </div>
+                            //                     </div>
+                            //                 </Stack>
+                            //                 <Card.Text
+                            //                      style={{ position: "right" }}
+                            //                      className="ForYou-text">
+                            //                      <div>Outfit Category:</div>
+                            //                      <div className="ForText">{outfit_category}</div>
+                            //                      <div>Gender:</div>
+                            //                      <div className="ForText">{outfit_gender}</div>
+                            //                      <div>Outfit Description:</div>
+                            //                      <div className="ForText">{outfit_description}</div>
+                            //                 </Card.Text>
+                            //                 <Card.Footer style={{ position: "relative", bottom: -270,  }}>
+                            //                   <Card.Text
+                            //                     className="ForFooter">
+                            //                     {post_description}
+                            //                   </Card.Text>
+                            //                 </Card.Footer>
+                            //             </Card.Body>
+                            //     </Card>
+                            //     <div className="input-group-append">
+                            //         <button
+                            //             className="btn-sm btn-outline-secondary"
+                            //             type="button"
+                            //             onClick={e=>navigate("/ForYou")}
+                            //             >Back To For You</button>
+                            //     </div>
+                            //  </div>

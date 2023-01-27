@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { useAuthContext } from './auth';
-
+import { useToken, useAuthContext } from './auth';
+import { useNavigate } from "react-router-dom";
 
 const UpdateAccountForm = () => {
     const [username, setUsername] = useState("");
@@ -10,11 +10,15 @@ const UpdateAccountForm = () => {
     const [password, setPassword] = useState("");
     const [profile_photo, setProfilePhoto] = useState("");
     const [description, setDescription] = useState("");
+    const [,, logout] = useToken();
+    const navigate = useNavigate();
     const { token } = useAuthContext();
 
-    
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data=token.split(".")
+    const user_data=JSON.parse(atob(data[1]))
+    const user_id=user_data.account.id
     const updateUser = {
       "username": username,
       "first_name": first_name,
@@ -24,8 +28,9 @@ const UpdateAccountForm = () => {
       "profile_photo": profile_photo,
       "description": description,
     };
+ 
 
-    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/{user_id}`;
+    const userURL = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/${user_id}`;
 
     const fetchConfig = {
       method: "put",
@@ -47,7 +52,12 @@ const UpdateAccountForm = () => {
         setProfilePhoto("");
         setDescription("");
       })
+      .then(() => {
+        logout();
+      })
       .catch((e) => console.error("error: ", e));
+      console.log(token)
+      navigate("/")
   };
 
   const handleUsernameChange = (event) => {

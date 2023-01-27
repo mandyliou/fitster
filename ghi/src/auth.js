@@ -86,10 +86,11 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/api/token/refresh/logout`;
+      const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/token`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
+      console.log("from_logout")
       navigate("/");
     }
   }
@@ -161,4 +162,29 @@ export function useToken() {
   }
 
   return [token, login, logout, signup, update];
+}
+
+export const useUser = (token) => {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+
+    async function getUser() {
+      const url = `${process.env.REACT_APP_USERS_SERVICE_API_HOST}/users/current_user`;
+      const response = await fetch(url, {
+        credentials: "include",
+      });
+      if (response.ok) {
+        const newUser = await response.json();
+        setUser(newUser);
+      }
+    }
+
+    getUser();
+  }, [token]);
+
+  return user;
 }

@@ -48,6 +48,18 @@ def get_one_user(
     return user
 
 
+@router.get("/users/current_user", response_model=Optional[UserOut])
+def get_current_user(
+    response: Response,
+    user: dict = Depends(authenticator.try_get_current_account_data),
+    repo: UserRepository = Depends(),
+) -> UserOut:
+    user = repo.get_one_by_id(user.id)
+    if user is None:
+        response.status_code = 404
+    return user
+
+
 @router.post("/users", response_model=Union[AccountToken, Error])
 async def create_user(
     user: UserIn,
@@ -76,12 +88,20 @@ def get_all(
 
 
 @router.put("/users/{user_id}", response_model=Union[UserOut, Error])
-def update_user(
+async def update_user(
     user_id: int,
     user: UserIn,
     repo: UserRepository = Depends(),
-) -> Union[Error, UserOut]:
-    return repo.update(user_id, user)
+):
+    hashed_password = authenticator.hash_password(user.password)
+    try:
+        account = repo.update(user_id, user, hashed_password)
+    except DuplicateAccountError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot create an account with those credentials",
+        )
+    return account
 
 
 @router.get("/token", response_model=AccountToken | None)
