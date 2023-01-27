@@ -95,7 +95,6 @@ def update_user(
     return updated_user
 
 
-
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
