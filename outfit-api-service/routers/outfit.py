@@ -13,6 +13,7 @@ from queries.outfit import (
 )
 from token_auth import get_current_user
 
+
 router = APIRouter()
 
 

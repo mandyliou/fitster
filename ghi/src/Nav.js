@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./Nav.css";
+import { useNavigate } from "react-router-dom";
 
 
 function showProfileButton(status) {
@@ -82,10 +83,12 @@ export default function Navigation({
     const [, logout] = useToken();
     const handleShowLoginForm = () => setShowLoginForm(true);
     const handleShowSignupForm = () => setShowSignupForm(true);
+    const navigate = useNavigate();
     const handleLogout = async e => {
         e.preventDefault();
         setLoginStatus(false);
         await logout();
+        navigate("/")
     }
     const { token } = useAuthContext();
     const [userName, setUserName] = useState("");

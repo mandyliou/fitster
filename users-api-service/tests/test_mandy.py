@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from queries.users import UserRepository, DuplicateAccountError
 from main import app
 
+
 client = TestClient(app)
 
 

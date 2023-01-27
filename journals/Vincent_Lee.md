@@ -1,3 +1,11 @@
+## Jan 26, 2023
+Today I worked on:
+
+- Cleaned up code but ran into a 502 error after we removed a table from migrations. We found that we had to remake our caprover database to resolve the error
+- Resolved merge conflicts with the team for Gabriels Navbar FE changes
+- Resolved get_all_post test
+- Worked on navlinks to redirect routes from forms
+
 ## Jan 25, 2023
 Today I worked on:
 

@@ -1,8 +1,9 @@
 .Fitster-logo {
-    width: 100px;
+    width: 80px;
     height: 50px;
     transform: translate(40%);
 }
+
 .nav-box {
             height: 35px;
             border: 2px solid #090909;
@@ -31,7 +32,7 @@
             transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
             cursor: pointer;
             text-align: center;
-            
+
 }
 
 .dropdown-menu.show {
@@ -46,7 +47,7 @@
             font-weight: 700;
             transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
             cursor: pointer;
-            
+
 }
 
 .btn:hover {
@@ -58,4 +59,3 @@
 .navbar-visual {
   background-color: #9e272700;
 }
-

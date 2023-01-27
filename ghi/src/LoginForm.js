@@ -27,11 +27,9 @@ export default function LoginForm({
     const [, login] = useToken();
     const [showSpinner, setShowSpinner] = useState('d-none')
     const [showSubmitButton, setShowSubmitButton] = useState("btn btn-outline-secondary")
-
     const [invalid, setInvalid] = useState(false);
 
-
-
+    
     const handleCloseLoginForm = () => setShowLoginForm(false);
 
     const loading = () => {

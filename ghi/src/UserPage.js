@@ -34,7 +34,7 @@ const UserPost = () => {
         SetPosts(posts.filter((post) => post.id !== postId));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

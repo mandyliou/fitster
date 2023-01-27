@@ -36,7 +36,6 @@ class DuplicateAccountError(ValueError):
 
 
 class UserRepository:
-
     def get_one_by_id(self, user_id: int) -> Optional[UserOutWithPassword]:
         try:
             with pool.connection() as conn:

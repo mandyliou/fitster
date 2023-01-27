@@ -11,6 +11,7 @@ const UpdateAccountForm = ({userId}) => {
   const [description, setDescription] = useState("");
   const { token } = useAuthContext();
 
+    
   const handleSubmit = (event) => {
     event.preventDefault();
     const updateUser = {

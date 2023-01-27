@@ -1,3 +1,9 @@
+## Jan 26th, 2023
+- working on deployment refresh
+- code clean up
+- working nav links
+
+
 ## Jan 25th, 2023
 - Met with andrew to discuss MVP
 - working on deployment issues and fixing the mixed content error

@@ -2,83 +2,57 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 import "./ForYouPage.css"
 
+
 const ForYouPage=()=>{
     const[posts, SetPosts]=useState([]);
     const [userName, setUserName] = useState("");
     const [profilePhoto, setProfilePhoto]=useState("");
     const [profileDescription, setProfileDescription]=useState("");
     const { token } = useAuthContext();
-  //   useEffect(() => {
-  //     const fetchOutfits = async () => {
-  //     const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/api/user/outfits`;
-  //     if (token != null) {const res = await fetch(url, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const data = await res.json();
-  //     console.log(token)
-  //     setUserOutfits(data);
-  //     }
-  //   };
-  //   fetchOutfits();
-  // }, [token]);
+
+
     useEffect(() => {
         if (token !== null) {
           const tokenParts = token.split(".");
-          console.log(tokenParts)
           const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
           setUserName(userData.account.username);
           setProfilePhoto(userData.account.profile_photo);
           setProfileDescription(userData.account.description);
         }
     }, [token]);
-
-    const handleInputChange = async (e) => {
+    const handleChange = async (e) => {
       e.preventDefault();
       const searchUrl= `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/users/${e}`;
-      console.log(searchUrl)
       const res2=await fetch(searchUrl)
-      if(res2.ok){
-        console.log(res2)
-      }
+       if (res2.ok) {
+         console.log(res2);
+       }
     };
+
+
 
     useEffect(()=>{
       const fetchData= async () =>{
       const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      console.log("From user post " + token);
       if (token !== null) {
         const res = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log(data);
         SetPosts(data);
       }
     };
     fetchData();
   }, [token]);
-   return(
+    return(
         <>
-         <div className="input-group sm-3">
-                    <input
-                         onChange={handleInputChange}
-                        type="text"
-                        id="vin"
-                        name="vin"
-                        className="search-bar"
-                        placeholder="Post Name" aria-label="Post Name"
-                        aria-describedby="basic-addon2"
-                        // value={this.state.vin}
-                    />
-                    <div className="input-group-append">
-                        <button
-                            className="btn btn-outline-secondary"
-                            type="button"
-                            // onClick={() => this.handleOnClick(this.state.vin)}
-                        >Search for Post</button>
-                    </div>
-                </div>
+    <form className="col-12 col-lg-auto mb-3 mb-lg-0 p-3 ">
+            <input type="search"
+            className="form-control"
+              placeholder="Search..."
+              onInput={handleChange}
+              />
+          </form>
             <div className="container d-flex flex-wrap justify-content-center">
                 <h1 className="fs-1">For You</h1>
             </div>
@@ -91,36 +65,45 @@ const ForYouPage=()=>{
                         <p>{userName}</p>
                         <div>
                           <img
+                          className="post-photo"
                           src={profilePhoto}
                           alt={post.post_title}
-                          className="post-photo"
                           ></img>
                           </div>
                         <p>{profileDescription}</p>
                     </div>
-                  <div className="card-body d-flex">
-                    <div className="col-4">
-                      <img
-                        src={post.top}
-                        alt={post.post_title}
-                        className="img-fluid"
-                      />
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Outfit Name: {post.outfit_name}</li>
+                      </ul>
+                    <div className="card-body d-flex">
+                        <div className="col-4">
+
+                        <img
+                            src={post.top}
+                            alt={post.post_title}
+                            className="card-img-top img-fluid"
+                        />
+                        </div>
+                        <div className="col-4">
+                        <img
+                            src={post.bottom}
+                            alt={post.post_title}
+                            className="card-img-top img-fluid"
+                        />
+                        </div>
+                        <div className="col-4">
+                        <img
+                            src={post.shoes}
+                            alt={post.post_title}
+                            className="card-img-top img-fluid"
+                        />
+                        </div>
                     </div>
-                    <div className="col-4">
-                      <img
-                        src={post.bottom}
-                        alt={post.post_title}
-                        className="img-fluid"
-                      />
-                    </div>
-                    <div className="col-4">
-                      <img
-                        src={post.shoes}
-                        alt={post.post_title}
-                        className="img-fluid"
-                      />
-                    </div>
-                  </div>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Outfit Category: {post.outfit_category}</li>
+                        <li className="list-group-item">Outfit Description: {post.outfit_description}</li>
+                        <li className="list-group-item">Outfit Gender: {post.outfit_gender}</li>
+                      </ul>
                     <div className="card-footer">
                     <p className="card-text">{post.post_description}</p>
                     </div>
@@ -131,4 +114,5 @@ const ForYouPage=()=>{
     </>
     )
 }
+
 export default ForYouPage;
