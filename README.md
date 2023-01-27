@@ -26,7 +26,9 @@ We are targeting fashion forward and fashion expressive consumers across the wor
 - Once an account is created users can create an outfit
 - Once an outfit is created, users can create a post with the outfits
 - Posts that are created can then be viewed on their profile page
-- Posts from all users can also be viewed on the Top Fits page
+- Posts from all users can also be viewed on the Top Fits page. When you refresh the page it loads in a new set of outfits.
+- All outfit posts created from all users can be viewed in the For You page
+- A searchbar is accessible in the For You page to search for a specific post by title.
 
 
 ## Future Functionality

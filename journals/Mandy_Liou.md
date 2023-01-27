@@ -1,3 +1,7 @@
+## Jan 27, 2023
+- updated readme with Khaled and Vincent
+- review final changes as a team
+
 ## Jan 26, 2023
 - finalizing last bit of the project
 - working on nav bar

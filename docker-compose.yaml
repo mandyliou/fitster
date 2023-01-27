@@ -29,7 +29,7 @@ services:
       DATABASE_URL: postgres://users:password@postgres:5432/users
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
-      SIGNING_KEY: 92e6bb7d29b36d7408a9b47f0c591e66b705fd934ecac8103343d4bd4a07cdd8
+      SIGNING_KEY: ${SIGNING_KEY}
 
   outfit-api:
     build:
@@ -43,7 +43,7 @@ services:
       DATABASE_URL: postgres://outfit:password@postgres:5432/outfit
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
-      SIGNING_KEY: 92e6bb7d29b36d7408a9b47f0c591e66b705fd934ecac8103343d4bd4a07cdd8
+      SIGNING_KEY: ${SIGNING_KEY}
 
   ghi:
     image: node:lts-bullseye

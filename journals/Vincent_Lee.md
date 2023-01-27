@@ -1,3 +1,10 @@
+## Jan 27, 2023
+Today I worked on:
+
+- Worked on updating readme with Khaled and Mandy
+- Reviewed changes to be merged with team
+- Will debug and verify all changes are working after merging
+
 ## Jan 26, 2023
 Today I worked on:
 
