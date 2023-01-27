@@ -98,8 +98,14 @@ async def get_token(
         }
 
 
-@router.get("/users/current", response_model=UserOut)
+@router.get("/currentusers/{username}", response_model=UserOut)
 def get_user_by_info(
-    account: UserOut = Depends(authenticator.get_current_account_data),
-):
-    return account
+    username: str,
+    response: Response,
+    user: dict = Depends(authenticator.try_get_current_account_data),
+    repo: UserRepository = Depends(),
+) -> UserOut:
+    user = repo.get_one(username)
+    if user is None:
+        response.status_code = 404
+    return user

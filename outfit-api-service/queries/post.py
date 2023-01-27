@@ -185,7 +185,7 @@ class PostRepository:
 
     def get_user_posts(
         self, user_id: int
-    ) -> Union[Error, List[PostOutWithPicsMore]]:
+    ) -> Union[Error, List[PostOutWithPicsMore3]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -195,18 +195,58 @@ class PostRepository:
                         outfits.top,
                         outfits.bottom,
                         outfits.shoes,
+                        outfits.outfit_category,
+                        outfits.outfit_gender,
+                        outfits.outfit_description,
+                        outfits.outfit_name,
+                        outfits.outfit_brand,
                         posts.user_id,
                         outfit_id,
                         post_description,
                         post_title
                         FROM posts
                         JOIN outfits ON posts.outfit_id = outfits.id
-                        WHERE posts.user_id = %s
+                        WHERE posts.user_id=%s
                         """,
                         [user_id],
                     )
                     return [
-                        self.record_to_post_out_with_pics_more2(record)
+                        self.record_to_post_out_with_pics_and_more3(record)
+                        for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that user"}
+
+    def get_user_posts2(
+        self, user_id: int
+    ) -> Union[Error, List[PostOutWithPicsMore3]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT posts.*,
+                        outfits.top,
+                        outfits.bottom,
+                        outfits.shoes,
+                        outfits.outfit_category,
+                        outfits.outfit_gender,
+                        outfits.outfit_description,
+                        outfits.outfit_name,
+                        outfits.outfit_brand,
+                        posts.user_id,
+                        outfit_id,
+                        post_description,
+                        post_title
+                        FROM posts
+                        JOIN outfits ON posts.outfit_id = outfits.id
+                        WHERE posts.user_id=%s
+                        """,
+                        [user_id],
+                    )
+                    return [
+                        self.record_to_post_out_with_pics_and_more3(record)
                         for record in result
                     ]
         except Exception as e:

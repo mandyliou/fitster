@@ -1,30 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { useAuthContext } from "./auth";
 import "./ForYouPage.css"
-import UserPostPage from "./PostPage";
 
 const ForYouPage=()=>{
     const[posts, SetPosts]=useState([]);
     const [searchInput, setSearchInput] = useState("");
-    const [userName, setUserName] = useState("");
-    const [profilePhoto, setProfilePhoto]=useState("");
-    const [profileDescription, setProfileDescription]=useState("");
 
     const navigate=useNavigate();
-
-    const { token } = useAuthContext();
-    useEffect(() => {
-        if (token !== null) {
-          const tokenParts = token.split(".");
-
-          const userData = JSON.parse(atob(tokenParts[1]));
-
-          setUserName(userData.account.username);
-          setProfilePhoto(userData.account.profile_photo);
-          setProfileDescription(userData.account.description);
-        }
-    }, [token]);
 
     const handleOnClick= async (event)=>{
       const postsUrl=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/searchpost/${event}`
@@ -59,18 +41,12 @@ const ForYouPage=()=>{
     useEffect(()=>{
       const fetchData= async () =>{
       const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-
-      if (token !== null) {
-        const res = await fetch(url)
-        if(res.ok){
-          const data = await res.json();
-
-          SetPosts(data);
+      const res = await fetch(url)
+      const data = await res.json();
+      SetPosts(data);
         }
-      }
-    };
     fetchData();
-  }, [token]);
+    }, []);
     return(
         <>
                 <div className="input-group mb-3">
@@ -105,11 +81,11 @@ const ForYouPage=()=>{
                         <div>
                           <img
                           className="post-photo"
-                          src={post.poster_profile_phot}
+                          src={post.poster_profile_photo}
                           alt={post.post_title}
                           ></img>
                           </div>
-                        <p>{profileDescription}</p>
+                        <p>{post.poster_description}</p>
                     </div>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">Outfit Name: {post.outfit_name}</li>

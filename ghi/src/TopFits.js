@@ -1,46 +1,76 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { Card, Stack } from "react-bootstrap";
-import { useAuthContext } from "./auth";
+
 import "./TopFits.scss";
 
 export default function Featured({ setID }) {
     const [posts, setPosts] = useState([]);
-    const [userName, setUserName] = useState("");
-
-    const [profileDescription, setProfileDescription]=useState("");
-    const { token } = useAuthContext();
-
-    useEffect(() => {
-        if (token !== null) {
-          const tokenParts = token.split(".");
-          console.log(tokenParts)
-          const userData = JSON.parse(atob(tokenParts[1]));
-          console.log(userData)
-          setUserName(userData.account.username);
-          setProfileDescription(userData.account.description);
-        }
-    }, [token]);
-
-
-    useEffect(() => {
-      const fetchData = async () => {
-      const url = `${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
-      console.log("From user post " + token);
-      if (token !== null) {
-        const res = await fetch(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        console.log(data);
-        setPosts(data);
+    const [searchInput, setSearchInput] = useState("");
+    const navigate=useNavigate();
+    const handleOnClick= async (event)=>{
+      const postsUrl=`${process.env.REACT_APP_USERS_SERVICE_API_HOST}/currentusers/${event}`
+      const res= await fetch(postsUrl)
+      if(res.ok){
+       const data=await res.json()
+       console.log(data)
+       const user_id=data.id
+       const UserpUrl=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/searchuser/${user_id}/posts`
+       const res2=await fetch(UserpUrl)
+       if(res2.ok){
+        const data2=await res2.json()
+        console.log(data2)
+        navigate({
+        pathname:`/UserProfile`,
+        search: createSearchParams({
+          user_description: data.description,
+          user_first_name: data.first_name,
+          user_last_name:data.last_name,
+          user_profile_photo: data.profile_photo,
+          user_username: data.username,
+          post_data: data2
+        }).toString(),
+       });
+       }
       }
     };
+    const handleInputChange = (e) => {
+      const value=e.target.value;
+      setSearchInput(value);
+    };
+
+    useEffect(()=>{
+      const fetchData= async () =>{
+      const url=`${process.env.REACT_APP_OUTFIT_SERVICE_API_HOST}/posts`;
+      const res = await fetch(url)
+      const data = await res.json();
+      setPosts(data);
+        }
     fetchData();
-  }, [token]);
+    }, []);
 
     return (
         <>
+              <div className="input-group mb-3">
+                    <input
+                        onChange={handleInputChange}
+                        type="text"
+                        id="usersearch"
+                        name="usersearch"
+                        className="form-control"
+                        placeholder="Search" aria-label="search"
+                        aria-describedby="basic-addon2"
+                        value={searchInput}
+                    />
+                    <div className="input-group-append">
+                        <button
+                            className="btn btn-outline-secondary"
+                            type="button"
+                            onClick={() => handleOnClick(searchInput)}
+                        >Search For User</button>
+                    </div>
+                  </div>
                 <div className="App">
                     <div className="App-header">
                         <h1 className="featured-title">

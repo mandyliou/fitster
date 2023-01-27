@@ -11,6 +11,7 @@ import Featured from './TopFits.js'
 import Layout from './Layout.js';
 import ForYouPage from './ForYouPage.js'
 import UserPostPage from "./PostPage.js";
+import UserProfile from "./UserProfile.js";
 
 
 
@@ -54,6 +55,7 @@ export default function App() {
         <Route path="/new-post" element={<CreatePostForm />} />
         <Route path="/ForYou" element={<ForYouPage />} />
         <Route path="/PostPage" element={<UserPostPage />} />
+        <Route path="/UserProfile" element={<UserProfile />} />
         </Route>
       </Routes>
     </div>

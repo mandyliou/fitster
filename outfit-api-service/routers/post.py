@@ -65,18 +65,30 @@ def create_post(
 
 
 @router.get(
-    "/api/user/posts", response_model=Union[List[PostOutWithPicsMore2], Error]
+    "/api/user/posts", response_model=Union[List[PostOutWithPicsMore3], Error]
 )
 def get_posts_user(
     response: Response,
     account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
-) -> PostOutWithPicsMore2:
+) -> PostOutWithPicsMore3:
     post = repo.get_user_posts(account_data.id)
     if post is None:
         response.status_code = 404
     return post
 
+@router.get(
+    "/searchuser/{user_id}/posts", response_model=Union[List[PostOutWithPicsMore3], Error]
+)
+def get_posts_user(
+    user_id: int,
+    response: Response,
+    repo: PostRepository = Depends(),
+) -> PostOutWithPicsMore3:
+    post = repo.get_user_posts2(user_id)
+    if post is None:
+        response.status_code = 404
+    return post
 
 @router.get("/posts", response_model=Union[List[PostOutWithPicsMore3], Error])
 def get_all_posts(
