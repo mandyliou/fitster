@@ -1,3 +1,28 @@
+## Jan 27, 2023
+- Aided in fixing search for ForYou, TopFits
+- Fixed errors regarding seperate pages for search
+- Implemented searchParameters and guided functional implementation
+- Added profile pages from ForYou Search
+
+## Jan 25, 2023
+- In order to get user information to properly display on FE
+- changed migrations (edit posts table)
+- changed the create function
+- had to add two additional pydantic models
+- had to add two additional helper functions
+- had to edit the create posts query
+- edited frontend for foryoupage.js and topfits
+- all changes above allowed for user info as well as outfit information to be displayed
+- Worked on search for ForYou
+
+## Jan 24, 2023
+- Had to edit and add to queries and routers in order to get outfit category, gender, and description to show
+- Created a showmorefits, accompanying helper function, and edited both routers and queries to take advantage of db-info
+- used tokenparts in order to add current user data for posts (have to implement further changes to make correct user info to show)
+
+## Jan 23, 2023
+- added get all posts test
+
 ## Jan 19, 2023
 made significant progress/completed be for outfits
 worked on navigation of site

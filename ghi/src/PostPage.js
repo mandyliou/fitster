@@ -7,10 +7,8 @@ import { useSearchParams } from "react-router-dom";
 const UserPostPage=()=>{
     const navigate=useNavigate();
     const [searchParams] = useSearchParams();
-    const postId = searchParams.get("postid");
     const post_title=searchParams.get("post_title")
     const post_description=searchParams.get("post_description")
-    const outfit_id=searchParams.get("outfit_id")
     const outfit_name=searchParams.get("outfit_name")
     const outfit_brand=searchParams.get("outfit_brand")
     const outfit_category=searchParams.get("outfit_category")
@@ -19,7 +17,7 @@ const UserPostPage=()=>{
     const outfit_bottom=searchParams.get("outfit_bottom")
     const outfit_shoes=searchParams.get("outfit_shoes")
     const outfit_description=searchParams.get("outfit_description")
-    const profile_username=searchParams.get("profile_name")
+
     return(
         <>
         <div className="input-group-append">
