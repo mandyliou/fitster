@@ -10,7 +10,6 @@ from fastapi import (
 from queries.post import (
     Error,
     PostIn,
-    PostIn2,
     PostOut,
     PostRepository,
     PostOutWithoutUser,
@@ -33,7 +32,7 @@ router = APIRouter()
 
 @router.post("/api/posts", response_model=Union[PostOutWithPicsMore2, Error])
 def create_post(
-    post: PostIn2,
+    post: PostIn,
     account_data: dict = Depends(get_current_user),
     repo: PostRepository = Depends(),
 ):

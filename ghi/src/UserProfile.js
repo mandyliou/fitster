@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useAuthContext } from "./auth";
+import { useNavigate } from "react-router-dom";
 import "./ForYouPage.css"
 import { useSearchParams } from "react-router-dom";
 
@@ -12,7 +11,6 @@ const UserProfile=()=>{
     const user_first_name=searchParams.get("user_first_name")
     const user_last_name=searchParams.get("user_last_name")
     const user_profile_photo=searchParams.get("user_profile_photo")
-    const user_posts_data=searchParams.get("post_data")
     const user_id=searchParams.get("user_id")
     const [posts, setPosts]=useState([]);
     useEffect(()=>{
@@ -21,12 +19,18 @@ const UserProfile=()=>{
         const res=await fetch(UserpUrl)
         const data=await res.json()
         setPosts(data)
-        console.log(data)
         }
         fetchData();
-    }, []);
+    }, [user_id]);
     return(
         <>
+            <div className="input-group-append">
+                        <button
+                            className="btn-sm btn-outline-secondary"
+                            type="button"
+                            onClick={e=>navigate("/")}
+                        >Back To Top Fits</button>
+            </div>
         <div className="col-sm-4 mb-3">
             <div className="card">
               <div className="card-header">

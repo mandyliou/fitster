@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useAuthContext } from "./auth";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./ForYouPage.css"
 import { useSearchParams } from "react-router-dom";
 

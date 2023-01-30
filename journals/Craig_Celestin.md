@@ -3,6 +3,7 @@
 - Fixed errors regarding seperate pages for search
 - Implemented searchParameters and guided functional implementation
 - Added profile pages from ForYou Search
+- implemented and worked on function that randomized posts on FE using Math.random and invoked it on posts
 
 ## Jan 25, 2023
 - In order to get user information to properly display on FE

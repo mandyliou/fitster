@@ -15,18 +15,6 @@ class PostIn(BaseModel):
     post_description: str
     post_title: str
 
-class PostIn2(BaseModel):
-    # user_id: int
-    outfit_id: int
-    post_description: str
-    post_title: str
-    # poster_username: Optional[str]
-    # poster_first_name: Optional[str]
-    # poster_last_name: Optional[str]
-    # poster_profile_photo: Optional[str]
-    # poster_description: Optional[str]
-    # poster_email: Optional[str]
-
 class PostOut(BaseModel):
     id: int
     user_id: int
@@ -101,7 +89,7 @@ class PostOutWithPicsMore3(BaseModel):
     outfit_description: str
 
 class PostRepository:
-    def create(self, post: PostIn2,
+    def create(self, post: PostIn,
     user_id: int,
     user_username: str,
     user_first_name: str,
